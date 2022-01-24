@@ -1,1 +1,578 @@
-print("OI")
+local library = {}
+
+function library:CreateWindow()
+    local function SendNotification(title, text)
+        game.StarterGui:SetCore("SendNotification", {
+            Title = title;
+            Text = text;
+        })
+    end
+    local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local OpenCredits = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local UnderLine = Instance.new("TextLabel")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIGridLayout = Instance.new("UIGridLayout")
+local Credits = Instance.new("Frame")
+local UICorner_4 = Instance.new("UICorner")
+local TextLabel_2 = Instance.new("TextLabel")
+local UICorner_5 = Instance.new("UICorner")
+local TextLabel_3 = Instance.new("TextLabel")
+local UICorner_6 = Instance.new("UICorner")
+local TextLabel_4 = Instance.new("TextLabel")
+local UICorner_7 = Instance.new("UICorner")
+local TextLabel_5 = Instance.new("TextLabel")
+local UICorner_8 = Instance.new("UICorner")
+local TextLabel_6 = Instance.new("TextLabel")
+local UICorner_9 = Instance.new("UICorner")
+local TextLabel_7 = Instance.new("TextLabel")
+local UICorner_10 = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
+Frame.Position = UDim2.new(0.751280189, 0, 0.238596484, 0)
+Frame.Size = UDim2.new(0, 307, 0, 485)
+
+UICorner.Parent = Frame
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+TextLabel.Size = UDim2.new(0, 307, 0, 76)
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Text = "Sayfst Gui"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 62.000
+
+
+UICorner_2.Parent = TextLabel
+
+OpenCredits.Name = "OpenCredits"
+OpenCredits.Parent = Frame
+OpenCredits.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+OpenCredits.Position = UDim2.new(0.368078172, 0, 0.925773203, 0)
+OpenCredits.Size = UDim2.new(0, 81, 0, 29)
+OpenCredits.Font = Enum.Font.SourceSansBold
+OpenCredits.Text = "Others"
+OpenCredits.TextColor3 = Color3.fromRGB(255, 255, 255)
+OpenCredits.TextScaled = true
+OpenCredits.TextSize = 14.000
+OpenCredits.TextWrapped = true
+
+UICorner_3.Parent = OpenCredits
+
+UnderLine.Name = "UnderLine"
+UnderLine.Parent = Frame
+UnderLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UnderLine.BorderSizePixel = 0
+UnderLine.Position = UDim2.new(0, 0, 0.144329891, 0)
+UnderLine.Size = UDim2.new(0, 307, 0, 6)
+UnderLine.Font = Enum.Font.SourceSans
+UnderLine.Text = ""
+UnderLine.TextColor3 = Color3.fromRGB(0, 0, 0)
+UnderLine.TextSize = 14.000
+
+ScrollingFrame.Parent = Frame
+ScrollingFrame.Active = true
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScrollingFrame.BackgroundTransparency = 1.000
+ScrollingFrame.Position = UDim2.new(0, 0, 0.169072166, 0)
+ScrollingFrame.Size = UDim2.new(0, 307, 0, 351)
+ScrollingFrame.ScrollBarThickness = 5
+
+UIGridLayout.Parent = ScrollingFrame
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellSize = UDim2.new(0, 290, 0, 23)
+
+Credits.Name = "Credits"
+Credits.Parent = Frame
+Credits.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
+Credits.Position = UDim2.new(0, 0, 0.156701028, 0)
+Credits.Size = UDim2.new(0, 307, 0, 373)
+Credits.Visible = false
+
+UICorner_4.Parent = Credits
+
+TextLabel_2.Parent = Credits
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+TextLabel_2.Position = UDim2.new(0.172638431, 0, 0.0670241266, 0)
+TextLabel_2.Size = UDim2.new(0, 200, 0, 31)
+TextLabel_2.Font = Enum.Font.SourceSansBold
+local ver = "v0.0.1"
+TextLabel_2.Text = "Version: "..ver
+loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-version'))()
+if ver == getgenv().Version1 then
+    SendNotification("Version", "You are on the most up-to-date version")
+else
+    SendNotification("Version", 'New update found, Send in chat "updatesayfst" To update sayfst')
+end
+
+function ResetAutoUpdate()
+    wait(1)
+    game.Players.LocalPlayer.chatted:Connect(function(message)
+        if message == "updatesayfst" then
+            if not ver == getgenv().Version1 then
+                SendNotification("Version","Updating...")
+                wait(1)
+                ScreenGui:Destroy()
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-ui'))()
+            else
+                SendNotification("Error","You are already on the most updated version")
+            end
+        end
+    end)
+end
+
+
+ResetAutoUpdate()
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    ResetAutoUpdate()
+end)
+
+
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextScaled = true
+TextLabel_2.TextSize = 14.000
+TextLabel_2.TextWrapped = true
+
+UICorner_5.Parent = TextLabel_2
+
+TextLabel_3.Parent = Credits
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+TextLabel_3.BackgroundTransparency = 1.000
+TextLabel_3.Position = UDim2.new(0.172638431, 0, 0.203753337, 0)
+TextLabel_3.Size = UDim2.new(0, 200, 0, 31)
+TextLabel_3.Font = Enum.Font.SourceSansBold
+TextLabel_3.Text = "Credits:"
+TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.TextScaled = true
+TextLabel_3.TextSize = 14.000
+TextLabel_3.TextWrapped = true
+
+UICorner_6.Parent = TextLabel_3
+
+TextLabel_4.Parent = Credits
+TextLabel_4.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+TextLabel_4.Position = UDim2.new(0.172638431, 0, 0.353887379, 0)
+TextLabel_4.Size = UDim2.new(0, 200, 0, 31)
+TextLabel_4.Font = Enum.Font.SourceSansBold
+TextLabel_4.Text = "Design idea: Rei1329#3976"
+TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.TextScaled = true
+TextLabel_4.TextSize = 14.000
+TextLabel_4.TextWrapped = true
+
+UICorner_7.Parent = TextLabel_4
+
+TextLabel_5.Parent = Credits
+TextLabel_5.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+TextLabel_5.Position = UDim2.new(0.172638431, 0, 0.458445013, 0)
+TextLabel_5.Size = UDim2.new(0, 200, 0, 31)
+TextLabel_5.Font = Enum.Font.SourceSansBold
+TextLabel_5.Text = "Design ui: $ samu#6783"
+TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_5.TextScaled = true
+TextLabel_5.TextSize = 14.000
+TextLabel_5.TextWrapped = true
+
+UICorner_8.Parent = TextLabel_5
+
+TextLabel_6.Parent = Credits
+TextLabel_6.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+TextLabel_6.Position = UDim2.new(0.172638431, 0, 0.592493296, 0)
+TextLabel_6.Size = UDim2.new(0, 200, 0, 31)
+TextLabel_6.Font = Enum.Font.SourceSansBold
+TextLabel_6.Text = "Last update:"
+TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_6.TextScaled = true
+TextLabel_6.TextSize = 14.000
+TextLabel_6.TextWrapped = true
+
+UICorner_9.Parent = TextLabel_6
+
+TextLabel_7.Parent = Credits
+TextLabel_7.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+TextLabel_7.Position = UDim2.new(0.110749185, 0, 0.758713126, 0)
+TextLabel_7.Size = UDim2.new(0, 237, 0, 31)
+TextLabel_7.Font = Enum.Font.SourceSansBold
+TextLabel_7.Text = "24/01/2022"
+TextLabel_7.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_7.TextScaled = true
+TextLabel_7.TextSize = 14.000
+TextLabel_7.TextWrapped = true
+
+UICorner_10.Parent = TextLabel_7
+
+-- Scripts:
+
+local function UVLZWY_fake_script() -- OpenCredits.LocalScript 
+	local script = Instance.new('LocalScript', OpenCredits)
+
+	function SetVisible()
+		script.Parent.Parent.Credits.Visible = not script.Parent.Parent.Credits.Visible
+	end
+	
+	script.Parent.MouseButton1Click:Connect(SetVisible)
+end
+coroutine.wrap(UVLZWY_fake_script)()
+local function HSHFPVM_fake_script() -- Frame.LocalScript 
+	local script = Instance.new('LocalScript', Frame)
+
+	local uis = game:GetService("UserInputService")
+	uis.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.F1 then
+			script.Parent.Visible = not script.Parent.Visible
+		end
+	end)
+end
+coroutine.wrap(HSHFPVM_fake_script)()
+
+
+    local library2 = {}
+
+    function library2:CriarBotao(title, callback)
+        local callback = callback or function()end
+        local TextButton = Instance.new("TextButton")
+        local UICorner = Instance.new("UICorner")
+        local TextLabel = Instance.new("TextLabel")
+        local UICorner_2 = Instance.new("UICorner")
+        
+        --Properties:
+        
+        TextButton.Parent = ScrollingFrame
+        TextButton.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+        TextButton.Size = UDim2.new(0, 200, 0, 50)
+        TextButton.Font = Enum.Font.SourceSans
+        TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextButton.TextScaled = true
+        TextButton.TextSize = 14.000
+        TextButton.TextWrapped = true
+        TextButton.Text = title
+        TextButton.MouseButton1Click:Connect(function()
+            pcall(callback)
+        end)
+        
+        UICorner.CornerRadius = UDim.new(0, 4)
+        UICorner.Parent = TextButton
+        
+        TextLabel.Parent = TextButton
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.Position = UDim2.new(1, 0, -0.0102804434, 0)
+        TextLabel.Size = UDim2.new(0, 10, 0, 31)
+        TextLabel.Font = Enum.Font.SourceSans
+        TextLabel.Text = ""
+        TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel.TextSize = 14.000
+        
+        UICorner_2.CornerRadius = UDim.new(0, 4)
+        UICorner_2.Parent = TextLabel
+    end
+
+    return library2
+end
+
+local main = library:CreateWindow()
+
+
+local debounce = false
+main:CriarBotao("Correr rapido", function()
+	if debounce == false then getgenv().TogleSpeed = true debounce = true getgenv().OldSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed spawn(function() while getgenv().TogleSpeed == true do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 190 wait() end end) else debounce = false getgenv().TogleSpeed = false game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().OldSpeed end
+end)
+
+local debounce2 = false
+main:CriarBotao("Pular alto", function()
+	if debounce2 == false then getgenv().TogleJump = true debounce2 = true getgenv().OldJump = game.Players.LocalPlayer.Character.Humanoid.JumpPower spawn(function() while getgenv().TogleJump == true do game.Players.LocalPlayer.Character.Humanoid.JumpPower = 300 wait() end end) else debounce2 = false getgenv().TogleJump = false game.Players.LocalPlayer.Character.Humanoid.JumpPower = getgenv().OldJump end
+end)
+
+local debounce3 = false
+main:CriarBotao("Congelar", function()
+    if debounce3 == false then game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true debounce3 = true else game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false debounce3 = false end
+end)
+
+local debounce4 = false
+main:CriarBotao("Gravidade", function()
+    if debounce4 == false then getgenv().OldGravity = workspace.Gravity debounce4 = true workspace.Gravity = 0 else debounce4 = false workspace.Gravity = getgenv().OldGravity end
+end)
+
+local debounce5 = false
+local folder = Instance.new("Folder", workspace)
+    folder.Name = "PastaDosBlocos"
+main:CriarBotao("Spammar blocos - CS", function()
+    if debounce5 == false then debounce5 = true getgenv().CriarBloco = true spawn(function() while getgenv().CriarBloco == true do  local part = Instance.new("Part", workspace.PastaDosBlocos);part.Name = "PartCriadaPeloScript" part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 3, 0)  wait(.1) end  end) else debounce5 = false getgenv().CriarBloco = false end
+end)
+
+main:CriarBotao("Apagar blocos acima", function()
+    local numero = 0 for i,v in pairs(game.Workspace["PastaDosBlocos"]:GetChildren()) do if v then numero = numero + 1 wait() v:Destroy() end end game.StarterGui:SetCore("SendNotification", { Title = "MENU|EXPLOIT"; Text = "Sucess destroy "..numero.." parts"; })
+end)
+
+main:CriarBotao("Noclip", function()
+    spawn(function() local Enabled = false local Camera = game.Workspace.CurrentCamera local Player = game:GetService("Players").LocalPlayer local Input = game:GetService("UserInputService") local Forward = false local Back = false local Left = false local Right = false local Up = false local Down = false local function SetPlayer() for i,v in pairs(Player.Character:GetChildren()) do pcall(function() v.Anchored = not v.Anchored end) end end Input.InputBegan:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.Q then Enabled = not Enabled SetPlayer() end if Key.KeyCode == Enum.KeyCode.W then Forward = true end if Key.KeyCode == Enum.KeyCode.S then Back = true end if Key.KeyCode == Enum.KeyCode.A then Left = true end if Key.KeyCode == Enum.KeyCode.D then Right = true end if Key.KeyCode == Enum.KeyCode.Space then Up = true end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = true end end) Input.InputEnded:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.W then Forward = false end if Key.KeyCode == Enum.KeyCode.S then Back = false end if Key.KeyCode == Enum.KeyCode.A then Left = false end if Key.KeyCode == Enum.KeyCode.D then Right = false end if Key.KeyCode == Enum.KeyCode.Space then Up = false end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = false end end) spawn(function() while game:GetService("RunService").RenderStepped:Wait() do if Enabled then pcall(function() if Forward then Player.Character:TranslateBy(Camera.CFrame.lookVector*2) end if Back then Player.Character:TranslateBy(-Camera.CFrame.lookVector*2) end if Left then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Right then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Up then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end if Down then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end end) end end end) end) game.StarterGui:SetCore("SendNotification", { Title = "MENU|EXPLOIT"; Text = 'Press "q" to active noclip'; })
+end)
+
+main:CriarBotao("Sentar", function()
+    game.Players.LocalPlayer.Character.Humanoid.Sit = true
+end)
+
+main:CriarBotao("Personagem louco", function()
+    getgenv().TogleLouco = true game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):MoveTo(Vector3.new(999, 999, 999)) wait(0.3) game.Players.LocalPlayer.Character.Humanoid.Sit = true spawn(function() while getgenv().TogleLouco == true do game.Players.LocalPlayer.Character.Humanoid.Sit = true wait() end end) spawn(function() while getgenv().TogleLouco == true do game.Players.LocalPlayer.Character.Humanoid.Jump = true wait(.9) end end)
+end)
+
+main:CriarBotao("Personagem normal", function()
+    getgenv().TogleLouco = false
+    game.Players.LocalPlayer.Character.Humanoid.Sit = false
+end)
+
+main:CriarBotao("Full bright", function()
+    game:GetService("Lighting").Brightness = 2
+	game:GetService("Lighting").ClockTime = 14
+	game:GetService("Lighting").FogEnd = 100000
+	game:GetService("Lighting").GlobalShadows = false
+	game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end)
+
+main:CriarBotao("Dia", function()
+    game:GetService("Lighting").ClockTime = 14
+end)
+
+main:CriarBotao("Noite", function()
+    game:GetService("Lighting").ClockTime = 0
+end)
+
+main:CriarBotao("Sem nuvem", function()
+    game:GetService("Lighting").FogEnd = 100000
+	for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do
+		if v:IsA("Atmosphere") then
+			v:Destroy()
+		end
+	end
+end)
+
+main:CriarBotao("Soltar chapeus", function()
+    if game.Players.LocalPlayer.Character then
+		for _,v in pairs(game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):GetAccessories()) do
+			v.Parent = workspace
+		end
+	end
+end)
+
+main:CriarBotao("Dropar tools", function()
+	wait()
+	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+		if v:IsA("Tool") then
+			v.Parent = workspace
+		end
+	end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 5)
+end)
+
+main:CriarBotao("Salvar posicao", function()
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "Sucess";
+		Text = "Sucess save your position";
+	})
+    getgenv().CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end)
+
+main:CriarBotao("Carregar posicao", function()
+    if not getgenv().CFrame then
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Erro";
+            Text = "Por favor salve sua posicao antes de carregar";
+        })
+    else
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().CFrame
+    end
+end)
+
+main:CriarBotao("Teleportar #Player", function()
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local TextBox = Instance.new("TextBox")
+	
+	ScreenGui.Parent = game.CoreGui
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	
+	Frame.Parent = ScreenGui
+	Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	Frame.BackgroundColor3 = Color3.fromRGB(70, 255, 29)
+	Frame.Position = UDim2.new(0.5, 0, -1.09500003, 0)
+	Frame.Size = UDim2.new(0, 412, 0, 133)
+	
+	TextLabel.Parent = Frame
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	TextLabel.Size = UDim2.new(0, 412, 0, 39)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Text = "Teleport"
+	TextLabel.TextColor3 = Color3.fromRGB(102, 0, 255)
+	TextLabel.TextSize = 29.000
+	TextLabel.TextStrokeColor3 = Color3.fromRGB(179, 0, 255)
+	
+	TextBox.Parent = Frame
+	TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextBox.Position = UDim2.new(0.196601942, 0, 0.48120302, 0)
+	TextBox.Size = UDim2.new(0, 249, 0, 32)
+	TextBox.Font = Enum.Font.SourceSans
+	TextBox.Text = "Player"
+	TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TextBox.TextSize = 14.000
+	
+	-- Scripts:
+	
+	local function QAZF_fake_script() -- TextBox.LocalScript 
+		local script = Instance.new('LocalScript', TextBox)
+	
+		if not game:IsLoaded() then
+			game.Loaded:wait()
+		end
+		
+		script.Parent.Parent:TweenPosition(UDim2.new(0.5, 0,0.095, 0), "Out", "Quart", 1, true)
+		script.Parent:CaptureFocus()
+		
+		script.Parent.FocusLost:Connect(function(a)
+			if a then
+				for i,v in pairs(game.Players:GetChildren()) do
+					if string.lower(script.Parent.Text) == string.lower(v.Name) or string.lower(script.Parent.Text) == string.lower(v.DisplayName) then
+						if v.Character then
+							script.Parent.Parent:TweenPosition(UDim2.new(0.5, 0,-1.095, 0), "Out", "Quart", 1, true)
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5.2, 0)
+						end
+					else
+					end
+				end
+			end
+		end)
+	end
+	coroutine.wrap(QAZF_fake_script)()	
+end)
+
+main:CriarBotao("Bring", function()
+	local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local TextBox = Instance.new("TextBox")
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(70, 255, 29)
+Frame.Position = UDim2.new(0.5, 0, -1.09500003, 0)
+Frame.Size = UDim2.new(0, 412, 0, 133)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel.Size = UDim2.new(0, 412, 0, 39)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Teleport"
+TextLabel.TextColor3 = Color3.fromRGB(102, 0, 255)
+TextLabel.TextSize = 29.000
+TextLabel.TextStrokeColor3 = Color3.fromRGB(179, 0, 255)
+
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Position = UDim2.new(0.196601942, 0, 0.48120302, 0)
+TextBox.Size = UDim2.new(0, 249, 0, 32)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.Text = "Player"
+TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.TextSize = 14.000
+
+-- Scripts:
+
+local function QXULJTT_fake_script() -- TextBox.LocalScript 
+	local script = Instance.new('LocalScript', TextBox)
+
+	if not game:IsLoaded() then
+		game.Loaded:wait()
+	end
+	
+	script.Parent.Parent:TweenPosition(UDim2.new(0.5, 0,0.095, 0), "Out", "Quart", 1, true)
+	script.Parent:CaptureFocus()
+	
+	script.Parent.FocusLost:Connect(function(a)
+		if a then
+			for i,v in pairs(game.Players:GetChildren()) do
+				if string.lower(script.Parent.Text) == string.lower(v.Name) or string.lower(script.Parent.Text) == string.lower(v.DisplayName) then
+					if v.Character then
+						script.Parent.Parent:TweenPosition(UDim2.new(0.5, 0,-1.095, 0), "Out", "Quart", 1, true)
+						delay(1, function()
+							script.Parent.Parent.Parent:Destroy()
+						end)
+						getgenv().Player = script.Parent.Text
+	
+						local function SendNotification(title, text)
+							game.StarterGui:SetCore("SendNotification", {
+								Title = title;
+								Text = text;
+							})
+						end
+	
+						local function undoHumanoid()
+							if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+								game.Players.LocalPlayer.Character.Humanoid.Name = 1
+								local clone = game.Players.LocalPlayer.Character["1"]:Clone()
+								game.Players.LocalPlayer.Character["1"]:Destroy()
+								wait()
+								clone.Parent = game.Players.LocalPlayer.Character
+								clone.Name = "Humanoid"
+							end
+						end
+	
+						SendNotification("Notification", "finding  the player")
+						if game:GetService("Players"):FindFirstChild(getgenv().Player) then
+							SendNotification("Notification", "player found") wait(.1)
+							SendNotification("Notification", "checking if you have a tool equipped")
+							for a,b in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+								if b:IsA("Tool") then
+									SendNotification("Notification", "tool found") wait(.1)
+									getgenv().Tool = b
+									SendNotification("Notification", "unequipping " .. b.Name )
+									b.Parent = game.Players.LocalPlayer.Backpack
+									local now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+									for i = 1,5 do
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players:FindFirstChild(getgenv().Player).Character.HumanoidRootPart.CFrame
+										wait(.1)
+									end
+									undoHumanoid()
+									delay(.5, function()
+										getgenv().Tool.Parent = game.Players.LocalPlayer.Character
+									end)
+									repeat 
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players:FindFirstChild(getgenv().Player).Character.HumanoidRootPart.CFrame
+										wait()
+									until getgenv().Tool.Parent == game.Players:FindFirstChild(getgenv().Player).Character 
+									for i = 1,100 do
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = now
+										wait()
+									end
+								else
+									SendNotification("Error, Try again", "You dont have a tool with handle equipped!")
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+end
+coroutine.wrap(QXULJTT_fake_script)()
+
+end)
+function SendNotification(title, text)
+	game.StarterGui:SetCore("SendNotification", {
+		Title = title;
+		Text = text;
+	})
+end
+
