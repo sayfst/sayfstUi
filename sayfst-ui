@@ -121,10 +121,16 @@ function ResetAutoUpdate()
     wait(1)
     game.Players.LocalPlayer.chatted:Connect(function(message)
         if message == "updatesayfst" then
-            SendNotification("Version","Updating...")
-            wait(1)
-            ScreenGui:Destroy()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-ui'))()
+            if not ver == getgenv().Version1 then
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-version'))()
+                wait(1)
+                SendNotification("Version","Updating...")
+                wait(1)
+                ScreenGui:Destroy()
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-ui'))()
+            else
+                SendNotification("Error", "You already in the lasted version")
+            end
         end
     end)
 end
