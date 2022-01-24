@@ -118,7 +118,7 @@ end
 function ResetAutoUpdate()
     wait(1)
     game.Players.LocalPlayer.chatted:Connect(function(message)
-        if message == "forceupdatesayfst" then
+        if message == "updatesayfst" then
             SendNotification("Version","Updating...")
             wait(1)
             ScreenGui:Destroy()
