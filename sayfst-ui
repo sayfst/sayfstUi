@@ -190,7 +190,7 @@ TextLabel_2.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 TextLabel_2.Position = UDim2.new(0.172638431, 0, 0.0670241266, 0)
 TextLabel_2.Size = UDim2.new(0, 200, 0, 31)
 TextLabel_2.Font = Enum.Font.SourceSansBold
-local ver = "v0.0.4"
+local ver = "v0.0.5"
 TextLabel_2.Text = "Version: "..ver
 loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-version'))()
 if ver == getgenv().Version1 then
@@ -290,7 +290,7 @@ TextLabel_7.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 TextLabel_7.Position = UDim2.new(0.110749185, 0, 0.758713126, 0)
 TextLabel_7.Size = UDim2.new(0, 237, 0, 31)
 TextLabel_7.Font = Enum.Font.SourceSansBold
-TextLabel_7.Text = "24/01/2022"
+TextLabel_7.Text = "25/01/2022"
 TextLabel_7.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel_7.TextScaled = true
 TextLabel_7.TextSize = 14.000
@@ -403,7 +403,7 @@ local debounce5 = false
 local folder = Instance.new("Folder", workspace)
     folder.Name = "PastaDosBlocos"
 main:CriarBotao("Spamm blocks - CS", function()
-    if debounce5 == false then debounce5 = true getgenv().CriarBloco = true spawn(function() while getgenv().CriarBloco == true do  local part = Instance.new("Part", workspace.PastaDosBlocos);part.Name = "PartCriadaPeloScript" part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 3, 0)  wait(.1) end  end) else debounce5 = false getgenv().CriarBloco = false end
+    if debounce5 == false then debounce5 = true getgenv().CriarBloco = true spawn(function() while getgenv().CriarBloco == true do  local part = Instance.new("Part", workspace.PastaDosBlocos);part.Name = "PartCriadaPeloScript" part.Color = Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255)) part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 3, 0)  wait(.1) end  end) else debounce5 = false getgenv().CriarBloco = false end
 end)
 
 main:CriarBotao("Delete blocks", function()
@@ -497,6 +497,27 @@ main:CriarBotao("Teleport", function()
     end)
 end)
 
+
+getgenv().TogleTeleport = false
+main:CriarBotao("LoopTeleport", function()
+    CreateDropDown("loop teleport", nil, function(playerDrop)
+        if playerDrop then
+            _G.playerDrop = playerDrop
+            getgenv().TogleTeleport = true
+            spawn(function()
+                while getgenv().TogleTeleport == true do
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = _G.playerDrop.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 0.5)
+                    wait()
+                end
+            end)
+        end
+    end)
+end)
+
+main:CriarBotao("UnLoopTeleport", function()
+    getgenv().TogleTeleport = false
+end)
+
 main:CriarBotao("Bring", function()
     CreateDropDown("bring", nil, function(playerDrop)
         if playerDrop then
@@ -569,60 +590,21 @@ main:CriarBotao("view/unview", function()
     end
 end)
 
-main:CriarBotao("Multi-scripts for specific games", function()
-    SendNotification("Multi-scripts", "Checking your game...")
-    wait(0.5)
-    if game.PlaceId == 155615604 then
-        spawn(function()
-            loadstring(game:HttpGet("https://pastebin.com/raw/mHfK0Xk4", true))()
-        end)
-    elseif game.PlaceId == 402122991 then
-        sv=function(a,b)
-        game:GetService("Workspace").resources.RemoteFunction:InvokeServer("setDataValue",a,b)
-        end
-        gv=function(a)
-        return game:GetService("Workspace").resources.RemoteFunction:InvokeServer("getDataValue",a)
-        end
-        sv("hasPilot",true)
-        sv("hasSwat",true)
-        sv("hasMerc",true)
-        sv("hasSpecOps",true)
-    elseif game.PlaceId == 606849621 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Jailbreak/Jailbreak"))()
-    elseif game.PlaceId == 621129760 then
-        spawn(function()
-            loadstring(game:HttpGet('https://pastebin.com/raw/3SqtY7xr'))()
-        end)
-    end
-end)
-main:CriarBotao("Print all games with specific scripts", function()
-    SendNotification("Multi-scripts", 'Press "f8" to open Console and view all games with scripts')
-    print("Prison life")
-    print("Redwood Prison #FreeGamepases")
-    print("Jailbreak #Vynixius")
-    print("Mapkat #Aimbot")
-    print("That's all we have for now, wait for more updates")
+main:CriarBotao("Sexy animation", function()
+    local A=Instance.new'Animation'
+    A.Parent=game.Players.LocalPlayer.Character
+    A.Name="AnimationSarrar"
+    A.AnimationId='rbxassetid://148840371'
+    local P=game:GetService'Players'.LocalPlayer
+    local C=P.Character or P.CharacterAdded:Wait()
+    local H=C:WaitForChild'Humanoid':LoadAnimation(A)
+    H:Play()
+    H:AdjustSpeed(2.5)
 end)
 
-local debounce8 = false
-main:CriarBotao("sensual animation", function()
-    if debounce8 == false then
-        local A=Instance.new'Animation'
-        A.Parent=game.Players.LocalPlayer.Character
-        A.Name="AnimationSarrar"
-        A.AnimationId='rbxassetid://148840371'
-        local P=game:GetService'Players'.LocalPlayer
-        local C=P.Character or P.CharacterAdded:Wait()
-        local H=C:WaitForChild'Humanoid':LoadAnimation(A)
-        H:Play()
-        H:AdjustSpeed(2.5)
-        debounce8 = true
-    else
-        game.Players.LocalPlayer.Character["AnimationSarrar"]:Destroy()
-        debounce8 = false
-    end
+main:CriarBotao("Quit", function()
+    game:Shutdown()
 end)
-
 function SendNotification(title, text)
 	game.StarterGui:SetCore("SendNotification", {
 		Title = title;
