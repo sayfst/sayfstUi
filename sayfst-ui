@@ -190,7 +190,7 @@ TextLabel_2.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 TextLabel_2.Position = UDim2.new(0.172638431, 0, 0.0670241266, 0)
 TextLabel_2.Size = UDim2.new(0, 200, 0, 31)
 TextLabel_2.Font = Enum.Font.SourceSansBold
-local ver = "v0.0.2"
+local ver = "v0.0.3"
 TextLabel_2.Text = "Version: "..ver
 loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-version'))()
 if ver == getgenv().Version1 then
@@ -380,33 +380,33 @@ local main = library:CreateWindow()
 
 
 local debounce = false
-main:CriarBotao("Correr rapido", function()
+main:CriarBotao("Speed", function()
 	if debounce == false then getgenv().TogleSpeed = true debounce = true getgenv().OldSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed spawn(function() while getgenv().TogleSpeed == true do game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 190 wait() end end) else debounce = false getgenv().TogleSpeed = false game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().OldSpeed end
 end)
 
 local debounce2 = false
-main:CriarBotao("Pular alto", function()
+main:CriarBotao("Long jump", function()
 	if debounce2 == false then getgenv().TogleJump = true debounce2 = true getgenv().OldJump = game.Players.LocalPlayer.Character.Humanoid.JumpPower spawn(function() while getgenv().TogleJump == true do game.Players.LocalPlayer.Character.Humanoid.JumpPower = 300 wait() end end) else debounce2 = false getgenv().TogleJump = false game.Players.LocalPlayer.Character.Humanoid.JumpPower = getgenv().OldJump end
 end)
 
 local debounce3 = false
-main:CriarBotao("Congelar", function()
+main:CriarBotao("Freeze", function()
     if debounce3 == false then game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true debounce3 = true else game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false debounce3 = false end
 end)
 
 local debounce4 = false
-main:CriarBotao("Gravidade", function()
+main:CriarBotao("Gravity", function()
     if debounce4 == false then getgenv().OldGravity = workspace.Gravity debounce4 = true workspace.Gravity = 0 else debounce4 = false workspace.Gravity = getgenv().OldGravity end
 end)
 
 local debounce5 = false
 local folder = Instance.new("Folder", workspace)
     folder.Name = "PastaDosBlocos"
-main:CriarBotao("Spammar blocos - CS", function()
+main:CriarBotao("Spamm blocks - CS", function()
     if debounce5 == false then debounce5 = true getgenv().CriarBloco = true spawn(function() while getgenv().CriarBloco == true do  local part = Instance.new("Part", workspace.PastaDosBlocos);part.Name = "PartCriadaPeloScript" part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 3, 0)  wait(.1) end  end) else debounce5 = false getgenv().CriarBloco = false end
 end)
 
-main:CriarBotao("Apagar blocos acima", function()
+main:CriarBotao("Delete blocks", function()
     local numero = 0 for i,v in pairs(game.Workspace["PastaDosBlocos"]:GetChildren()) do if v then numero = numero + 1 wait() v:Destroy() end end game.StarterGui:SetCore("SendNotification", { Title = "MENU|EXPLOIT"; Text = "Sucess destroy "..numero.." parts"; })
 end)
 
@@ -414,20 +414,20 @@ main:CriarBotao("Noclip", function()
     spawn(function() local Enabled = false local Camera = game.Workspace.CurrentCamera local Player = game:GetService("Players").LocalPlayer local Input = game:GetService("UserInputService") local Forward = false local Back = false local Left = false local Right = false local Up = false local Down = false local function SetPlayer() for i,v in pairs(Player.Character:GetChildren()) do pcall(function() v.Anchored = not v.Anchored end) end end Input.InputBegan:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.Q then Enabled = not Enabled SetPlayer() end if Key.KeyCode == Enum.KeyCode.W then Forward = true end if Key.KeyCode == Enum.KeyCode.S then Back = true end if Key.KeyCode == Enum.KeyCode.A then Left = true end if Key.KeyCode == Enum.KeyCode.D then Right = true end if Key.KeyCode == Enum.KeyCode.Space then Up = true end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = true end end) Input.InputEnded:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.W then Forward = false end if Key.KeyCode == Enum.KeyCode.S then Back = false end if Key.KeyCode == Enum.KeyCode.A then Left = false end if Key.KeyCode == Enum.KeyCode.D then Right = false end if Key.KeyCode == Enum.KeyCode.Space then Up = false end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = false end end) spawn(function() while game:GetService("RunService").RenderStepped:Wait() do if Enabled then pcall(function() if Forward then Player.Character:TranslateBy(Camera.CFrame.lookVector*2) end if Back then Player.Character:TranslateBy(-Camera.CFrame.lookVector*2) end if Left then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Right then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Up then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end if Down then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end end) end end end) end) game.StarterGui:SetCore("SendNotification", { Title = "MENU|EXPLOIT"; Text = 'Press "q" to active noclip'; })
 end)
 
-main:CriarBotao("Sentar", function()
+main:CriarBotao("Sit", function()
     game.Players.LocalPlayer.Character.Humanoid.Sit = true
 end)
 
-main:CriarBotao("Personagem louco", function()
+main:CriarBotao("Crazy person", function()
     getgenv().TogleLouco = true game.Players.LocalPlayer.Character:WaitForChild("Humanoid"):MoveTo(Vector3.new(999, 999, 999)) wait(0.3) game.Players.LocalPlayer.Character.Humanoid.Sit = true spawn(function() while getgenv().TogleLouco == true do game.Players.LocalPlayer.Character.Humanoid.Sit = true wait() end end) spawn(function() while getgenv().TogleLouco == true do game.Players.LocalPlayer.Character.Humanoid.Jump = true wait(.9) end end)
 end)
 
-main:CriarBotao("Personagem normal", function()
+main:CriarBotao("Normal person", function()
     getgenv().TogleLouco = false
     game.Players.LocalPlayer.Character.Humanoid.Sit = false
 end)
 
-main:CriarBotao("Full bright", function()
+main:CriarBotao("Fullbright", function()
     game:GetService("Lighting").Brightness = 2
 	game:GetService("Lighting").ClockTime = 14
 	game:GetService("Lighting").FogEnd = 100000
@@ -435,15 +435,15 @@ main:CriarBotao("Full bright", function()
 	game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(128, 128, 128)
 end)
 
-main:CriarBotao("Dia", function()
+main:CriarBotao("Day", function()
     game:GetService("Lighting").ClockTime = 14
 end)
 
-main:CriarBotao("Noite", function()
+main:CriarBotao("Night", function()
     game:GetService("Lighting").ClockTime = 0
 end)
 
-main:CriarBotao("Sem nuvem", function()
+main:CriarBotao("No Clouds", function()
     game:GetService("Lighting").FogEnd = 100000
 	for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do
 		if v:IsA("Atmosphere") then
@@ -452,7 +452,7 @@ main:CriarBotao("Sem nuvem", function()
 	end
 end)
 
-main:CriarBotao("Soltar chapeus", function()
+main:CriarBotao("Drop hats", function()
     if game.Players.LocalPlayer.Character then
 		for _,v in pairs(game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):GetAccessories()) do
 			v.Parent = workspace
@@ -460,7 +460,7 @@ main:CriarBotao("Soltar chapeus", function()
 	end
 end)
 
-main:CriarBotao("Dropar tools", function()
+main:CriarBotao("Drop tools", function()
 	wait()
 	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 		if v:IsA("Tool") then
@@ -470,7 +470,7 @@ main:CriarBotao("Dropar tools", function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 5)
 end)
 
-main:CriarBotao("Salvar posicao", function()
+main:CriarBotao("Save position", function()
 	game.StarterGui:SetCore("SendNotification", {
 		Title = "Sucess";
 		Text = "Sucess save your position";
@@ -478,18 +478,18 @@ main:CriarBotao("Salvar posicao", function()
     getgenv().CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end)
 
-main:CriarBotao("Carregar posicao", function()
+main:CriarBotao("Load position", function()
     if not getgenv().CFrame then
         game.StarterGui:SetCore("SendNotification", {
-            Title = "Erro";
-            Text = "Por favor salve sua posicao antes de carregar";
+            Title = "Error";
+            Text = 'Before loading your position, save it first.';
         })
     else
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().CFrame
     end
 end)
 
-main:CriarBotao("Teleportar", function()
+main:CriarBotao("Teleport", function()
     CreateDropDown("teleport", nil, function(playerDrop)
         if playerDrop then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = playerDrop.Character.HumanoidRootPart.CFrame
@@ -554,16 +554,19 @@ main:CriarBotao("Bring", function()
     end)
 end)
 
-main:CriarBotao("view", function()
-    CreateDropDown("view", nil, function(playerDrop)
-        if playerDrop then
-            game.Workspace.CurrentCamera.CameraSubject = playerDrop.Character
-        end
-    end)
-end)
-
-main:CriarBotao("unview", function()
-    game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+local debounce7 = false
+main:CriarBotao("view/unview", function()
+    if debounce7 == false then
+        debounce7 = true
+        CreateDropDown("view", nil, function(playerDrop)
+            if playerDrop then
+                game.Workspace.CurrentCamera.CameraSubject = playerDrop.Character
+            end
+        end)
+    else
+        debounce7 = false
+        game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+    end
 end)
 
 function SendNotification(title, text)
@@ -572,4 +575,3 @@ function SendNotification(title, text)
 		Text = text;
 	})
 end
-
