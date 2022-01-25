@@ -190,7 +190,7 @@ TextLabel_2.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 TextLabel_2.Position = UDim2.new(0.172638431, 0, 0.0670241266, 0)
 TextLabel_2.Size = UDim2.new(0, 200, 0, 31)
 TextLabel_2.Font = Enum.Font.SourceSansBold
-local ver = "v0.0.3"
+local ver = "v0.0.4"
 TextLabel_2.Text = "Version: "..ver
 loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/sayfst-version'))()
 if ver == getgenv().Version1 then
@@ -568,6 +568,42 @@ main:CriarBotao("view/unview", function()
         game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
     end
 end)
+
+main:CriarBotao("Multi-scripts for specific games", function()
+    SendNotification("Multi-scripts", "Checking your game...")
+    wait(0.5)
+    if game.PlaceId == 155615604 then
+        spawn(function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/mHfK0Xk4", true))()
+        end)
+    elseif game.PlaceId == 402122991 then
+        sv=function(a,b)
+        game:GetService("Workspace").resources.RemoteFunction:InvokeServer("setDataValue",a,b)
+        end
+        gv=function(a)
+        return game:GetService("Workspace").resources.RemoteFunction:InvokeServer("getDataValue",a)
+        end
+        sv("hasPilot",true)
+        sv("hasSwat",true)
+        sv("hasMerc",true)
+        sv("hasSpecOps",true)
+    elseif game.PlaceId == 606849621 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Jailbreak/Jailbreak"))()
+    elseif game.PlaceId == 621129760 then
+        spawn(function()
+            loadstring(game:HttpGet('https://pastebin.com/raw/3SqtY7xr'))()
+        end)
+    end
+end)
+main:CriarBotao("Print all games with specific scripts", function()
+    SendNotification("Multi-scripts", 'Press "f8" to open Console and view all games with scripts')
+    print("Prison life")
+    print("Redwood Prison #FreeGamepases")
+    print("Jailbreak #Vynixius")
+    print("Mapkat #Aimbot")
+    print("That's all we have for now, wait for more updates")
+end)
+
 
 function SendNotification(title, text)
 	game.StarterGui:SetCore("SendNotification", {
