@@ -604,6 +604,24 @@ main:CriarBotao("Print all games with specific scripts", function()
     print("That's all we have for now, wait for more updates")
 end)
 
+local debounce8 = false
+main:CriarBotao("sensual animation", function()
+    if debounce8 == false then
+        local A=Instance.new'Animation'
+        A.Parent=game.Players.LocalPlayer.Character
+        A.Name="AnimationSarrar"
+        A.AnimationId='rbxassetid://148840371'
+        local P=game:GetService'Players'.LocalPlayer
+        local C=P.Character or P.CharacterAdded:Wait()
+        local H=C:WaitForChild'Humanoid':LoadAnimation(A)
+        H:Play()
+        H:AdjustSpeed(2.5)
+        debounce8 = true
+    else
+        game.Players.LocalPlayer.Character["AnimationSarrar"]:Destroy()
+        debounce8 = false
+    end
+end)
 
 function SendNotification(title, text)
 	game.StarterGui:SetCore("SendNotification", {
