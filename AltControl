@@ -1,0 +1,117 @@
+function a()
+    if not game:IsLoaded() then
+        game.Loaded:wait()
+    end
+    
+    wait(1)
+    
+    getgenv().Player = nil
+    getgenv().Prefix = '.'
+    
+    function Drop(amonut)
+        game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+    end
+    function Block(status)
+        local Target = game:GetService("ReplicatedStorage").MainEvent;
+        Target:FireServer("Block", status)
+    end
+    function Wallet(status)
+        if status == true then
+            game.Players.LocalPlayer.Backpack:WaitForChild("Wallet").Parent = game.Players.LocalPlayer.Character
+        elseif status == false then
+            game.Players.LocalPlayer.Character:WaitForChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
+        end
+    end
+    getgenv().Air = true
+    function Air(states)
+        if states == true then
+            getgenv().Air = true
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(3.5)
+            getgenv().Old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            local part = Instance.new("Part", workspace)
+            part.Name = 'AirPart'
+            part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, -3.0, 0)
+            part.Anchored = true
+            repeat
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Old
+                wait()
+            until getgenv().Air == false
+            part:Destroy()
+        elseif states == false then
+            getgenv().Air = false
+        end
+    end
+    if game:GetService('Players'):FindFirstChild(getgenv().Host) then
+        getgenv().Player = game.Players:FindFirstChild(getgenv().Host)
+        if getgenv().Player ~= game.Players.LocalPlayer then
+    
+            getgenv().Player.Chatted:Connect(function(message)
+                local prefix = getgenv().Prefix
+                message = string.lower(message)
+        
+                local args = message:split(' ')
+        
+                if args[1] == prefix .. 'drop' then
+                    if args[2] == 'true' then
+                        getgenv().Drop = true
+                        spawn(function()
+                            while getgenv().Drop == true do
+                                Drop(10000)
+                                wait()
+                            end
+                        end)
+                    elseif args[2] == 'false' then
+                        getgenv().Drop = false
+                    else
+                        Drop(args[2])
+                    end
+                end
+                if args[1] == prefix .. 'wallet' then
+                    if args[2] == 'true' then
+                        Wallet(true)
+                    elseif args[2] == 'false' then
+                        Wallet(false)
+                    end
+                end
+                if args[1] == prefix .. 'block' then
+                    if args[2] == 'true' then
+                        Block(true)
+                    elseif args[2] == 'false' then
+                        Block(false)
+                    end
+                end
+                if args[1] == prefix .. 'bringalts' then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame
+                end
+                if args[1] == prefix .. 'resetalts' then
+                    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                end
+                if args[1] == prefix .. 'kickalts' then
+                    game.Players.LocalPlayer:Kick()
+                end
+                if args[1] == prefix .. 'setup' then
+                    if args[2] == 'host' then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                    elseif args[2] == 'false' then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+                    end
+                end
+            end)
+        end
+    end
+    
+    game.Players.ChildAdded:Connect(function(player)
+        if player.Name == getgenv().Host then
+            print('host found')
+            getgenv().Player = game.Players:FindFirstChild(getgenv().Host)
+            a()
+        end
+    end)
+end
+
+a()
+
+game.Players.ChildAdded:Connect(a)
+game.Players.ChildRemoved:Connect(a)
