@@ -93,9 +93,31 @@ function a()
                     if args[2] == 'host' then
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0)
                         wait()
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                        Air(true)
                     elseif args[2] == 'false' then
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+                        Air(false)
+                    end
+                end
+                if args[1] == prefix .. 'chat' then
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(args[2], "All")
+                end
+                if args[1] == prefix .. 'loopdestroy' then
+                    if args[2] == 'true' then
+                        getgenv().loopdestroy = true
+                        spawn(function()
+                            while getgenv().loopdestroy == true do
+                                for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetChildren()) do
+                                    if v then
+                                        v:Destroy()
+                                    end
+                                end
+                                wait(3)
+                            end
+                        end)
+                        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("On", "All")
+                    elseif args[2] == 'false' then
+                        getgenv().loopdestroy = ffalse
+                        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Off", "All")
                     end
                 end
             end)
