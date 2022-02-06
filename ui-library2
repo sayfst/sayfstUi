@@ -1,0 +1,206 @@
+-- Ui library made by: [CAR] SAMU#6783
+
+local library = {}
+
+function library:CreateWindow(text)
+    local ScreenGui = Instance.new("ScreenGui")
+    local Ui = Instance.new("Frame")
+    local Title = Instance.new("TextLabel")
+    local UnderLine = Instance.new("Frame")
+    local ButtonTabs = Instance.new("Frame")
+    local Listlayout = Instance.new("UIListLayout")
+    local Tabs = Instance.new("Frame")
+    
+    ScreenGui.Parent = game.CoreGui
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    Ui.Name = "Ui"
+    Ui.Parent = ScreenGui
+    Ui.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+    Ui.BorderSizePixel = 0
+    Ui.Position = UDim2.new(0.0878809392, 0, 0.194278911, 0)
+    Ui.Size = UDim2.new(0, 643, 0, 334)
+    
+    Title.Name = "Title"
+    Title.Parent = Ui
+    Title.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    Title.BorderSizePixel = 0
+    Title.Size = UDim2.new(0, 643, 0, 52)
+    Title.Font = Enum.Font.SourceSansBold
+    Title.Text = text
+    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Title.TextScaled = true
+    Title.TextSize = 14.000
+    Title.TextWrapped = true
+    _G.Title = Title
+
+    UnderLine.Name = "UnderLine"
+    UnderLine.Parent = Ui
+    UnderLine.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    UnderLine.BorderSizePixel = 0
+    UnderLine.Position = UDim2.new(0, 0, 0.155688629, 0)
+    UnderLine.Size = UDim2.new(0, 643, 0, 2)
+    
+    ButtonTabs.Name = "ButtonTabs"
+    ButtonTabs.Parent = Ui
+    ButtonTabs.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+    ButtonTabs.BorderSizePixel = 0
+    ButtonTabs.Position = UDim2.new(0, 0, 0.161676645, 0)
+    ButtonTabs.Size = UDim2.new(0, 137, 0, 280)
+    
+    Listlayout.Name = "Listlayout"
+    Listlayout.Parent = ButtonTabs
+    Listlayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    Listlayout.SortOrder = Enum.SortOrder.LayoutOrder
+    Listlayout.Padding = UDim.new(0, 4)
+    
+    Tabs.Name = "Tabs"
+    Tabs.Parent = Ui
+    Tabs.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+    Tabs.BorderSizePixel = 0
+    Tabs.Position = UDim2.new(0.2126441, 0, 0.159751922, 0)
+    Tabs.Size = UDim2.new(0, 506, 0, 280)
+    
+    local function MGRME_fake_script() -- Ui.TogleUi 
+        local script = Instance.new('LocalScript', Ui)
+    
+        local UserInputService = game:GetService("UserInputService")
+        
+        UserInputService.InputBegan:Connect(function(input)
+            if input.KeyCode == Enum.KeyCode.RightControl then
+                script.Parent.Visible = not script.Parent.Visible
+            end
+        end)
+    end
+    coroutine.wrap(MGRME_fake_script)()
+    
+    local Container = {}
+
+    function Container:CreateTab(text)
+        local TabButton = Instance.new("TextButton")
+        local UICorner = Instance.new("UICorner")
+        local Tab1 = Instance.new("Frame")
+        local UIGridLayout = Instance.new("UIGridLayout")
+        
+        Tab1.Name = "Tab1"
+        Tab1.Parent = Tabs
+        Tab1.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+        Tab1.BorderSizePixel = 0
+        Tab1.Position = UDim2.new(-0.000794634223, 0, -0.000962361693, 0)
+        Tab1.Size = UDim2.new(0, 506, 0, 280)
+        Tab1.Visible = false
+        
+        UIGridLayout.Parent = Tab1
+        UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIGridLayout.CellSize = UDim2.new(1, 0, 0, 30)
+
+        local Buttons = {}
+
+        
+
+        function Buttons:CreateTogle(text, callback)
+            local callback = callback or function()end
+            local Toggled = false
+            local TweenService = game:GetService("TweenService")
+            function Fire()
+                Toggled = not Toggled
+            end
+            local Toggle = Instance.new("TextButton")
+            local Background = Instance.new("TextLabel")
+            local UICorner = Instance.new("UICorner")
+            local ToggleBall = Instance.new("Frame")
+            local UICorner_2 = Instance.new("UICorner")
+            
+            Toggle.Name = "Toggle"
+            Toggle.Parent = Tab1
+            Toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            Toggle.BorderSizePixel = 0
+            Toggle.Size = UDim2.new(0, 200, 0, 50)
+            Toggle.Font = Enum.Font.SourceSansItalic
+            Toggle.Text = text
+            Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Toggle.TextSize = 17.000
+            local Ativo = false
+            Toggle.MouseButton1Click:Connect(function()
+                if Ativo == false then
+                    Ativo = true
+                    Fire()
+                    pcall(callback, Toggled)
+                    ToggleBall:TweenPosition(UDim2.new(0, 24,-0.043, 0), "Out", "Quart", 0.2, true)
+                    TweenService:Create(ToggleBall, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(47, 167, 197)})):Play()
+                    TweenService:Create(Background, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(32, 58, 85)})):Play()
+                
+                else
+                    Ativo = false
+                    Fire()
+                    pcall(callback, Toggled)
+                    ToggleBall:TweenPosition(UDim2.new(0, 0,-0.043, 0), "Out", "Quart", 0.2, true)
+                    TweenService:Create(ToggleBall, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(0, 0, 0)})):Play()
+                    TweenService:Create(Background, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(255, 255, 255)})):Play()
+                end
+            end)
+            
+            Background.Name = "Background"
+            Background.Parent = Toggle
+            Background.BackgroundColor3 = Color3.fromRGB(255,255,255)
+            Background.Position = UDim2.new(0.847826183, 0, 0.100000001, 0)
+            Background.Size = UDim2.new(0, 50, 0, 23)
+            Background.Font = Enum.Font.SourceSans
+            Background.Text = ""
+            Background.TextColor3 = Color3.fromRGB(0, 0, 0)
+            Background.TextSize = 14.000
+            
+            UICorner.Parent = Background
+            
+            ToggleBall.Name = "ToggleBall"
+            ToggleBall.Parent = Background
+            ToggleBall.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            ToggleBall.Position = UDim2.new(0, 0, -0.0434782617, 0)
+            ToggleBall.Size = UDim2.new(0, 25, 0, 25)
+            
+            UICorner_2.Parent = ToggleBall
+        end
+        function Buttons:CreateButton(text, callback)
+            local callback = callback or function()end
+            local Button = Instance.new("TextButton")
+
+            Button.Name = "Button"
+            Button.Parent = Tab1
+            Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            Button.BorderSizePixel = 0
+            Button.Size = UDim2.new(0, 200, 0, 50)
+            Button.Text = text
+            Button.Font = Enum.Font.SourceSansItalic
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Button.TextSize = 17.000
+            Button.MouseButton1Click:Connect(function()
+                pcall(callback)
+            end)
+        end
+        
+        return Buttons
+        TabButton.Name = "TabButton"
+        TabButton.Parent = ButtonTabs
+        TabButton.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+        TabButton.Position = UDim2.new(0.0364963487, 0, 0.021428572, 0)
+        TabButton.Size = UDim2.new(0, 126, 0, 28)
+        TabButton.Font = Enum.Font.SciFi
+        TabButton.Text = text
+        TabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TabButton.TextSize = 14.000
+        TabButton.MouseButton1Click:Connect(function()
+            for i,v in pairs(Tabs:GetChildren()) do
+                if v:IsA("Frame") then
+                    v.Visible = false
+                end
+            end
+            wait()
+            Tab1.Visible = true
+        end)
+        UICorner.Parent = TabButton
+    end
+
+    return Container
+end
+
+return library
