@@ -20,6 +20,8 @@ function library:CreateWindow(text)
     Ui.BorderSizePixel = 0
     Ui.Position = UDim2.new(0.0878809392, 0, 0.194278911, 0)
     Ui.Size = UDim2.new(0, 643, 0, 334)
+    Ui.Active = true
+    Ui.Draggable = true
     
     Title.Name = "Title"
     Title.Parent = Ui
@@ -32,7 +34,6 @@ function library:CreateWindow(text)
     Title.TextScaled = true
     Title.TextSize = 14.000
     Title.TextWrapped = true
-    _G.Title = Title
 
     UnderLine.Name = "UnderLine"
     UnderLine.Parent = Ui
@@ -93,74 +94,40 @@ function library:CreateWindow(text)
         UIGridLayout.Parent = Tab1
         UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
         UIGridLayout.CellSize = UDim2.new(1, 0, 0, 30)
-
-        local Buttons = {}
-
         
-
-        function Buttons:CreateTogle(text, callback)
+        function Container:CreateTogle(text, callback)
             local callback = callback or function()end
+            local Toggle = Instance.new("TextButton")
             local Toggled = false
-            local TweenService = game:GetService("TweenService")
             function Fire()
                 Toggled = not Toggled
             end
-            local Toggle = Instance.new("TextButton")
-            local Background = Instance.new("TextLabel")
-            local UICorner = Instance.new("UICorner")
-            local ToggleBall = Instance.new("Frame")
-            local UICorner_2 = Instance.new("UICorner")
-            
-            Toggle.Name = "Toggle"
+
+            local Ativo = false
+            Toggle.Name = "Button"
             Toggle.Parent = Tab1
             Toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
             Toggle.BorderSizePixel = 0
             Toggle.Size = UDim2.new(0, 200, 0, 50)
+            Toggle.Text = text .. ' - OFF'
             Toggle.Font = Enum.Font.SourceSansItalic
-            Toggle.Text = text
             Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
             Toggle.TextSize = 17.000
-            local Ativo = false
             Toggle.MouseButton1Click:Connect(function()
                 if Ativo == false then
                     Ativo = true
+                    Toggle.Text = text .. ' - ON'
                     Fire()
                     pcall(callback, Toggled)
-                    ToggleBall:TweenPosition(UDim2.new(0, 24,-0.043, 0), "Out", "Quart", 0.2, true)
-                    TweenService:Create(ToggleBall, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(47, 167, 197)})):Play()
-                    TweenService:Create(Background, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(32, 58, 85)})):Play()
-                
                 else
                     Ativo = false
+                    Toggle.Text = text .. ' - OFF'
                     Fire()
                     pcall(callback, Toggled)
-                    ToggleBall:TweenPosition(UDim2.new(0, 0,-0.043, 0), "Out", "Quart", 0.2, true)
-                    TweenService:Create(ToggleBall, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(0, 0, 0)})):Play()
-                    TweenService:Create(Background, TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out, {BackgroundColor3 = Color3.fromRGB(255, 255, 255)})):Play()
                 end
             end)
-            
-            Background.Name = "Background"
-            Background.Parent = Toggle
-            Background.BackgroundColor3 = Color3.fromRGB(255,255,255)
-            Background.Position = UDim2.new(0.847826183, 0, 0.100000001, 0)
-            Background.Size = UDim2.new(0, 50, 0, 23)
-            Background.Font = Enum.Font.SourceSans
-            Background.Text = ""
-            Background.TextColor3 = Color3.fromRGB(0, 0, 0)
-            Background.TextSize = 14.000
-            
-            UICorner.Parent = Background
-            
-            ToggleBall.Name = "ToggleBall"
-            ToggleBall.Parent = Background
-            ToggleBall.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            ToggleBall.Position = UDim2.new(0, 0, -0.0434782617, 0)
-            ToggleBall.Size = UDim2.new(0, 25, 0, 25)
-            
-            UICorner_2.Parent = ToggleBall
         end
-        function Buttons:CreateButton(text, callback)
+        function Container:CreateButton(text, callback)
             local callback = callback or function()end
             local Button = Instance.new("TextButton")
 
@@ -178,7 +145,6 @@ function library:CreateWindow(text)
             end)
         end
         
-        return Buttons
         TabButton.Name = "TabButton"
         TabButton.Parent = ButtonTabs
         TabButton.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
