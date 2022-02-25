@@ -26,7 +26,7 @@ function a()
     function Air(states)
         if states == true then
             getgenv().Air = true
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(3.5)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3.5, 0)
             getgenv().Old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
             local part = Instance.new("Part", workspace)
             part.Name = 'AirPart'
