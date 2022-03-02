@@ -1,18 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 local Settings = getgenv().AltControlSettings
 
 if not game:IsLoaded() then
@@ -23,11 +9,13 @@ getgenv().Host = nil
 if game.Players:FindFirstChild(Settings['Host']) then
     getgenv().Host = game.Players:FindFirstChild(Settings['Host'])
 end
-
+function Say(messave)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'All')
+end
 if game.Players.LocalPlayer.Name ~= Settings['Host'] then
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'Alt find')
+    Say('Alt find')
 else
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'Host find')
+    Say('Host find')
 end
 local Prefix = Settings['Prefix']
 
@@ -89,7 +77,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -169,7 +157,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -249,7 +237,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -329,7 +317,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -409,7 +397,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -489,7 +477,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -569,7 +557,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -649,7 +637,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -729,7 +717,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -809,7 +797,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -889,7 +877,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -969,7 +957,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1050,7 +1038,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1132,7 +1120,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1213,7 +1201,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1294,7 +1282,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1374,7 +1362,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1454,7 +1442,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1534,7 +1522,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
@@ -1614,7 +1602,7 @@ function Restart()
 
                         -- Chat
                         if args[1] == Settings['Prefix'] .. 'chat' then
-                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                            Say(Settings['Chat'])
                         end
 
                         -- Bring alts
