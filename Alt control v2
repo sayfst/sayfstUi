@@ -47,11 +47,16 @@ function Wallet(status)
 end
 
 function Alt(Numero, Distancia, Altura)
-    if game.Players.LocalPlayer.UserId == Settings['Alt'..Numero] then
+    local a = 'Alt'..Numero
+    if game.Players.LocalPlayer.UserId == Settings[a] then
         if getgenv().Host ~= nil then
             getgenv().Host.Chatted:Connect(function(message)
                 if getgenv().Host ~= game.Players.LocalPlayer then
                     args = message:split(' ')
+                    argsSay = message:split(':')
+                    if argsSay[1] == Settings['Prefix'] .. 'say' then
+                        Say(argsSay[2])
+                    end
 
                     -- Setup
                     local DistanciaPrincipal = Distancia
@@ -130,7 +135,7 @@ end
 function Restart()
     if game.Players.LocalPlayer.Name ~= Settings['Host'] then
         --Alt 1
-        Alt('1', 2, 5)
+        Alt(1, 2, 5)
         --Alt 2
         Alt('2', 4, 5)
         --Alt 3
