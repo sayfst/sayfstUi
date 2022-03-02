@@ -9,7 +9,7 @@ getgenv().Host = nil
 if game.Players:FindFirstChild(Settings['Host']) then
     getgenv().Host = game.Players:FindFirstChild(Settings['Host'])
 end
-function Say(messave)
+function Say(message)
     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'All')
 end
 if game.Players.LocalPlayer.Name ~= Settings['Host'] then
