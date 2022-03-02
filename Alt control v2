@@ -1,0 +1,1678 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local Settings = getgenv().AltControlSettings
+
+if not game:IsLoaded() then
+    game.Loaded:wait()
+end
+
+getgenv().Host = nil
+if game.Players:FindFirstChild(Settings['Host']) then
+    getgenv().Host = game.Players:FindFirstChild(Settings['Host'])
+end
+
+if game.Players.LocalPlayer.Name ~= Settings['Host'] then
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'Alt find')
+else
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'Host find')
+end
+local Prefix = Settings['Prefix']
+
+local lPlayer = game.Players.LocalPlayer
+local lCharacter = lPlayer.Character
+lPlayer.CharacterAdded:Connect(function(Character)
+    lCharacter = Character
+end)
+
+function Teleport(Position)
+    game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
+end
+function Anchored(state)
+    lCharacter.HumanoidRootPart.Anchored = state
+end
+function Drop(amonut)
+    game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+end
+function Block(status)
+    local Target = game:GetService("ReplicatedStorage").MainEvent;
+    Target:FireServer("Block", status)
+end
+function Wallet(status)
+    if status == true then
+        game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
+    elseif status == false then
+        game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
+    end
+end
+
+function Restart()
+    if game.Players.LocalPlayer.Name ~= Settings['Host'] then
+
+
+        -- Alt 1
+        if game.Players.LocalPlayer.UserId == Settings['Alt1'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 2
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 2
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt2'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 4
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 3
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt3'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 6
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 4
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt4'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 8
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 5
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt5'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 10
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 6
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt6'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 12
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 7
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt7'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 14
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 8
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt8'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 16
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 9
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt9'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 18
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 10
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt10'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 20
+                        local AlturaPrincipal = 5
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 11
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt11'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 2
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 12
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt12'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 4
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 13
+
+        
+        if game.Players.LocalPlayer.UserId == Settings['Alt13'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 6
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+
+        -- Alt 14
+
+        
+        if game.Players.LocalPlayer.UserId == Settings['Alt14'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 8
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 15
+
+        
+        if game.Players.LocalPlayer.UserId == Settings['Alt15'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 10
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 16
+
+        
+        if game.Players.LocalPlayer.UserId == Settings['Alt16'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 12
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 17
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt17'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 14
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 18
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt18'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 16
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 19
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt19'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 18
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+        -- Alt 20
+
+        if game.Players.LocalPlayer.UserId == Settings['Alt20'] then
+            if getgenv().Host ~= nil then
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        args = message:split(' ')
+
+
+                        -- Setup
+                        local DistanciaPrincipal = 20
+                        local AlturaPrincipal = 10
+                        if args[1] == Prefix .. 'setup' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(true)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Chat
+                        if args[1] == Settings['Prefix'] .. 'chat' then
+                            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, Settings['Chat'])
+                        end
+
+                        -- Bring alts
+                        if args[1] == Settings['Prefix'] .. 'bring' then
+                            Anchored(false)
+                            wait(1)
+                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                        end
+
+                        -- Drop
+                        if args[1] == Settings['Prefix'] .. 'drop' then
+                            getgenv().Drop = true
+                            Block(true)
+                            Wallet(true)
+                            spawn(function()
+                                while getgenv().Drop == true do
+                                    Drop(10000)
+                                    wait()
+                                end
+                            end)
+                        end
+
+                        -- Stop
+                        if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().Drop = false
+                            Block(false)
+                            Wallet(false)
+                        end
+
+                        -- Airlock
+                        if args[1] == Settings['Prefix'] .. 'airlock' then
+                            if args[2] == 'true' then
+                                Anchored(false)
+                                wait(1)
+                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                wait(0.3)
+                                Anchored(false)
+                            elseif args[2] == 'false' then
+                                Anchored(false)
+                            end
+                        end
+
+                        -- Hide
+                        if args[1] == Settings['Prefix'] .. 'hide' then
+                            Teleport(CFrame.new(0, 100, 0))
+                        end
+                    end
+                end)
+            end
+        end
+
+    end
+end
+
+Restart()
+game.Players.ChildAdded:Connect(function(Player)
+    if Player.Name == Settings['Host'] then
+        Restart()
+        getgenv().Host = game.Players:FindFirstChild(Settings['Host'])
+    end
+end)
