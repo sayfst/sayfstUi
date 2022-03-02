@@ -52,10 +52,6 @@ function Alt(Numero, Distancia, Altura)
             getgenv().Host.Chatted:Connect(function(message)
                 if getgenv().Host ~= game.Players.LocalPlayer then
                     args = message:split(' ')
-                    argsSay = message:split(':')
-                    if argsSay[1] == Settings['Prefix'] .. 'say' then
-                        Say(argsSay[2])
-                    end
 
                     -- Setup
                     local DistanciaPrincipal = Distancia
