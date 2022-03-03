@@ -6,7 +6,15 @@ if not game:IsLoaded() then
     game.StarterGui:SetCore("SendNotification", {
         Title = 'Sucess loaded Da hood menu';
         Text = 'Credits have been copied to your clipboard';
+        Duration = 30;
     })
+    wait(1)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = 'Da hood';
+        Text = 'Press "f1" to toggle menu visible';
+        Duration = 10
+    })
+    
 end
 
 
@@ -52,6 +60,18 @@ function library:CreateWindow()
     Menu.Position = UDim2.new(0.5, 0, 0.5, 0)
     Menu.Size = UDim2.new(0, 775, 0, 404)
     
+    local UserInputService = Instance.new('UserInputService')
+    UserInputService.InputBegan:Connect(function(input)
+        if input.KeyCode == Enum.KeyCode.F1 then
+            Menu.Visible = not Menu.Visible
+            game.StarterGui:SetCore("SendNotification", {
+                Title = 'Da hood';
+                Text = 'Sucess toggled menu visible, Toggled to: '..Menu.Visible;
+                Duration = 10
+            })
+        end
+    end)
+
     UICorner.Parent = Menu
     
     shadowHolder.Name = "shadowHolder"
