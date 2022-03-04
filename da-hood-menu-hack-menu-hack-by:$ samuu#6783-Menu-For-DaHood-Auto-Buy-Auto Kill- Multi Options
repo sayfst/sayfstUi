@@ -63,12 +63,6 @@ function library:CreateWindow()
     Menu.Active = true
     Menu.Draggable = true
 
-    local UserInputService = game:GetService("UserInputService")
-    UserInputService.InputBegan:Connect(function(input)
-        if input.KeyCode == Enum.KeyCode.F1 then
-            Menu.Visible = not Menu.Visible
-        end
-    end)
     UICorner.Parent = Menu
     
     shadowHolder.Name = "shadowHolder"
