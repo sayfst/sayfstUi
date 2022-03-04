@@ -15,7 +15,7 @@ setclipboard('Owner of menu: $ samuu#6783, Who inspired me: wyv#6626')
     wait(1)
     game.StarterGui:SetCore("SendNotification", {
         Title = 'Da hood';
-        Text = 'Press "f1" to toggle menu visible';
+        Text = 'Press "F1" to toggle menu visible';
         Duration = 10
     })
     
@@ -63,7 +63,12 @@ function library:CreateWindow()
     Menu.Active = true
     Menu.Draggable = true
 
-
+    local UserInputService = game:GetService("UserInputService")
+    UserInputService.InputBegan:Connect(function(input)
+        if input.KeyCode == Enum.KeyCode.F1 then
+            Menu.Visible = not Menu.Visible
+        end
+    end)
     UICorner.Parent = Menu
     
     shadowHolder.Name = "shadowHolder"
