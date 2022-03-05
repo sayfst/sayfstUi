@@ -15,7 +15,7 @@ setclipboard('Owner of menu: $ samuu#6783, Who inspired me: wyv#6626')
     wait(1)
     game.StarterGui:SetCore("SendNotification", {
         Title = 'Da hood';
-        Text = 'Press "F1" to toggle menu visible';
+        Text = 'Press "V" to toggle menu visible';
         Duration = 10
     })
     
@@ -62,6 +62,11 @@ function library:CreateWindow()
     Menu.Size = UDim2.new(0, 775, 0, 404)
     Menu.Active = true
     Menu.Draggable = true
+    game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+        if key == 'v' then
+            Menu.Visible = not Menu.Visible
+        end
+    end)
 
     UICorner.Parent = Menu
     
