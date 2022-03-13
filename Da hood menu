@@ -395,6 +395,88 @@ function Restart()
 end
 
 
+spawn(function()
+    local TimeUsingUi = Instance.new("ScreenGui")
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextLabel_2 = Instance.new("TextLabel")
+    
+    TimeUsingUi.Name = "TimeUsingUi"
+    TimeUsingUi.Parent = game.CoreGui
+    TimeUsingUi.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    Frame.Parent = TimeUsingUi
+    Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    Frame.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+    Frame.BackgroundTransparency = 0.500
+    Frame.Position = UDim2.new(0.5, 0, 0.931192636, 0)
+    Frame.Size = UDim2.new(0, 638, 0, 69)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Size = UDim2.new(0, 638, 0, 69)
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.Text = "Time using Da hood menu:"
+    TextLabel.TextColor3 = Color3.fromRGB(172, 172, 172)
+    TextLabel.TextSize = 23.000
+    
+    TextLabel_2.Parent = Frame
+    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel_2.BackgroundTransparency = 1.000
+    TextLabel_2.Position = UDim2.new(0, 0, 0.695652187, 0)
+    TextLabel_2.Size = UDim2.new(0, 638, 0, 21)
+    TextLabel_2.Font = Enum.Font.SourceSans
+    TextLabel_2.Text = "Press [Q] To hide"
+    TextLabel_2.TextColor3 = Color3.fromRGB(172, 172, 172)
+    TextLabel_2.TextSize = 23.000
+    
+    local function TWTEF_fake_script() 
+        local script = Instance.new('LocalScript', TextLabel)
+    
+        local PrimaryText = 'Time using Da hood menu: '
+        local SecondText = 'Press [O] To hide'
+        local H = 00
+        local M = 00
+        local S = 00
+        
+        game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+            if key == 'q' then
+                script.Parent.Parent.Visible = not script.Parent.Parent.Visible
+            end
+        end)
+        
+        spawn(function()
+            while true do
+                wait(3060)
+                H = H + 1
+            end
+        end)
+        
+        spawn(function()
+            while true do
+                wait(60)
+                M = M + 1
+            end
+        end)
+        
+        spawn(function()
+            while true do
+                wait(1)
+                S = S + 1
+            end
+        end)
+        
+        spawn(function()
+            while true do
+                script.Parent.Text = PrimaryText..'Hours: '..H..' Minutes: '..M..' Seconds: '..S
+                wait()
+            end
+        end)
+    end
+    coroutine.wrap(TWTEF_fake_script)()
+    
+end)
 
 wait(.1)
 
@@ -1909,104 +1991,3 @@ game.Players.LocalPlayer.Chatted:Connect(function(message)
        end
    end
 end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local TimeUsingUi = Instance.new("ScreenGui")
-    local Frame = Instance.new("Frame")
-    local TextLabel = Instance.new("TextLabel")
-    local TextLabel_2 = Instance.new("TextLabel")
-    
-    TimeUsingUi.Name = "TimeUsingUi"
-    TimeUsingUi.Parent = game.CoreGui
-    TimeUsingUi.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    
-    Frame.Parent = TimeUsingUi
-    Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-    Frame.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
-    Frame.BackgroundTransparency = 0.500
-    Frame.Position = UDim2.new(0.5, 0, 0.931192636, 0)
-    Frame.Size = UDim2.new(0, 638, 0, 69)
-    
-    TextLabel.Parent = Frame
-    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.BackgroundTransparency = 1.000
-    TextLabel.Size = UDim2.new(0, 638, 0, 69)
-    TextLabel.Font = Enum.Font.SourceSans
-    TextLabel.Text = "Time using Da hood menu:"
-    TextLabel.TextColor3 = Color3.fromRGB(172, 172, 172)
-    TextLabel.TextSize = 23.000
-    
-    TextLabel_2.Parent = Frame
-    TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel_2.BackgroundTransparency = 1.000
-    TextLabel_2.Position = UDim2.new(0, 0, 0.695652187, 0)
-    TextLabel_2.Size = UDim2.new(0, 638, 0, 21)
-    TextLabel_2.Font = Enum.Font.SourceSans
-    TextLabel_2.Text = "Press [Q] To hide"
-    TextLabel_2.TextColor3 = Color3.fromRGB(172, 172, 172)
-    TextLabel_2.TextSize = 23.000
-    
-    local function TWTEF_fake_script() 
-        local script = Instance.new('LocalScript', TextLabel)
-    
-        local PrimaryText = 'Time using Da hood menu: '
-        local SecondText = 'Press [O] To hide'
-        local H = 00
-        local M = 00
-        local S = 00
-        
-        game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
-            if key == 'q' then
-                script.Parent.Parent.Visible = not script.Parent.Parent.Visible
-            end
-        end)
-        
-        spawn(function()
-            while true do
-                wait(3060)
-                H = H + 1
-            end
-        end)
-        
-        spawn(function()
-            while true do
-                wait(60)
-                M = M + 1
-            end
-        end)
-        
-        spawn(function()
-            while true do
-                wait(1)
-                S = S + 1
-            end
-        end)
-        
-        spawn(function()
-            while true do
-                script.Parent.Text = PrimaryText..'Hours: '..H..' Minutes: '..M..' Seconds: '..S
-                wait()
-            end
-        end)
-    end
-    coroutine.wrap(TWTEF_fake_script)()
-    
