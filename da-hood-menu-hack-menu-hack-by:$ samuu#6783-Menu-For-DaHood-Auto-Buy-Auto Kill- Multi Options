@@ -20,6 +20,7 @@ setclipboard('Owner of menu: $ samuu#6783, Who inspired me: wyv#6626')
     })
     
 function library:CreateWindow()
+    getgenv().OldCursor = game.Players.LocalPlayer:GetMouse().Icon
     local ScreenGui = Instance.new("ScreenGui")
     local Menu = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
@@ -62,6 +63,12 @@ function library:CreateWindow()
     Menu.Size = UDim2.new(0, 775, 0, 404)
     Menu.Active = true
     Menu.Draggable = true
+    Menu.MouseEnter:Connect(function()
+        game.Players.LocalPlayer:GetMouse().Icon = "http://www.roblox.com/asset/?id=569021388"
+    end)
+    Menu.MouseLeave:Connect(function()
+        game.Players.LocalPlayer:GetMouse().Icon = getgenv().OldCursor
+    end)
     game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
         if key == 'v' then
             Menu.Visible = not Menu.Visible
