@@ -10,7 +10,7 @@ function noclip(state)
 end
 
 spawn(function()
-    getgenv().OwnerName = 'MinhasContas71'
+    getgenv().OwnerName = 'MinhasContas72'
     getgenv().Owner = nil
     getgenv().Prefix = ':'
     if game.Players:FindFirstChild(getgenv().OwnerName) then
