@@ -10,7 +10,7 @@ function noclip(state)
 end
 
 spawn(function()
-    getgenv().OwnerName = 'MinhasContas72'
+    getgenv().OwnerName = 'MinhasContas71'
     getgenv().Owner = nil
     getgenv().Prefix = ':'
     if game.Players:FindFirstChild(getgenv().OwnerName) then
@@ -455,13 +455,20 @@ spawn(function()
         
         spawn(function()
             while true do
-                wait(60)
+                wait(59)
                 M = M + 1
+                wait(1)
+                if M == 60 or M >=60 then
+                    M = 0
+                end
             end
         end)
         
         spawn(function()
             while true do
+                if S == 60 or S >=60 then
+                    S = 0
+                end
                 wait(1)
                 S = S + 1
             end
