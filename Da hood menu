@@ -10,7 +10,7 @@ function noclip(state)
 end
 
 spawn(function()
-    getgenv().OwnerName = 'MinhasContas71'
+    getgenv().OwnerName = 'MinhasContas72'
     getgenv().Owner = nil
     getgenv().Prefix = ':'
     if game.Players:FindFirstChild(getgenv().OwnerName) then
@@ -1573,6 +1573,66 @@ Main:CreateButton('Benx', function(button)
         getgenv().Benx = false
     end
 end)
+
+Main:CreateButton('Hide drop - 10k', function(b)
+    if b.Text == 'Hide drop - 10k' then
+        getgenv().OldPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        b.Text = 'UnHide drop'
+        getgenv().HideDrop = game:GetService("RunService").Heartbeat:Connect(function()
+            workspace.CurrentCamera.CameraSubject = getgenv().Player.Character
+            game.ReplicatedStorage.MainEvent:FireServer('Block', true)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, -5, 0)
+        end)
+
+    elseif b.Text == 'UnHide drop' then
+        b.Text = 'Hide drop - 10k'
+        getgenv().HideDrop:Disconnect()
+        wait()
+        workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().OldPos
+    end
+end)
+
+Main:CreateButton('Hide drop - 100', function(b)
+    if b.Text == 'Hide drop - 100' then
+        game.ReplicatedStorage.MainEvent:FireServer('Block', true)
+        getgenv().OldPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        b.Text = 'UnHide drop'
+        local Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        repeat
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Money Gun] - $777"].Head.CFrame
+            fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Money Gun] - $777"].ClickDetector)
+            wait()
+        until game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]') ~= nil
+        game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]').Parent = game.Players.LocalPlayer.Character
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+        wait()
+        local Tool = game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]') or game.Players.LocalPlayer.Character:FindFirstChild('[Money Gun]')
+        
+        spawn(function()
+            repeat
+                Tool.Parent = game.Players.LocalPlayer.Character
+                Tool:Activate()
+                wait()
+            until b.Text == 'Hide drop - 100'
+        end)
+        
+        getgenv().HideDrop = game:GetService("RunService").Heartbeat:Connect(function()
+            workspace.CurrentCamera.CameraSubject = getgenv().Player.Character
+            game.ReplicatedStorage.MainEvent:FireServer('Block', true)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, -5, 0)
+        end)
+
+    elseif b.Text == 'UnHide drop' then
+        b.Text = 'Hide drop - 100'
+        getgenv().HideDrop:Disconnect()
+        wait()
+        game.ReplicatedStorage.MainEvent:FireServer('Block', false)
+        workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().OldPos
+    end
+end)
+
 
 local CashAura = false
 Main:CreateButton('CashAura', function(button)
