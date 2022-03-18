@@ -10,7 +10,7 @@ function noclip(state)
 end
 
 spawn(function()
-    getgenv().OwnerName = 'MinhasContas72'
+    getgenv().OwnerName = 'MinhasContas32'
     getgenv().Owner = nil
     getgenv().Prefix = ':'
     if game.Players:FindFirstChild(getgenv().OwnerName) then
@@ -157,7 +157,7 @@ function Restart()
                 Humanoid = Character:WaitForChild("Humanoid")
 
                 Animation = Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").ClientAnimations.Crouching)
-                Animation.Looped = true
+                Animation.Looped = false
                 if args[1] == prefix .. 'benx' then
                     if args[2] == '.' then
                         pcall(function()
@@ -193,6 +193,9 @@ function Restart()
                             repeat wait() until getgenv().Benx == false
                             _G.Loop:Disconnect()
                             Animation:Stop()
+                            Animation:Stop()
+                            Animation:Stop()
+                            
                             wait(.2)
                         end)
                     elseif args[2] == game.Players.LocalPlayer.Name or args[2] == game.Players.LocalPlayer.DisplayName then
