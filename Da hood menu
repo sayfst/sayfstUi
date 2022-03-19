@@ -1735,6 +1735,34 @@ Main:CreateButton('Setup', function(button)
         button.Text = 'Setup'
     end
 end)
+Main:CreateButton('Setup', function(button)
+    if button.Text == 'Setup' then
+        button.Text = 'UnSetup'
+        local SetupAway = 0
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+        wait()
+        getgenv().OldPosSetup = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        spawn(function()
+            repeat SetupAway = SetupAway - .1 wait() until SetupAway == -5 or SetupAway <=5
+        end)
+        local Start = function()
+            getgenv().Setup = game:GetService("RunService").Heartbeat:Connect(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().OldPosSetup + Vector3.new(0, SetupAway, 0)
+            end)
+        end
+        local Stop = function()
+            getgenv().Setup:Disconnect()
+        end
+
+        Start()
+        repeat wait() until button.Text == 'Setup'
+        Stop()
+
+    elseif button.Text == 'UnSetup' then
+        button.Text = 'Setup'
+    end
+end)
+
 
 Main:CreateButton('Aim lock', function()
     local L_1_ = "t"
