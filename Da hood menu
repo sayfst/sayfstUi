@@ -1739,38 +1739,18 @@ end)
 Main:CreateButton('Crash server', function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
 end)
-
-Main:CreateTab('Animations')
-
-for i,v in pairs(game:GetService("ReplicatedStorage").ClientAnimations:GetChildren()) do
-    if v then
-        
-        pcall(function()
-            local animation = false 
-            Main:CreateButton(v.Name, function(button)
-                button.Text = 'Un'..v.Name
-                if animation == false then
-                    local anim = v
-                    animation = true
-                    Player = game.Players.LocalPlayer
-                    Character = Player.Character or Player.CharacterAdded:wait()
-                    
-                    Humanoid = Character:WaitForChild("Humanoid")
-                    Animation = Humanoid:LoadAnimation(anim)
-                    Animation.Looped = true
-                    Animation:Play()
-                    
-                else
-                    animation = false
-                    button.Text = v.Name
-                    Animation.Looped = false
-                    wait()
-                    Animation:Stop()
-                end
-            end)
+local WarnFarm = false
+Main:CreateButton('Auto farm', function(button)
+    if WarnFarm == false then
+        button.Text = 'Really?'
+        delay(1, function()
+            button.Text = 'Auto farm'
         end)
+        WarnFarm = true
+    elseif WarnFarm == true then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/lerkermer/lua-projects/master/SwagAutofarm"))()
     end
-end
+end)
 
 -- Select players
 
