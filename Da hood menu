@@ -1,5 +1,7 @@
 
-        function noclip(state)
+  
+  
+  function noclip(state)
             getgenv().Noclip = state
         
             game:GetService('RunService').Stepped:connect(function()
@@ -17,7 +19,11 @@
             if game.Players:FindFirstChild(getgenv().OwnerName) then
                 getgenv().Owner = game.Players:FindFirstChild(getgenv().OwnerName)
             end
-        
+            pcall(function()
+                getgenv().Host = getgenv().OwnerName
+            
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/AltControl'))()
+              end);
         end)
         
         function Restart()
