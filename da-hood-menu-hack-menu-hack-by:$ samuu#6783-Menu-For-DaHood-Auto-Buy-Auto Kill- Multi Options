@@ -309,7 +309,7 @@ function library:CreateWindow()
         
         UIGridLayout.Parent = Tab
         UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        UIGridLayout.CellSize = UDim2.new(0, 145, 0, 47)
+        UIGridLayout.CellSize = UDim2.new(0, 145, 0, 23.5)
         
         ButtonTab.Name = "ButtonTab"
         ButtonTab.Parent = Tabs
