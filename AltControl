@@ -42,19 +42,25 @@ function a()
     if game:GetService('Players'):FindFirstChild(getgenv().Host) then
         getgenv().Player = game.Players:FindFirstChild(getgenv().Host)
         if getgenv().Player ~= game.Players.LocalPlayer then
-    
             getgenv().Player.Chatted:Connect(function(message)
                 local prefix = getgenv().Prefix
                 message = string.lower(message)
         
                 local args = message:split(' ')
         
+                if args[1] == prefix .. 'showmoney' then
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("This alt have: $"..game.Players.LocalPlayer.DataFolder.Currency.Value, "All")
+                end
                 if args[1] == prefix .. 'drop' then
                     if args[2] == 'true' then
                         getgenv().Drop = true
                         spawn(function()
                             while getgenv().Drop == true do
-                                Drop(10000)
+                                if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
+                                    Drop(10000)
+                                else
+                                    Drop(game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                end
                                 wait()
                             end
                         end)
@@ -145,7 +151,7 @@ function a()
                 end
                 if args[1] == prefix .. 'setup' then
                     if args[2] == 'host' then
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.HumanoidRootPart.Position + Vector3.new(0, 5, 0))
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.HumanoidRootPart.Position + Vector3.new(3, 5, math.random(0, 5)))
                         wait()
                         Air(true)
                     elseif args[2] == 'false' then
@@ -188,6 +194,8 @@ function a()
                     end
                 end
             end)
+        else
+            game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Ok", "All")
         end
     end
     
