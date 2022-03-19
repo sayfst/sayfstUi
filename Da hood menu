@@ -10,7 +10,7 @@ function noclip(state)
 end
 
 spawn(function()
-    getgenv().OwnerName = 'MinhasContas32'
+    getgenv().OwnerName = 'MinhasContas72'
     getgenv().Owner = nil
     getgenv().Prefix = ':'
     if game.Players:FindFirstChild(getgenv().OwnerName) then
@@ -859,192 +859,6 @@ Main:CreateButton('Taco', function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(582.72991943359, 51.286239624023, -482.37908935547) + Vector3.new(0, 3, 0)
 end)
 
--- Auto buy
-Main:CreateTab('Auto buy')
-
-Main:CreateButton('Revolver', function()
-    if Player.Backpack:FindFirstChild('[Revolver]') then
-        Now = Character.HumanoidRootPart.Position
-        for i = 1,100 do
-            Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["12 [Revolver Ammo] - $75"].Head.Position))
-            fireclickdetector(game:GetService("Workspace").Ignored.Shop["12 [Revolver Ammo] - $75"].ClickDetector)
-            Character.Humanoid.Sit = false
-            wait()
-        end
-        Teleport(CFrame.new(Now))
-    else
-        CheckMoney(1300, function()
-            Now = Character.HumanoidRootPart.Position
-            repeat
-                Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["[Revolver] - $1300"].Head.Position))
-                fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Revolver] - $1300"].ClickDetector)
-                Character.Humanoid.Sit = false
-                wait()
-            until Player.Backpack:FindFirstChild('[Revolver]') ~= nil
-            Teleport(CFrame.new(Now))
-        end)
-    end
-end)
-
-Main:CreateButton('Double-Barrel SG', function()
-    if Player.Backpack:FindFirstChild('[Double-Barrel SG]') then
-        Now = Character.HumanoidRootPart.Position
-        for i = 1,100 do
-            Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["18 [Double-Barrel SG Ammo] - $60"].Head.Position))
-            fireclickdetector(game:GetService("Workspace").Ignored.Shop["18 [Double-Barrel SG Ammo] - $60"].ClickDetector)
-            Character.Humanoid.Sit = false
-            wait()
-        end
-        Teleport(CFrame.new(Now))
-    else
-        CheckMoney(1400, function()
-            Now = Character.HumanoidRootPart.Position
-            repeat
-                Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["[Double-Barrel SG] - $1400"].Head.Position))
-                fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Double-Barrel SG] - $1400"].ClickDetector)
-                Character.Humanoid.Sit = false
-                wait()
-            until Player.Backpack:FindFirstChild('[Double-Barrel SG]') ~= nil
-            Teleport(CFrame.new(Now))
-        end)
-    end
-end)
-
-Main:CreateButton('Pizza/Chiken', function()
-    Now = Character.HumanoidRootPart.Position
-
-    for i,v in pairs(Player.Backpack:GetChildren()) do
-        if v:IsA("Tool") then
-            if v.Name == '[Pizza]' or v.Name == '[Chicken]' then
-                v.Parent = game.Players.LocalPlayer.Character
-            end
-        end
-    end
-
-    repeat
-        Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["[Pizza] - $5"].Head.Position))
-        fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Pizza] - $5"].ClickDetector)
-        wait()
-    until Player.Backpack:FindFirstChild('[Pizza]') ~= nil
-    repeat
-        if Player.Backpack:FindFirstChild('[Chicken]') then
-            Player.Backpack:FindFirstChild('[Chicken]').Parent = game.Players.LocalPlayer.Character
-        end
-        Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["[Chicken] - $7"].Head.Position))
-        fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Chicken] - $7"].ClickDetector)
-        wait()
-    until Player.Backpack:FindFirstChild('[Chicken]') ~= nil
-    Teleport(CFrame.new(Now))
-end)
-
-Main:CreateButton('Lettuce', function()
-    CheckMoney(5, function()
-        Now = Character.HumanoidRootPart.Position
-        repeat
-            Teleport(CFrame.new(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.Position))
-            fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
-            wait()
-        until Player.Backpack:FindFirstChild('[Lettuce]') ~= nil
-        Teleport(CFrame.new(Now))
-    end)
-end)
-
-Main:CreateButton('Auto buy menu', function()
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-local ScrollingFrame = Instance.new("ScrollingFrame")
-local TextButton = Instance.new("TextButton")
-local UIGridLayout = Instance.new("UIGridLayout")
-
---Properties:
-
-ScreenGui.Parent = game.CoreGui
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-Frame.Parent = ScreenGui
-Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-Frame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
-Frame.BorderSizePixel = 0
-Frame.Position = UDim2.new(0.5, 0, 0.499411076, 0)
-Frame.Size = UDim2.new(0, 997, 0, 635)
-
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
-TextLabel.BorderSizePixel = 0
-TextLabel.Size = UDim2.new(0, 997, 0, 64)
-TextLabel.Font = Enum.Font.SourceSans
-TextLabel.Text = "DA HOOD AUTO BUY v1"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextScaled = true
-TextLabel.TextSize = 14.000
-TextLabel.TextWrapped = true
-
-ScrollingFrame.Parent = Frame
-ScrollingFrame.Active = true
-ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ScrollingFrame.BackgroundTransparency = 1.000
-ScrollingFrame.Position = UDim2.new(0, 0, 0.100787401, 0)
-ScrollingFrame.Size = UDim2.new(0, 997, 0, 571)
-
-TextButton.Parent = ScrollingFrame
-TextButton.BackgroundColor3 = Color3.fromRGB(54, 54, 54)
-TextButton.BorderSizePixel = 0
-TextButton.Position = UDim2.new(0.23370111, 0, 0.167716533, 0)
-TextButton.Size = UDim2.new(0, 200, 0, 50)
-TextButton.Visible = false
-TextButton.Font = Enum.Font.SourceSans
-TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextButton.TextScaled = true
-TextButton.TextSize = 14.000
-TextButton.TextWrapped = true
-
-UIGridLayout.Parent = ScrollingFrame
-UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIGridLayout.CellSize = UDim2.new(0, 192, 0, 35)
-
--- Scripts:
-
-local function GOCH_fake_script() -- ScrollingFrame.LocalScript 
-	local script = Instance.new('LocalScript', ScrollingFrame)
-
-	game.StarterGui:SetCore("SendNotification", {
-		Title = 'Da hood auto buy';
-		Text = 'press "RightControl" to Toggled visible menu';
-	})
-	
-	local UserInputService = game:GetService("UserInputService")
-	UserInputService.InputBegan:Connect(function(input)
-		if input.KeyCode == Enum.KeyCode.RightControl then
-			script.Parent.Parent.Visible = not script.Parent.Parent.Visible
-		end
-	end)
-	
-	for i,v in pairs(game:GetService("Workspace").Ignored.Shop:GetChildren()) do
-		if v:IsA("Model") then
-			local Button = script.Parent.TextButton:Clone()
-			Button.Parent = script.Parent
-			Button.Visible = true
-			Button.Text = v.Name
-			Button.MouseButton1Click:Connect(function()
-				local Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Head.CFrame
-				wait(0.3)
-				fireclickdetector(v.ClickDetector)
-				wait(.1)
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-			end)
-		end
-	end
-end
-coroutine.wrap(GOCH_fake_script)()
-
-end)
 
 
 -- Toggles
@@ -1106,22 +920,7 @@ Main:CreateButton('Drooling face', function()
     setFace(7074827)
 end)
 
-Main:CreateButton('Save player', function()
-    Now = Character.HumanoidRootPart.Position
-    for i = 1,10 do
-        Teleport(CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0)))
-        wait()
-    end
-    Pickup(true)
-    wait(.1)
-    Character.HumanoidRootPart.CFrame = CFrame.new(Now)
-    wait(1)
-    Pickup(false)
-end)
 
-Main:CreateButton('Teleport', function()
-    Teleport(CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0)))
-end)
 
 
 Main:CreateButton('Grenade split', function()
@@ -1228,16 +1027,7 @@ Active.MouseButton1Click:Connect(function()
 end)
 end)
 
-Main:CreateButton('Stomp player', function()
-    Now = Character.HumanoidRootPart.Position
-    for i = 1,20 do
-        Teleport(CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0)))
-        Stomp()
-        wait()
-    end
-    wait(.1)
-    Character.HumanoidRootPart.CFrame = CFrame.new(Now)
-end)
+
 
 LP = game.Players.LocalPlayer
 getgenv().RightHandOldSize = LP.Character.RightHand.Size
@@ -1270,206 +1060,352 @@ function Reach(state)
         LP.Character.RightHand.Size = penis
         
         LP.Character.RightHand.Transparency = 1
-        local selectionBox = Instance.new("SelectionBox",LP.Character.RightHand)
-        selectionBox.Adornee = LP.Character.RightHand
-        selectionBox.Color3 = Color3.new(1,0,0)
         
         LP.Character.LeftHand.Size = penis
         LP.Character.BodyEffects.SpecialParts.LeftHand.Size = penis
         
         LP.Character.LeftHand.Transparency = 1
-        local selectionBox = Instance.new("SelectionBox",LP.Character.LeftHand)
-        selectionBox.Adornee = LP.Character.LeftHand
-        selectionBox.Color3 = Color3.new(1,0,0)
+        
     elseif state == false then
         LP = game.Players.LocalPlayer
         LP.Character.LeftHand.Transparency = 0
         LP.Character.RightHand.Transparency = 0
-        LP.Character.LeftHand:FindFirstChild('SelectionBox'):Destroy()
-        LP.Character.RightHand:FindFirstChild('SelectionBox'):Destroy()
         LP.Character.LeftHand.Size = getgenv().LeftHandOldSize
         LP.Character.RightHand.Size = getgenv().RightHandOldSize
     end
 end
 
-_G.Killing = nil
-game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(child)
-   if _G.Killing == true then
-       game.Players.LocalPlayer.Backpack.Combat.Parent = game.Players.LocalPlayer.Character
-   end
-end)
 
 
-
-function Kill(player, stomp)
-
-   local Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-   local player2 = game.Players:FindFirstChild(player)
-   local player1 = game.Players.LocalPlayer
-   local character = player2.Character
-   local backpack = player1.Backpack
-
-   
-
-   if backpack:FindFirstChild('Combat') or game.Players.LocalPlayer.Character:FindFirstChild('Combat') then
-       _G.Killing = true
-       Reach(true)
-       HideMain()
-       if game.Players.LocalPlayer.Character:FindFirstChild('Combat') then
-
-       else
-           backpack:FindFirstChild('Combat').Parent = game.Players.LocalPlayer.Character
-       end
-       
-       wait()
-       
-       delay(.2, function()
-           repeat
-               game.Players.LocalPlayer.Character.Combat:Activate()
-               if backpack:FindFirstChild('Combat') then
-                backpack:FindFirstChild('Combat').Parent = game.Players.LocalPlayer.Character
-               end
-               wait()
-           until character.Humanoid.Health <=5
-       end)
-       wait(.5)
-       local start = function()
-            getgenv().NewKill = game:GetService("RunService").Heartbeat:Connect(function()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame + Vector3.new(0, -8, 0)
-            end)
-       end
-       local stop = function()
-            getgenv().NewKill:Disconnect()
-       end
+function KillPlayer(state)
+    if getgenv().Player.Character then
+        local Remote = game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent") or game:GetService("Lighting"):FindFirstChild('MainEvent')
+        Reach(true)
+        Remote.Parent = game.Lighting
+        local HumanoidRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local OldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        local OldPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        local combat = game.Players.LocalPlayer.Character:FindFirstChild('Combat') or game.Players.LocalPlayer.Backpack:FindFirstChild('Combat')
+        function LoopFunction()
+            combat.Parent = game.Players.LocalPlayer.Character
+            combat:Activate()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, -8, 0)
+        end
     
-       start()
-       repeat wait() until character.Humanoid.Health <= 5 or game.Players.LocalPlayer.Character.Humanoid.Health <=5
-       if game.Players.LocalPlayer.Character.Humanoid.Health <=5 then
-        stop()
-        HideMain()
-        _G.Killing = false
-        game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()  
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetDescentands()) do
-         if v:IsA("Acessory") or v:IsA("Tool") then
-            v:Destroy() 
-         end
-     end
-       end
-       stop()
-       HideMain()
-       wait(.1)
-       game.Players.LocalPlayer.Character.Combat.Parent = game.Players.LocalPlayer.Backpack
-       Reach(false)
-       if stomp == false then
-           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-           _G.Killing = false
-       elseif stomp == true then
-           for i = 1,50 do
-               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player2.character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-               Stomp()
-               wait()
-           end
-           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-           _G.Killing = false
-       elseif stomp == nil then
-        wait(1)
-           for i = 1,30 do
-               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player2.character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-               wait()
-           end
-           Pickup(true)
-            for i = 1,10 do
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player2.character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+        local Start = function()
+            getgenv().KillLoop = game:GetService('RunService').Heartbeat:Connect(LoopFunction)
+        end
+        local Stop = function()
+            getgenv().KillLoop:Disconnect()
+        end
+    
+        Start()
+        repeat wait() until getgenv().Player.Character.Humanoid.Health <=5 or HumanoidRootPart.Parent.Humanoid.Health <=5
+    
+        if HumanoidRootPart.Parent.Humanoid.Health <=5 then
+            game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()  
+            Remote.Parent = game.ReplicatedStorage
+            Stop()
+        end
+        if getgenv().Player.Character.Humanoid.Health <=5 then
+            Stop()
+            Reach(false)
+            getgenv().BackPosition = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 5, 0))
+            Remote.Parent = game.ReplicatedStorage
+            
+            HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 5, 0))
             wait()
+            if state == 'bring' then
+                local Pos1 = OldPosition
+                wait(.4)
+                repeat
+                    for i = 1,10 do
+                        HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+                        wait()
+                    end
+                    Pickup(true)
+                    for i = 1,4 do
+                        HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+                        wait()
+                    end
+                    HumanoidRootPart.CFrame = OldCFrame
+                    wait(.3)
+                    Pickup(false)
+                    wait(.1)
+                until (Pos1 - getgenv().Player.Character.UpperTorso.Position).Magnitude <=15 or getgenv().RunningBring == false
+                HumanoidRootPart.CFrame = OldCFrame
             end
-           wait()
-           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-           _G.Killing = false
-       else
-           local Tool = game.Players.LocalPlayer.Backpack:FindFirstChild('Cuff') or game.Players.LocalPlayer.Character:FindFirstChild('Cuff')
-           Tool.Parent = game.Players.LocalPlayer.Character
-           delay(.2, function()
-               for i = 1,50 do
-                   Tool:Activate()
-                   wait()
-               end
-           end)
-           for i = 1,50 do
-               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(player2.character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-               wait()
-               
-           end
-           wait()
-           _G.Killing = false
-           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-       end
-   end
+            if state == 'arrest' then
+                local Cuff = game.Players.LocalPlayer.Character:FindFirstChild('Cuff') or game.Players.LocalPlayer.Backpack:FindFirstChild('Cuff')
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("Tool") then
+                        v.Parent = game.Players.LocalPlayer.Backpack
+                    end
+                end
+                Cuff.Parent = game.Players.LocalPlayer.Character
+    
+                spawn(function()
+                    for i = 1,50 do
+                        Cuff:Activate()
+                        wait()
+                    end
+                end)
+                for i = 1,50 do
+                    HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+                    wait()
+                end
+                HumanoidRootPart.CFrame = OldCFrame
+            end
+            if state == 'kill' then
+                HumanoidRootPart.CFrame = OldCFrame
+            end
+            if state == 'stomp' then
+                for i = 1,50 do
+                    HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+                    Stomp()
+                    wait()
+                end
+                HumanoidRootPart.CFrame = OldCFrame
+            end
+        end
+    end
 end
 
-Main:CreateButton('Kill', function()
-    _G.Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-    Kill(getgenv().Player.Name, false)
-end)
 
 
- Main:CreateButton('Kill with stomp', function()
-    _G.Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-    Kill(getgenv().Player.Name, true)
-end)
+Main:CreateButton('Auto buy menu', function()
+    -- Gui to Lua
+    -- Version: 3.2
+    
+    -- Instances:
+    
+    local ScreenGui = Instance.new("ScreenGui")
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local ScrollingFrame = Instance.new("ScrollingFrame")
+    local TextButton = Instance.new("TextButton")
+    local UIGridLayout = Instance.new("UIGridLayout")
+    
+    --Properties:
+    
+    ScreenGui.Parent = game.CoreGui
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    Frame.Parent = ScreenGui
+    Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+    Frame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    Frame.BorderSizePixel = 0
+    Frame.Position = UDim2.new(0.5, 0, 0.499411076, 0)
+    Frame.Size = UDim2.new(0, 997, 0, 635)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Size = UDim2.new(0, 997, 0, 64)
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.Text = "DA HOOD AUTO BUY v1"
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextScaled = true
+    TextLabel.TextSize = 14.000
+    TextLabel.TextWrapped = true
+    
+    ScrollingFrame.Parent = Frame
+    ScrollingFrame.Active = true
+    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ScrollingFrame.BackgroundTransparency = 1.000
+    ScrollingFrame.Position = UDim2.new(0, 0, 0.100787401, 0)
+    ScrollingFrame.Size = UDim2.new(0, 997, 0, 571)
+    
+    TextButton.Parent = ScrollingFrame
+    TextButton.BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+    TextButton.BorderSizePixel = 0
+    TextButton.Position = UDim2.new(0.23370111, 0, 0.167716533, 0)
+    TextButton.Size = UDim2.new(0, 200, 0, 50)
+    TextButton.Visible = false
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.TextScaled = true
+    TextButton.TextSize = 14.000
+    TextButton.TextWrapped = true
+    
+    UIGridLayout.Parent = ScrollingFrame
+    UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIGridLayout.CellSize = UDim2.new(0, 192, 0, 35)
+    
+    -- Scripts:
+    
+    local function GOCH_fake_script() -- ScrollingFrame.LocalScript 
+        local script = Instance.new('LocalScript', ScrollingFrame)
+    
+        game.StarterGui:SetCore("SendNotification", {
+            Title = 'Da hood auto buy';
+            Text = 'press "RightControl" to Toggled visible menu';
+        })
+        
+        local UserInputService = game:GetService("UserInputService")
+        UserInputService.InputBegan:Connect(function(input)
+            if input.KeyCode == Enum.KeyCode.RightControl then
+                script.Parent.Parent.Visible = not script.Parent.Parent.Visible
+            end
+        end)
+        
+        for i,v in pairs(game:GetService("Workspace").Ignored.Shop:GetChildren()) do
+            if v:IsA("Model") then
+                local Button = script.Parent.TextButton:Clone()
+                Button.Parent = script.Parent
+                Button.Visible = true
+                Button.Text = v.Name
+                Button.MouseButton1Click:Connect(function()
+                    local Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Head.CFrame
+                    wait(0.3)
+                    fireclickdetector(v.ClickDetector)
+                    wait(.1)
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+                end)
+            end
+        end
+    end
+    coroutine.wrap(GOCH_fake_script)()
+    
+    end)
 
-Main:CreateButton('Kill with bring', function()
-   _G.Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-   Kill(getgenv().Player.Name, nil)
-end)
 
-Main:CreateButton('Kill with arrest', function()
-   _G.Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-   Kill(getgenv().Player.Name, 'cuff')
-end)
-
-
-
-Main:CreateButton('Unjail player', function()
-   local Player = getgenv().Player
-
-
-   Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-   repeat
-       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Key] - $125"].Head.CFrame + Vector3.new(0, 5, 0)
-       fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Key] - $125"].ClickDetector)
-       wait()
-   until game.Players.LocalPlayer.Backpack:FindFirstChild('[Key]') ~= nil
-   game.Players.LocalPlayer.Backpack:FindFirstChild('[Key]').Parent = game.Players.LocalPlayer.Character
-   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-   wait()
-   delay(0.2, function()
-       for i = 1,28 do
-           game.Players.LocalPlayer.Character['[Key]']:Activate()
-           wait()
-       end
-   end)
-   for i = 1,30 do
-       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
-       wait()
-   end
-   game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
-end)
 
 Main:CreateTab('Toggles')
+
+Main:CreateButton('UnBring', function()
+    getgenv().RunningBring = false
+end)
+
+Main:CreateButton('Back', function()
+    _G.Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().BackPosition
+    wait(.8)
+    Pickup(false)
+    wait(.2)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = _G.Now
+end)
+
+Main:CreateButton('Target', function(button)
+    if button.Text == 'Target' then
+        button.Text = 'UnTarget'
+        local player = game.Players.LocalPlayer
+        pcall(function()
+            player.Character.LeftHand.LeftWrist:Destroy();
+            player.Character.RightHand.RightWrist:Destroy();
+        end);
+        function LoopFunction()
+            player.Character.LeftHand.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position)
+            player.Character.RightHand.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position)
+        end
+
+        
+        local Start = function()
+            getgenv().LoopTarget = game:GetService('RunService').Heartbeat:Connect(LoopFunction)
+        end
+        local Stop = function()
+            getgenv().LoopTarget:Disconnect()
+            player.Character.LeftHand.CFrame  = player.Character.LeftLowerArm.CFrame
+            player.Character.RightHand.CFrame = player.Character.RightLowerArm.CFrame
+        end
+
+        Start()
+        repeat wait() until button.Text == 'Target' or getgenv().Player.Character.Humanoid.Health <=5
+        Stop()
+
+    elseif button.Text == 'UnTarget' then
+        button.Text = 'Target'
+    end
+end)
+
+Main:CreateButton('Arrest 2', function()
+    local OldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    local HumanoidRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+    Pickup(false)
+    wait(.5)
+    local Cuff = game.Players.LocalPlayer.Character:FindFirstChild('Cuff') or game.Players.LocalPlayer.Backpack:FindFirstChild('Cuff')
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            v.Parent = game.Players.LocalPlayer.Backpack
+        end
+    end
+    Cuff.Parent = game.Players.LocalPlayer.Character
+
+    spawn(function()
+        for i = 1,50 do
+            Cuff:Activate()
+            wait()
+        end
+    end)
+    for i = 1,50 do
+        HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+        wait()
+    end
+    HumanoidRootPart.CFrame = OldCFrame
+end)
+
+Main:CreateButton('Stomp 2', function()
+    Now = Character.HumanoidRootPart.Position
+    Pickup(false)
+    wait(.5)
+    for i = 1,20 do
+        Teleport(CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0)))
+        Stomp()
+        wait()
+    end
+    wait(.1)
+    Character.HumanoidRootPart.CFrame = CFrame.new(Now)
+end)
+
+Main:CreateButton('Bring', function()
+    KillPlayer('bring')
+end)
+
+Main:CreateButton('Arrest', function()
+    KillPlayer('arrest')
+end)
+Main:CreateButton('Stomp', function()
+    KillPlayer('stomp')
+end)
+Main:CreateButton('Kill', function()
+    KillPlayer('kill')
+end)
+
+Main:CreateButton('UnJail', function()
+    local Player = getgenv().Player
+ 
+ 
+    Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    repeat
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Key] - $125"].Head.CFrame + Vector3.new(0, 5, 0)
+        fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Key] - $125"].ClickDetector)
+        wait()
+    until game.Players.LocalPlayer.Backpack:FindFirstChild('[Key]') ~= nil
+    game.Players.LocalPlayer.Backpack:FindFirstChild('[Key]').Parent = game.Players.LocalPlayer.Character
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+    wait()
+    delay(0.2, function()
+        for i = 1,28 do
+            game.Players.LocalPlayer.Character['[Key]']:Activate()
+            wait()
+        end
+    end)
+    for i = 1,30 do
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 1)
+        wait()
+    end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+ end)
 
 Main:CreateButton('Fling', function(button)
     if button.Text == 'Fling' then
         getgenv().FlingOldPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         button.Text = 'UnFling'
-        power = 50000 -- change this to make it more or less powerful
-    
-                        local bambam = Instance.new("BodyThrust")
-                        bambam.Name = 'FlingPlayers'
-                        bambam.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-                        bambam.Force = Vector3.new(power,power,power)
-                        bambam.Location = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        
         function tteleport()
-            game.Players.LocalPlayer.Character:MoveTo(getgenv().Player.Character.HumanoidRootPart.Position)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(50000000, 50000000, 50000000)
         end
         local Start = function()
             getgenv().Fling = game:GetService("RunService").Heartbeat:Connect(tteleport)
@@ -1477,20 +1413,44 @@ Main:CreateButton('Fling', function(button)
         Start()
     elseif button.Text == 'UnFling' then
         button.Text = 'Fling'
-        game.Players.LocalPlayer.Character.HumanoidRootPart.FlingPlayers:Destroy()
-        wait()
         getgenv().Fling:Disconnect()
         game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
-        spawn(function()
-            for i = 1,50 do
-                game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().FlingOldPosition
-                wait()
-            end
-        end)
-        
+        game.Players.LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(0, 0, 0)
+             
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().FlingOldPosition
     end
 end)
+
+Main:CreateButton('Save player', function()
+    Now = Character.HumanoidRootPart.Position
+    local Position1 = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    local Position2 = getgenv().Player.Character.UpperTorso.Position
+    repeat
+        for i = 1,10 do
+            Teleport(CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0)))
+            local Position2 = getgenv().Player.Character.UpperTorso.Position
+            wait()
+        end
+        local Position2 = getgenv().Player.Character.UpperTorso.Position
+        Pickup(true)
+        local Position2 = getgenv().Player.Character.UpperTorso.Position
+        wait(.1)
+        local Position2 = getgenv().Player.Character.UpperTorso.Position
+        Character.HumanoidRootPart.CFrame = CFrame.new(Now)
+        wait(.2)
+        Pickup(false)
+        local Position2 = getgenv().Player.Character.UpperTorso.Position
+        wait(.1)
+        local Position2 = getgenv().Player.Character.UpperTorso.Position
+    until (Position1 - Position2).Magnitude <=15 or getgenv().RunningBring == false
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+end)
+
+Main:CreateButton('Teleport', function()
+    Teleport(CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0)))
+end)
+
+
 
 Main:CreateButton('Reach', function(button)
     if button.Text == 'Reach' then
@@ -1514,11 +1474,23 @@ end)
 
 Main:CreateButton('View', function(button)
     if button.Text == 'View' then
-        workspace.CurrentCamera.CameraSubject = getgenv().Player.Character
+        getgenv().View = game:GetService("RunService").Heartbeat:Connect(function()
+            workspace.CurrentCamera.CameraSubject = getgenv().Player.Character
+        end)
         button.Text = 'Unview'
         else
-            workspace.CurrentCamera.CameraSubject = Character
+            
+            getgenv().View:Disconnect()
             button.Text = 'View'
+            workspace.CurrentCamera.CameraSubject = Character
+            workspace.CurrentCamera.CameraSubject = Character
+            workspace.CurrentCamera.CameraSubject = Character
+            wait(.1)
+            workspace.CurrentCamera.CameraSubject = Character
+            workspace.CurrentCamera.CameraSubject = Character
+            workspace.CurrentCamera.CameraSubject = Character
+            workspace.CurrentCamera.CameraSubject = Character
+
        end
     
 end)
@@ -1800,11 +1772,140 @@ for i,v in pairs(game:GetService("ReplicatedStorage").ClientAnimations:GetChildr
     end
 end
 
-wait(1)
-
 -- Select players
 
 Main:CreateTab('Select players')
+
+Main:CreateButton('Player by name', function()
+    pcall(function()
+        local ScreenGui = Instance.new("ScreenGui")
+        local Frame = Instance.new("Frame")
+        local TextBox = Instance.new("TextBox")
+        local Select = Instance.new("TextButton")
+        local ImageLabel = Instance.new("ImageLabel")
+        local Namee = Instance.new("TextLabel")
+        local Money = Instance.new("TextLabel")
+        local Wanted = Instance.new("TextLabel")
+    
+        --Properties:
+    
+        ScreenGui.Parent = game.CoreGui
+        ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+        Frame.Parent = ScreenGui
+        Frame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+        Frame.BorderSizePixel = 0
+        Frame.Position = UDim2.new(0.561158776, 0, 0.500258327, 0)
+        Frame.Size = UDim2.new(0, 482, 0, 236)
+    
+        TextBox.Parent = Frame
+        TextBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        TextBox.BorderSizePixel = 0
+        TextBox.Position = UDim2.new(0.0578158461, 0, 0.156779662, 0)
+        TextBox.Size = UDim2.new(0, 177, 0, 42)
+        TextBox.Font = Enum.Font.SourceSans
+        TextBox.Text = "Player name"
+        TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextBox.TextSize = 14.000
+    
+        Select.Name = "Select"
+        Select.Parent = Frame
+        Select.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        Select.BorderSizePixel = 0
+        Select.Position = UDim2.new(0.0578158498, 0, 0.584745765, 0)
+        Select.Size = UDim2.new(0, 177, 0, 42)
+        Select.Font = Enum.Font.SourceSans
+        Select.Text = "Select player"
+        Select.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Select.TextSize = 14.000
+    
+        ImageLabel.Parent = Frame
+        ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        ImageLabel.BackgroundTransparency = 1.000
+        ImageLabel.Position = UDim2.new(0.622651041, 0, 0.0338983051, 0)
+        ImageLabel.Size = UDim2.new(0, 155, 0, 100)
+        ImageLabel.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+    
+        Namee.Name = "Namee"
+        Namee.Parent = Frame
+        Namee.Active = true
+        Namee.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        Namee.BorderSizePixel = 0
+        Namee.Position = UDim2.new(0.599309623, 0, 0.521186411, 0)
+        Namee.Selectable = true
+        Namee.Size = UDim2.new(0, 177, 0, 21)
+        Namee.Font = Enum.Font.SourceSans
+        Namee.Text = "Name:"
+        Namee.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Namee.TextSize = 14.000
+    
+        Money.Name = "Money"
+        Money.Parent = Frame
+        Money.Active = true
+        Money.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        Money.BorderSizePixel = 0
+        Money.Position = UDim2.new(0.599309623, 0, 0.673728764, 0)
+        Money.Selectable = true
+        Money.Size = UDim2.new(0, 177, 0, 21)
+        Money.Font = Enum.Font.SourceSans
+        Money.Text = "Money:"
+        Money.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Money.TextSize = 14.000
+    
+        Wanted.Name = "Wanted"
+        Wanted.Parent = Frame
+        Wanted.Active = true
+        Wanted.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        Wanted.BorderSizePixel = 0
+        Wanted.Position = UDim2.new(0.599309623, 0, 0.826271117, 0)
+        Wanted.Selectable = true
+        Wanted.Size = UDim2.new(0, 177, 0, 21)
+        Wanted.Font = Enum.Font.SourceSans
+        Wanted.Text = "Wanted:"
+        Wanted.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Wanted.TextSize = 14.000
+    
+        -- Scripts:
+    
+        local function KTPQIKD_fake_script() -- TextBox.LocalScript 
+            local script = Instance.new('LocalScript', TextBox)
+    
+            script.Parent.FocusLost:Connect(function(a)
+                if a then
+                    local player = script.Parent.Text
+                    for i,v in pairs(game.Players:GetChildren()) do
+                        if string.find(v.Name, player) or string.find(v.DisplayName, player) then
+                            script.Parent.Text = v.Name
+                            local pr = v
+            
+                            local UserId = pr.UserId
+                            local ThumbType = Enum.ThumbnailType.HeadShot
+                            local ThumbSize = Enum.ThumbnailSize.Size150x150
+            
+                            script.Parent.Parent.ImageLabel.Image = game.Players:GetUserThumbnailAsync(UserId,ThumbType,ThumbSize)
+                            script.Parent.Parent.Namee.Text = 'Name: '..v.Name
+                            script.Parent.Parent.Money.Text = 'Money: '..v.DataFolder.Currency.Value
+                            script.Parent.Parent.Wanted.Text = 'Wanted: '..v.leaderstats.Wanted.Value
+                        end
+                    end
+                end
+            end)
+        end
+        coroutine.wrap(KTPQIKD_fake_script)()
+        local function LDOBAYA_fake_script() -- Select.LocalScript 
+            local script = Instance.new('LocalScript', Select)
+    
+            script.Parent.Parent.Parent.Frame.Active = true
+            script.Parent.Parent.Parent.Frame.Draggable = true
+            
+            script.Parent.MouseButton1Click:Connect(function()
+                getgenv().Player = game.Players:FindFirstChild(script.Parent.Parent.TextBox.Text)
+            end)
+        end
+        coroutine.wrap(LDOBAYA_fake_script)()
+    
+    end)
+end)
 
 Main:CreateButton('Player aura', function()
 -- Gui to Lua
@@ -2025,17 +2126,9 @@ end)
 
 Main:CreateButton('eduaeto', function(button)
    getgenv().Player = game.Players:FindFirstChild(button.Text) 
-   game.StarterGui:SetCore("SendNotification", {
-       Title = 'Sucess added';
-       Text = button.Text;
-   })
 end)
 Main:CreateButton('MinhasContas71', function(button)
    getgenv().Player = game.Players:FindFirstChild(button.Text) 
-   game.StarterGui:SetCore("SendNotification", {
-       Title = 'Sucess added';
-       Text = button.Text;
-   })
 end)
 
 game.Players.LocalPlayer.Chatted:Connect(function(message)
