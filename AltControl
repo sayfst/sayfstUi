@@ -1,3 +1,4 @@
+if getgenv().AltControlRunning == false then
 function a()
     if not game:IsLoaded() then
         game.Loaded:wait()
@@ -209,3 +210,7 @@ function a()
 end
 
 a()
+
+
+getgenv().AltControlRunning = true
+end
