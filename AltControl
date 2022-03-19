@@ -64,6 +64,9 @@ function a()
                         Drop(args[2])
                     end
                 end
+                if args[1] == prefix .. 'fps' then
+                    setfpscap(''..args[2]..'')
+                end
                 if args[1] == prefix .. 'wallet' then
                     if args[2] == 'true' then
                         Wallet(true)
