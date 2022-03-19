@@ -1403,6 +1403,32 @@ for i,v in pairs(BlackList) do
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
          end)
         
+         Main:CreateButton('Money esp', function(btt)
+            if btt.Text == 'Money esp' then
+                btt.Text = 'UnMoney esp'
+                function LoopFunction()
+                    for i,v in pairs(game.Workspace.Ignored.Drop:GetChildren()) do
+                        if v.Name == 'MoneyDrop' then
+                            v.BillboardGui.AlwaysOnTop = true
+                            v.BillboardGui.Size = UDim2.new(0,25,0,25)
+                            end
+                        end
+                end
+
+                function Start()
+                    getgenv().MoneyEsp = game:GetService("RunService").Heartbeat:Connect(LoopFunction)
+                end
+                function Stop()
+                    getgenv().MoneyEsp:Disconnect()
+                end
+
+                Start()
+                repeat wait() until btt.Text == 'Money esp'
+                Stop()
+            elseif btt.Text == 'UnMoney esp' then
+                btt.Text = 'Money esp'
+            end
+         end)
         Main:CreateButton('Fling', function(button)
             if button.Text == 'Fling' then
                 getgenv().FlingOldPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -3059,19 +3085,13 @@ for i,v in pairs(BlackList) do
         end)
         
         Main:CreateButton('Player aura', function()
-        -- Gui to Lua
-        -- Version: 3.2
-        
-        -- Instances:
-        
         local ScreenGui = Instance.new("ScreenGui")
         local Frame = Instance.new("Frame")
         local TextLabel = Instance.new("TextLabel")
         local Name = Instance.new("TextButton")
         local USer = Instance.new("TextButton")
         
-        --Properties:
-        
+
         ScreenGui.Parent = game.CoreGui
         ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         
@@ -3099,11 +3119,16 @@ for i,v in pairs(BlackList) do
         Name.Position = UDim2.new(0.0738396645, 0, 0.769230783, 0)
         Name.Size = UDim2.new(0, 190, 0, 27)
         Name.Font = Enum.Font.SourceSans
-        Name.Text = "Copyname"
+        Name.Text = "Select"
         Name.TextColor3 = Color3.fromRGB(0, 0, 0)
         Name.TextScaled = true
         Name.TextSize = 14.000
         Name.TextWrapped = true
+        Name.MouseButton1Click:Connect(function()
+            local aplit = TextLabel:split('/')
+
+            getgenv().Player = game.Players:FindFirstChild(aplit[1])
+        end)
         
         USer.Name = "USer"
         USer.Parent = Frame
@@ -3111,67 +3136,29 @@ for i,v in pairs(BlackList) do
         USer.Position = UDim2.new(0.508438826, 0, 0.769230783, 0)
         USer.Size = UDim2.new(0, 190, 0, 27)
         USer.Font = Enum.Font.SourceSans
-        USer.Text = "Update"
+        USer.Text = "Copyname"
         USer.TextColor3 = Color3.fromRGB(0, 0, 0)
         USer.TextScaled = true
         USer.TextSize = 14.000
         USer.TextWrapped = true
-        
-        -- Scripts:
-        
-        local function HUNZOC_fake_script() -- TextLabel.LocalScript 
-            local script = Instance.new('LocalScript', TextLabel)
-            script.Parent.Parent.USer.MouseButton1Click:Connect(function()
-                spawn(function()
-                    while true do
-                        for i,v in pairs(game.Players:GetChildren()) do
+        USer.MouseButton1Click:Connect(function()
+            local aplit = TextLabel:split('/')
+
+            setclipboard(aplit[1])
+        end)
+        function LoopFunction()
+            for i,v in pairs(game.Players:GetChildren()) do
                             
-                            if v ~= game.Players.LocalPlayer then
-                                character = v.Character
-                                if (character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
-                                    script.Parent.Parent.TextLabel.Text = v.Name..'/'..game.Players:FindFirstChild(v.Name).UserId
-                                end
-                            end
-                            
-                        end
-                        wait(.3)
+                if v ~= game.Players.LocalPlayer then
+                    character = v.Character
+                    if (character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
+                        TextLabel.Text = v.Name..'/'..game.Players:FindFirstChild(v.Name).UserId
                     end
-                end)
-            end)
-            while true do
-                for i,v in pairs(game.Players:GetChildren()) do
-                    
-                    if v ~= game.Players.LocalPlayer then
-                        character = v.Character
-                        if (character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
-                            script.Parent.Parent.TextLabel.Text = v.Name..'/'..game.Players:FindFirstChild(v.Name).UserId
-                        end
-                    end
-                    
                 end
-                wait(.3)
-            end
         end
-        coroutine.wrap(HUNZOC_fake_script)()
-        local function DJJSPDP_fake_script() -- Name.LocalScript 
-            local script = Instance.new('LocalScript', Name)
-        
-            script.Parent.MouseButton1Click:Connect(function()
-                local args = script.Parent.Parent.TextLabel.Text:split('/')
-                setclipboard(args[1])
-            end)
-        end
-        coroutine.wrap(DJJSPDP_fake_script)()
-        local function ZJLP_fake_script() -- USer.LocalScript 
-            local script = Instance.new('LocalScript', USer)
-        
-            script.Parent.MouseButton1Click:Connect(function()
-                local args = script.Parent.Parent.TextLabel.Text:split('/')
-                setclipboard(args[2])
-            end)
-        end
-        coroutine.wrap(ZJLP_fake_script)()
-        
+
+        game:GetService("RunService").Heartbeat:Connect(LoopFunction)
+
         end)
         
         Main:CreateButton('Tool select', function()
