@@ -3305,7 +3305,7 @@ for i,v in pairs(BlackList) do
                end
            end
         end)
-        
+    else
+        Player:Kick("You're on blacklist of Da hood menu")
     end
-    Player:Kick("You're on blacklist of Da hood menu")
 end 
