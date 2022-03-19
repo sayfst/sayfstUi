@@ -26,6 +26,7 @@
                 delay(10, function()
                     getgenv().Owner.Character.Humanoid.DisplayName = '[👑]'..getgenv().Owner.Character.Humanoid.DisplayName
                     getgenv().Owner.CharacterAdded:Connect(function(character)
+                        character:WaitForChild('Humanoid')
                         character.Humanoid.DisplayName = '[👑]'..character.Humanoid.DisplayName
                     end)
                 end)
