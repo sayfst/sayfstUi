@@ -1,0 +1,5 @@
+local BlackList = {
+    "MinhasContas71"
+}
+
+return BlackList
