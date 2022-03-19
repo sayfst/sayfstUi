@@ -1,6 +1,5 @@
 local BlackList = {
-    "MinhasContas72",
-    "ilxsxmu"
+    ""
 }
 
 return BlackList
