@@ -1735,15 +1735,15 @@ Main:CreateButton('Setup', function(button)
         button.Text = 'Setup'
     end
 end)
-Main:CreateButton('Setup', function(button)
-    if button.Text == 'Setup' then
-        button.Text = 'UnSetup'
+Main:CreateButton('Hide', function(button)
+    if button.Text == 'Hide' then
+        button.Text = 'UnHide'
         local SetupAway = 0
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
         wait()
         getgenv().OldPosSetup = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         spawn(function()
-            repeat SetupAway = SetupAway - .1 wait() until SetupAway == -5 or SetupAway <=5
+            repeat SetupAway = SetupAway - 0.1 wait() until SetupAway == -5 or SetupAway <=5
         end)
         local Start = function()
             getgenv().Setup = game:GetService("RunService").Heartbeat:Connect(function()
@@ -1755,11 +1755,11 @@ Main:CreateButton('Setup', function(button)
         end
 
         Start()
-        repeat wait() until button.Text == 'Setup'
+        repeat wait() until button.Text == 'Hide'
         Stop()
 
-    elseif button.Text == 'UnSetup' then
-        button.Text = 'Setup'
+    elseif button.Text == 'UnHide' then
+        button.Text = 'Hide'
     end
 end)
 
