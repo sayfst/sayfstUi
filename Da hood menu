@@ -1078,7 +1078,7 @@
         
         
         
-        function KillPlayer(state)
+        function KillPlayer(state, target)
             if getgenv().Player.Character then
                 local Remote = game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent") or game:GetService("Lighting"):FindFirstChild('MainEvent')
                 Reach(true)
@@ -1087,10 +1087,13 @@
                 local OldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 local OldPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
                 local combat = game.Players.LocalPlayer.Character:FindFirstChild('Combat') or game.Players.LocalPlayer.Backpack:FindFirstChild('Combat')
+                
+                
                 function LoopFunction()
+                    
                     combat.Parent = game.Players.LocalPlayer.Character
                     combat:Activate()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(0, -8, 0)
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame + Vector3.new(math.random(0, 2), -8, math.random(0, 2))
                 end
             
                 local Start = function()
@@ -1275,10 +1278,50 @@
         
         Main:CreateTab('Toggles')
         
+        local Auto7k = false
+
+        for i,v in pairs(game:GetService("Workspace").Ignored.Drop:GetChildren()) do
+            if v.Name == 'MoneyDrop' and v.BillboardGui.TextLabel.Text == '$7,000' then
+                if Auto7k == true then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    wait(0.3)
+                    fireclickdetector(v.ClickDetector)
+                    wait(.5)
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 90, 0)
+                    wait(1)
+                end
+            end
+        end
+        wait()
+        game:GetService("Workspace").Ignored.Drop.ChildAdded:Connect(function(v)
+            if v.Name == 'MoneyDrop' and v.BillboardGui.TextLabel.Text == '$7,000' then
+                if Auto7k == true then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    wait(0.3)
+                    fireclickdetector(v.ClickDetector)
+                    wait(.5)
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 90, 0)
+                    wait(1)
+                end
+            end
+        end)
+        Main:CreateButton('Auto 7k', function(button)
+            if button.Text == 'Auto 7k' then
+                button.Text = 'UnAuto 7k'
+                Auto7k = true
+            elseif button.Text == 'UnAuto 7k' then
+                button.Text = 'Auto 7k'
+                Auto7k = false
+            end
+        end)
+
+
         Main:CreateButton('UnBring', function()
             getgenv().RunningBring = false
         end)
         
+        
+
         Main:CreateButton('Back', function()
             _G.Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().BackPosition
