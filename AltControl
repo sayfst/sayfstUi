@@ -1,4 +1,10 @@
-if getgenv().AltControlRunning == nil then
+
+if not getgenv().AltControlRunning then
+    getgenv().AltControlRunning = false
+end
+
+
+if getgenv().AltControlRunning == false then
     repeat wait() until game:IsLoaded()
 
     -- Waiting for game is loaded!
