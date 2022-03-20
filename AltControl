@@ -161,6 +161,8 @@ function AltControl()
 
                 ExecCmd(message, getgenv().Settings["Prefix"])
             end)
+        else
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/W9K/roblox-scripts/main/DHC/SimpleSeller.lua', true))()
         end
     end
 end
