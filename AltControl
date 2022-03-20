@@ -1,3 +1,4 @@
+
 repeat wait() until game:IsLoaded()
 
 -- Waiting for game is loaded!
@@ -5,6 +6,15 @@ repeat wait() until game:IsLoaded()
 
 function Drop(amonut)
     game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+end
+
+function FindPlayer(name, callback)
+    local callback = callback or function()end
+    for i,v in pairs(game.Players:GetChildren()) do
+        if string.find(v.Name, name) or string.find(v.DisplayName, name) then
+            pcall(callback, v)
+        end
+    end
 end
 
 function Block(status)
@@ -25,7 +35,7 @@ function Teleport(CFrame2)
     local TweenService = game:GetService("TweenService")
     local Player = game.Players.LocalPlayer
     
-    TweenService:Create(Player.Character.HumanoidRootPart.CFrame, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {CFrame = CFrame2}):Play()
+    TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {CFrame = CFrame2}):Play()
 end
 function Teleport2(CFrame3)
     local Player = game.Players.LocalPlayer
@@ -59,6 +69,7 @@ function ExecCmd(cmd, prefix)
             wait()
             getgenv().Line:Disconnect()
         end
+
         if args[2] == 'disconnect' then
             if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
@@ -67,6 +78,7 @@ function ExecCmd(cmd, prefix)
                 Say('Error, warp already disconnect')
             end
         end
+        
         if args[2] == 'hide' then
             if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
@@ -90,9 +102,10 @@ function ExecCmd(cmd, prefix)
     end
     if args[1] == prefix .. 'fps' then
         setfpscap(args[2])
-        Say('fps cap set to:'..args[2])
+        Say('fps cap set to: '..args[2])
     end
     if args[1] == prefix .. 'drop' then
+        Say('Start dropping')
         getgenv().AutoDroping = game:GetService("RunService").Heartbeat:Connect(function()
             if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
                 Drop(10000)
@@ -107,6 +120,7 @@ function ExecCmd(cmd, prefix)
         getgenv().AutoDroping:Disconnect()
         Block(false)
         Wallet(false)
+        Say('Stop dropping')
     end
     if args[1] == prefix .. 'bring' then
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(HostCharacter.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
@@ -117,11 +131,31 @@ function ExecCmd(cmd, prefix)
     if args[1] == prefix .. 'lowgfx' then
         workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0 workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed = 0 workspace:FindFirstChildOfClass('Terrain').WaterReflectance = 0 workspace:FindFirstChildOfClass('Terrain').WaterTransparency = 0 game:GetService("Lighting").GlobalShadows = false game:GetService("Lighting").FogEnd = 9e9 settings().Rendering.QualityLevel = 1 for i,v in pairs(game:GetDescendants()) do if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then v.Material = "Plastic" v.Reflectance = 0 elseif v:IsA("Decal") then v.Transparency = 1 elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then v.Lifetime = NumberRange.new(0) elseif v:IsA("Explosion") then v.BlastPressure = 1 v.BlastRadius = 1 end end for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then v.Enabled = false end end workspace.DescendantAdded:Connect(function(child) coroutine.wrap(function() if child:IsA('ForceField') then game:GetService('RunService').Heartbeat:Wait() child:Destroy() elseif child:IsA('Sparkles') then game:GetService('RunService').Heartbeat:Wait() child:Destroy() elseif child:IsA('Smoke') or child:IsA('Fire') then game:GetService('RunService').Heartbeat:Wait() child:Destroy() end end)() end)
     end
+    if args[1] == prefix .. 'sphere' then
+        FindPlayer(args[2], function(playerr)
+            if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+                wait(1)
+            end
+            local randomnumber = math.random(0, 10)
+            local pos = CFrame.new(playerr.Character.HumanoidRootPart.Position + Vector3.new(randomnumber, 5, randomnumber))
+            Teleport(CFrame.new(playerr.Character.HumanoidRootPart.Position + Vector3.new(randomnumber, 0, randomnumber)))
+            wait(1)
+            getgenv().Line = game:GetService("RunService").Heartbeat:Connect(function()
+                Teleport2(pos)
+            end)
+            wait(1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+            wait()
+            getgenv().Line:Disconnect()
+        end)
+    end
 end
 
 function AltControl()
     if getgenv().HostOnline ~= nil then
         if getgenv().HostOnline ~= game.Players.LocalPlayer then
+            setfpscap(getgenv().Settings["Fps"])
             getgenv().HostOnline.Chatted:Connect(function(message)
                 message = string.lower(message)
 
