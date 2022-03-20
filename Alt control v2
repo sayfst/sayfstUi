@@ -176,6 +176,80 @@
                                  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492 + 5, -545.9679565429688 - Adicional)
                                  wait(.1)
                                  Anchored(true)
+                            elseif args[2] == 'safezone' then
+                                Anchored(false)
+                                wait(.4)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.09283447265625, 38.25, 200021.453125)
+                                 wait(1)
+                                 local Adicional
+ 
+                                 if a == 'Alt1' then
+                                     Adicional = 3
+                                 elseif a == 'Alt2' then
+                                     Adicional = 6
+                                 elseif a == 'Alt3' then
+                                     Adicional = 9
+                                 elseif a == 'Alt4' then
+                                     Adicional = 12
+                                 elseif a == 'Alt5' then
+                                     Adicional = 15
+                                 elseif a == 'Alt6' then
+                                     Adicional = 18
+                                 elseif a == 'Alt7' then
+                                     Adicional = 21
+                                 elseif a == 'Alt8' then
+                                     Adicional = 24
+                                 elseif a == 'Alt9' then
+                                     Adicional = 27
+                                 elseif a == 'Alt10' then
+                                     Adicional = 30
+                                 elseif a == 'Alt11' then
+                                     Adicional = 33
+                                 elseif a == 'Alt12' then
+                                     Adicional = 36
+                                 elseif a == 'Alt13' then
+                                     Adicional = 39
+                                 elseif a == 'Alt14' then
+                                     Adicional = 42
+                                 elseif a == 'Alt15' then
+                                     Adicional = 45
+                                 elseif a == 'Alt16' then
+                                     Adicional = 48
+                                 elseif a == 'Alt17' then
+                                     Adicional = 51
+                                 elseif a == 'Alt18' then
+                                    Adicional = 54
+                                 elseif a == 'Alt19' then
+                                    Adicional = 57
+                                 elseif a == 'Alt20' then
+                                    Adicional = 60
+                                 elseif a == 'Alt21' then
+                                    Adicional = 63
+                                 elseif a == 'Alt22' then
+                                    Adicional = 66
+                                 elseif a == 'Alt23' then
+                                    Adicional = 69
+                                 elseif a == 'Alt24' then
+                                    Adicional = 72
+                                 elseif a == 'Alt25' then
+                                    Adicional = 75
+                                 elseif a == 'Alt26' then
+                                    Adicional = 78
+                                 elseif a == 'Alt27' then
+                                    Adicional = 81
+                                 elseif a == 'Alt28' then
+                                    Adicional = 84
+                                 elseif a == 'Alt29' then
+                                    Adicional = 87
+                                 elseif a == 'Alt30' then
+                                    Adicional = 90
+                                 end
+                                 wait()
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.09283447265625 - Adicional, 38.25, 200021.453125)
+                                 wait(1)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.09283447265625 - Adicional, 38.25 + 5, 200021.453125)
+                                 wait(.1)
+                                 Anchored(true)
                              end
                          end
      
