@@ -5,6 +5,17 @@
         game.Loaded:wait()
     end
     
+    spawn(function()
+    local bb=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+bb:CaptureController()bb:ClickButton2(Vector2.new())
+end)
+game.StarterGui:SetCore('SendNotification', {
+                            Title = 'Sucess';
+                            Text = 'Anti Idle is enabled!';
+                        })
+    end)
+    
     getgenv().Host = nil
     if game.Players:FindFirstChild(Settings['Host']) then
         getgenv().Host = game.Players:FindFirstChild(Settings['Host'])
@@ -30,6 +41,25 @@
                 delay(5, function()
                     setfpscap(getgenv().AltControlSettings['Fps'])
                     workspace:FindFirstChildOfClass('Terrain').WaterWaveSize=0;workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed=0;workspace:FindFirstChildOfClass('Terrain').WaterReflectance=0;workspace:FindFirstChildOfClass('Terrain').WaterTransparency=0;game:GetService("Lighting").GlobalShadows=false;game:GetService("Lighting").FogEnd=9e9;settings().Rendering.QualityLevel=1;for a,b in pairs(game:GetDescendants())do if b:IsA("Part")or b:IsA("UnionOperation")or b:IsA("MeshPart")or b:IsA("CornerWedgePart")or b:IsA("TrussPart")then b.Material="Plastic"b.Reflectance=0 elseif b:IsA("Decal")then b.Transparency=1 elseif b:IsA("ParticleEmitter")or b:IsA("Trail")then b.Lifetime=NumberRange.new(0)elseif b:IsA("Explosion")then b.BlastPressure=1;b.BlastRadius=1 end end;for a,b in pairs(game:GetService("Lighting"):GetDescendants())do if b:IsA("BlurEffect")or b:IsA("SunRaysEffect")or b:IsA("ColorCorrectionEffect")or b:IsA("BloomEffect")or b:IsA("DepthOfFieldEffect")then b.Enabled=false end end;workspace.DescendantAdded:Connect(function(c)coroutine.wrap(function()if c:IsA('ForceField')then game:GetService('RunService').Heartbeat:Wait()c:Destroy()elseif c:IsA('Sparkles')then game:GetService('RunService').Heartbeat:Wait()c:Destroy()elseif c:IsA('Smoke')or c:IsA('Fire')then game:GetService('RunService').Heartbeat:Wait()c:Destroy()end end)()end)
+           local ba=Instance.new("ScreenGui")
+local ca=Instance.new("TextLabel")local da=Instance.new("Frame")
+local _b=Instance.new("TextLabel")local ab=Instance.new("TextLabel")ba.Parent=game.CoreGui
+ba.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;ca.Parent=ba;ca.Active=true
+ca.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)ca.Draggable=true
+ca.Position=UDim2.new(0.698610067,0,0.098096624,0)ca.Size=UDim2.new(0,370,0,52)
+ca.Font=Enum.Font.SourceSansSemibold;ca.Text="Anti AFK Alt control v2"ca.TextColor3=Color3.new(0,1,1)
+ca.TextSize=22;da.Parent=ca
+da.BackgroundColor3=Color3.new(0.196078,0.196078,0.196078)da.Position=UDim2.new(0,0,1.0192306,0)
+da.Size=UDim2.new(0,370,0,107)_b.Parent=da
+_b.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)_b.Position=UDim2.new(0,0,0.800455689,0)
+_b.Size=UDim2.new(0,370,0,21)_b.Font=Enum.Font.Arial;_b.Text=""
+_b.TextColor3=Color3.new(0,1,1)_b.TextSize=20;ab.Parent=da
+ab.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)ab.Position=UDim2.new(0,0,0.158377,0)
+ab.Size=UDim2.new(0,370,0,44)ab.Font=Enum.Font.ArialBold;ab.Text="Status: Active"
+ab.TextColor3=Color3.new(0,1,1)ab.TextSize=20;local bb=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+bb:CaptureController()bb:ClickButton2(Vector2.new())
+ab.Text="Roblox tried to kick u but i kicked him instead"wait(2)ab.Text="Status : Active"end)
                 end)
                 getgenv().Host.Chatted:Connect(function(message)
                     if getgenv().Host ~= game.Players.LocalPlayer then
