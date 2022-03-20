@@ -34,151 +34,231 @@
                 getgenv().Host.Chatted:Connect(function(message)
                     if getgenv().Host ~= game.Players.LocalPlayer then
                         
-                       function Teleport(Position)
-                           game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
-                       end
-                       function Teleport2(Position)
-                           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
-                       end
-                       
-                        function Anchored(state)
-                            lCharacter.HumanoidRootPart.Anchored = state
+                        function Teleport(Position)
+                            game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
                         end
-                        function Drop(amonut)
-                            game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+                        function Teleport2(Position)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
                         end
-                        function Block(status)
-                            local Target = game:GetService("ReplicatedStorage").MainEvent;
-                            Target:FireServer("Block", status)
-                        end
-                        function Wallet(status)
-                            if status == true then
-                                game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
-                            elseif status == false then
-                                game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
-                            end
-                        end
-                        args = message:split(' ')
-                        argsSay = message:split(':')
-                        if argsSay[1] == Settings['Prefix'] .. 'say' then
-                            Say(argsSay[2])
-                        end
-    
-                        -- Setup
-                        local DistanciaPrincipal = Distancia + 5
-                        local AlturaPrincipal = Altura + 2
-                        local Head = AlturaHead + 2
-                        getgenv().OldGravity = workspace.Gravity
-                        if args[1] == Prefix .. 'warp' then
-                            if args[2] == 'line' then
+                        
+                         function Anchored(state)
+                             lCharacter.HumanoidRootPart.Anchored = state
+                         end
+                         function Drop(amonut)
+                             game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+                         end
+                         function Block(status)
+                             local Target = game:GetService("ReplicatedStorage").MainEvent;
+                             Target:FireServer("Block", status)
+                         end
+                         function Wallet(status)
+                             if status == true then
+                                 game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
+                             elseif status == false then
+                                 game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
+                             end
+                         end
+                         args = message:split(' ')
+                         argsSay = message:split(':')
+                         if argsSay[1] == Settings['Prefix'] .. 'say' then
+                             Say(argsSay[2])
+                         end
+     
+                         -- Setup
+                         local DistanciaPrincipal = Distancia + 5
+                         local AlturaPrincipal = Altura + 2
+                         local Head = AlturaHead + 2
+                         getgenv().OldGravity = workspace.Gravity
+                         if args[1] == Prefix .. 'warp' then
+                             if args[2] == 'line' then
+                                 Anchored(false)
+                                 wait(.3)
+                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                 wait(1)
+                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                 wait(0.3)
+                                 Anchored(true)
+                             elseif args[2] == 'disconnect' then
+                                 Anchored(false)
+                                 if getgenv().WarpLoop then
+                                     
+                                    getgenv().WarpLoop:Disconnect()
+                                    workspace.Gravity = getgenv().OldGravity
+                                 end
+                             elseif args[2] == 'loop' then
                                 Anchored(false)
                                 wait(.3)
                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
                                 wait(1)
-                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
-                                wait(0.3)
-                                Anchored(true)
-                            elseif args[2] == 'disconnect' then
+                                getgenv().WarpLoop = game:GetService("RunService").Heartbeat:Connect(function()
+                                    Teleport2(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                    workspace.Gravity = 0
+                                end)
+                             elseif args[2] == 'head' then
+                                 Anchored(false)
+                                 wait(.3)
+                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, 5, 0)))
+                                 wait(1)
+                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, Head, 0)))
+                                 wait(0.3)
+                                 Anchored(true)
+                             elseif args[2] == 'base' or args[2] == 'adminbase' or args[2] == 'baseadmin' or args[2] == 'admin' then
                                 Anchored(false)
-                                if getgenv().WarpLoop then
-                                    workspace.Gravity = getgenv().OldGravity
-                                   getgenv().WarpLoop:Disconnect()
-                                end
-                            elseif args[2] == 'loop' then
-                               Anchored(false)
-                               wait(.3)
-                               Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
-                               wait(1)
-                               getgenv().WarpLoop = game:GetService("RunService").Heartbeat:Connect(function()
-                                   Teleport2(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
-                                   workspace.Gravity = 0
-                               end)
-                            elseif args[2] == 'head' then
-                                Anchored(false)
-                                wait(.3)
-                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, 5, 0)))
-                                wait(1)
-                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, Head, 0)))
-                                wait(0.3)
-                                Anchored(true)
-                            end
-                        end
-    
-                        if args[1] == Settings['Prefix'] .. 'gravity' then
-                            getgenv().GravityOn = game:GetService("RunService").Heartbeat:Connect(function()
-                                workspace.Gravity = 0
-                            end)
-                        end
-                        if args[1] == Settings['Prefix'] .. 'ungravity' then
-                            if getgenv().GravityOn then
-                                getgenv().GravityOn:Disconnect()
-                                workspace.Gravity = getgenv().OldGravity
-                            end
-                        end
-
-                        -- Chat
-                        if args[1] == Settings['Prefix'] .. 'chat' then
-                            Say(Settings['Chat'])
-                        end
-    
-                        -- Bring alts
-                        if args[1] == Settings['Prefix'] .. 'bring' then
-                            Anchored(false)
-                            wait(0.3)
-                            Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
-                        end
-    
-                        -- Drop
-                        if args[1] == Settings['Prefix'] .. 'drop' then
-                            Say('Start dropping')
-                            getgenv().Drop = true
-                            Block(true)
-                            Wallet(true)
-                            spawn(function()
-                                while getgenv().Drop == true do
-                                   if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
-                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
-                                   else
-                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
-                                   end
-                                   wait()
-                                end
-                            end)
-                        end
-    
-                        if args[1] == Settings['Prefix'] .. 'fps' then
-                           setfpscap(args[2])
-                           say('fps cap set to: '..args[2])
-                        end
-                        -- Stop
-                        if args[1] == Settings['Prefix'] .. 'stop' then
-                            getgenv().Drop = false
-                            Block(false)
-                            Wallet(false)
-                            say('Stop dropping')
-                        end
-    
-                        -- Airlock
-                        if args[1] == Settings['Prefix'] .. 'airlock' then
-                            if args[2] == 'true' then
-                                Anchored(false)
-                                wait(1)
-                                Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
-                                wait(0.3)
-                                Anchored(true)
-                            elseif args[2] == 'false' then
-                                Anchored(false)
-                            end
-                        end
-    
-                        -- Hide
-                        if args[1] == Settings['Prefix'] .. 'hide' then
-                            Anchored(false)
-                            wait(1)
-                            Teleport(CFrame.new(0, 100, 0))
-                            wait(0.3)
-                            Anchored(true)
-                        end
+                                wait(.4)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492, -545.9679565429688)
+                                 wait(1)
+                                 local Adicional
+ 
+                                 if a == 'Alt1' then
+                                     Adicional = 3
+                                 elseif a == 'Alt2' then
+                                     Adicional = 6
+                                 elseif a == 'Alt3' then
+                                     Adicional = 9
+                                 elseif a == 'Alt4' then
+                                     Adicional = 12
+                                 elseif a == 'Alt5' then
+                                     Adicional = 15
+                                 elseif a == 'Alt6' then
+                                     Adicional = 18
+                                 elseif a == 'Alt7' then
+                                     Adicional = 21
+                                 elseif a == 'Alt8' then
+                                     Adicional = 24
+                                 elseif a == 'Alt9' then
+                                     Adicional = 27
+                                 elseif a == 'Alt10' then
+                                     Adicional = 30
+                                 elseif a == 'Alt11' then
+                                     Adicional = 33
+                                 elseif a == 'Alt12' then
+                                     Adicional = 36
+                                 elseif a == 'Alt13' then
+                                     Adicional = 39
+                                 elseif a == 'Alt14' then
+                                     Adicional = 42
+                                 elseif a == 'Alt15' then
+                                     Adicional = 45
+                                 elseif a == 'Alt16' then
+                                     Adicional = 48
+                                 elseif a == 'Alt17' then
+                                     Adicional = 51
+                                 elseif a == 'Alt18' then
+                                    Adicional = 54
+                                 elseif a == 'Alt19' then
+                                    Adicional = 57
+                                 elseif a == 'Alt20' then
+                                    Adicional = 60
+                                 elseif a == 'Alt21' then
+                                    Adicional = 63
+                                 elseif a == 'Alt22' then
+                                    Adicional = 66
+                                 elseif a == 'Alt23' then
+                                    Adicional = 69
+                                 elseif a == 'Alt24' then
+                                    Adicional = 72
+                                 elseif a == 'Alt25' then
+                                    Adicional = 75
+                                 elseif a == 'Alt26' then
+                                    Adicional = 78
+                                 elseif a == 'Alt27' then
+                                    Adicional = 81
+                                 elseif a == 'Alt28' then
+                                    Adicional = 84
+                                 elseif a == 'Alt29' then
+                                    Adicional = 87
+                                 elseif a == 'Alt30' then
+                                    Adicional = 90
+                                 end
+                                 wait()
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492, -545.9679565429688 - Adicional)
+                                 wait(1)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492 + 5, -545.9679565429688 - Adicional)
+                                 wait(.1)
+                                 Anchored(true)
+                             end
+                         end
+     
+                         if args[1] == Settings['Prefix'] .. 'gravity' then
+                             getgenv().GravityOn = game:GetService("RunService").Heartbeat:Connect(function()
+                                 workspace.Gravity = 0
+                             end)
+                         end
+                         if args[1] == Settings['Prefix'] .. 'ungravity' then
+                             if getgenv().GravityOn then
+                                 getgenv().GravityOn:Disconnect()
+                                 workspace.Gravity = getgenv().OldGravity
+                             end
+                         end
+ 
+                         -- Chat
+                         if args[1] == Settings['Prefix'] .. 'chat' then
+                             Say(Settings['Chat'])
+                         end
+     
+                         -- Bring alts
+                         if args[1] == Settings['Prefix'] .. 'bring' then
+                             Anchored(false)
+                             wait(0.3)
+                             Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                         end
+     
+                         -- Drop
+                         if args[1] == Settings['Prefix'] .. 'drop' then
+                             Say('Start dropping')
+                             getgenv().Drop = true
+                             Block(true)
+                             Wallet(true)
+                             spawn(function()
+                                 while getgenv().Drop == true do
+                                    if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
+                                        game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
+                                    else
+                                        game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                    end
+                                    wait()
+                                 end
+                             end)
+                         end
+     
+                         if args[1] == Settings['Prefix'] .. 'fps' then
+                            setfpscap(args[2])
+                            say('fps cap set to: '..args[2])
+                         end
+                         -- Stop
+                         if args[1] == Settings['Prefix'] .. 'stop' then
+                             getgenv().Drop = false
+                             Block(false)
+                             Wallet(false)
+                             say('Stop dropping')
+                         end
+     
+                         -- Airlock
+                         if args[1] == Settings['Prefix'] .. 'airlock' then
+                             if args[2] == 'true' then
+                                 Anchored(false)
+                                 wait(1)
+                                 Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                 wait(0.3)
+                                 Anchored(true)
+                             elseif args[2] == 'false' then
+                                 Anchored(false)
+                             end
+                         end
+     
+                         -- Hide
+                         if args[1] == Settings['Prefix'] .. 'hide' then
+                             Anchored(false)
+                             wait(1)
+                             Teleport(CFrame.new(0, 100, 0))
+                             wait(0.3)
+                             Anchored(true)
+                         end
+                    else
+                        game.StarterGui:SetCore('SendNotification', {
+                            Title = 'Sucess';
+                            Text = 'Host found!';
+                        })
                     end
                 end)
             end
