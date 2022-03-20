@@ -1,4 +1,4 @@
-pcall(function()
+
     if getgenv().AltControlRunning == false then
         function a()
             if not game:IsLoaded() then
@@ -206,4 +206,4 @@ pcall(function()
         
         getgenv().AltControlRunning = true
         end
-end);
+
