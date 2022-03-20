@@ -65,9 +65,9 @@
                         end
     
                         -- Setup
-                        local DistanciaPrincipal = Distancia
-                        local AlturaPrincipal = Altura
-                        local Head = AlturaHead
+                        local DistanciaPrincipal = Distancia + 5
+                        local AlturaPrincipal = Altura + 2
+                        local Head = AlturaHead + 2
                         getgenv().OldGravity = workspace.Gravity
                         if args[1] == Prefix .. 'warp' then
                             if args[2] == 'line' then
