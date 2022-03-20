@@ -1,15 +1,4 @@
 
- --[[ Commands
-     'warp' = 'line/disconnect', -- Setup alts
-     'airlock' = 'true/false', -- Airlock alts
-     'chat', -- Alts say the Chat on AltControlSettings
-     'bring', -- Bring alts at host
-     'drop', -- Start dropping
-     'stop', -- Stop dropping
-     'hide', -- Hide alts
- ]]
- 
- 
  local Settings = getgenv().AltControlSettings
  
  if not game:IsLoaded() then
@@ -83,9 +72,11 @@ end
                              wait(0.3)
                              Anchored(true)
                          elseif args[2] == 'disconnect' then
-                             getgenv().WarpLoop:Disconnect()
                              Anchored(false)
-                         elseif args[2] == 'warploop' then
+                             if getgenv().WarpLoop then
+                                getgenv().WarpLoop:Disconnect()
+                             end
+                         elseif args[2] == 'loop' then
                             Anchored(false)
                             wait(.3)
                             Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
