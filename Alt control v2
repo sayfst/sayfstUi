@@ -1,4 +1,15 @@
 
+ --[[ Commands
+     'warp' = 'line/disconnect', -- Setup alts
+     'airlock' = 'true/false', -- Airlock alts
+     'chat', -- Alts say the Chat on AltControlSettings
+     'bring', -- Bring alts at host
+     'drop', -- Start dropping
+     'stop', -- Stop dropping
+     'hide', -- Hide alts
+ ]]
+ 
+ 
  local Settings = getgenv().AltControlSettings
  
  if not game:IsLoaded() then
@@ -229,4 +240,3 @@ end
          Restart()
      end
  end) 
- end)
