@@ -1,12 +1,11 @@
 
+    
     local Settings = getgenv().AltControlSettings
     
     if not game:IsLoaded() then
         game.Loaded:wait()
     end
     
-
-
     if game.Players.LocalPlayer.Name ~= Settings['Host'] then
         local ScreenGui = Instance.new("ScreenGui") local Frame = Instance.new("Frame") local TextLabel = Instance.new("TextLabel") local TextLabel_2 = Instance.new("TextLabel") local TextLabel_3 = Instance.new("TextLabel") local TextLabel_4 = Instance.new("TextLabel") ScreenGui.Parent = game.CoreGui ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling Frame.Parent = ScreenGui Frame.AnchorPoint = Vector2.new(0.5, 0.5) Frame.BackgroundColor3 = Color3.fromRGB(6, 6, 6) Frame.Position = UDim2.new(0.5, 0, 0.485889584, 0) Frame.Size = UDim2.new(1, 0, 1.07484663, 0) TextLabel.Parent = Frame TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel.BackgroundTransparency = 0.550 TextLabel.BorderSizePixel = 0 TextLabel.Position = UDim2.new(0.270054787, 0, 0.0684931427, 0) TextLabel.Size = UDim2.new(0, 921, 0, 102) TextLabel.Font = Enum.Font.SourceSansBold TextLabel.Text = "Alt control v2" TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel.TextScaled = true TextLabel.TextSize = 14.000 TextLabel.TextWrapped = true TextLabel_2.Parent = Frame TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_2.BackgroundTransparency = 1.000 TextLabel_2.BorderSizePixel = 0 TextLabel_2.Position = UDim2.new(0.273542553, 0, 0.232876673, 0) TextLabel_2.Size = UDim2.new(0, 909, 0, 102) TextLabel_2.Font = Enum.Font.SourceSansBold TextLabel_2.Text = "Alt account:" TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_2.TextScaled = true TextLabel_2.TextSize = 14.000 TextLabel_2.TextWrapped = true TextLabel_3.Parent = Frame TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_3.BackgroundTransparency = 1.000 TextLabel_3.BorderSizePixel = 0 TextLabel_3.Position = UDim2.new(0.273542553, 0, 0.385844707, 0) TextLabel_3.Size = UDim2.new(0, 909, 0, 102) TextLabel_3.Font = Enum.Font.SourceSansBold TextLabel_3.Text = "UserName" TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_3.TextSize = 49.000 TextLabel_3.TextWrapped = true TextLabel_4.Parent = Frame TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_4.BackgroundTransparency = 0.950 TextLabel_4.Position = UDim2.new(0.360737413, 0, 0.836758018, 0) TextLabel_4.Size = UDim2.new(0, 558, 0, 51) TextLabel_4.Font = Enum.Font.SourceSansBold TextLabel_4.Text = "Commands on Host screen!" TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_4.TextScaled = true TextLabel_4.TextSize = 14.000 TextLabel_4.TextWrapped = true local function OUCBA_fake_script() local script = Instance.new('LocalScript', TextLabel_3) script.Parent.Text = 'Alt: ' .. game.Players.LocalPlayer.Name .. '.' end coroutine.wrap(OUCBA_fake_script)()
     elseif game.Players.LocalPlayer.Name == Settings['Host'] then
@@ -29,191 +28,7 @@
         lCharacter = Character
     end)
     
-    function KillPlayer(state, target)
-        if getgenv().Player.Character then
-            local Remote = game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent") or game:GetService("Lighting"):FindFirstChild('MainEvent')
-            Remote.Parent = game.Lighting
-            local HumanoidRootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
-            local OldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-            local OldPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-            local combat = game.Players.LocalPlayer.Character:FindFirstChild('Combat') or game.Players.LocalPlayer.Backpack:FindFirstChild('Combat')
-            
-            Reach(true)
-
-            function LoopFunction()
-                combat.Parent = game.Players.LocalPlayer.Character
-                combat:Activate()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = getgenv().Player.Character.HumanoidRootPart.CFrame * CFrame.new(0, -8, 0)
-            end
-        
-            local Start = function()
-                getgenv().KillLoop = game:GetService('RunService').Heartbeat:Connect(LoopFunction)
-            end
-            local Stop = function()
-                getgenv().KillLoop:Disconnect()
-            end
-        
-            if getgenv().Player.Character.BodyEffects['K.O'].Value == false then
-                Start()
-            end
-            repeat wait() until getgenv().Player.Character.Humanoid.Health <=15 or HumanoidRootPart.Parent.Humanoid.Health <=15 or game.Players:FindFirstChild(getgenv().Player.Name).Character.BodyEffects['K.O'].Value == true
-        
-            if HumanoidRootPart.Parent.Humanoid.Health <=15 then
-                Stop()
-                game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()  
-                Remote.Parent = game.ReplicatedStorage
-                Reach(false)
-                
-            end
-            if getgenv().Player.Character.Humanoid.Health <=15 or game.Players:FindFirstChild(getgenv().Player.Name).Character.BodyEffects['K.O'].Value == true then
-                Stop()
-                Reach(false)
-                getgenv().BackPosition = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 5, 0))
-                Remote.Parent = game.ReplicatedStorage
-                
-                HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 5, 0))
-                wait()
-                if state == 'bring' then
-                    local Pos1 = OldPosition
-                    wait(.4)
-                    repeat
-                        for i = 1,10 do
-                            HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-                            wait()
-                        end
-                        Pickup(true)
-                        for i = 1,4 do
-                            HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-                            wait()
-                        end
-                        HumanoidRootPart.CFrame = OldCFrame
-                        wait(.3)
-                        Pickup(false)
-                        wait(.1)
-                    until (Pos1 - getgenv().Player.Character.UpperTorso.Position).Magnitude <=15 or getgenv().RunningBring == false or getgenv().Player.Character.BodyEffects['K.O'].Value == false
-                    HumanoidRootPart.CFrame = OldCFrame
-                end
-                if state == 'arrest' then
-                    local Cuff = game.Players.LocalPlayer.Character:FindFirstChild('Cuff') or game.Players.LocalPlayer.Backpack:FindFirstChild('Cuff')
-                    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                        if v:IsA("Tool") then
-                            v.Parent = game.Players.LocalPlayer.Backpack
-                        end
-                    end
-                    Cuff.Parent = game.Players.LocalPlayer.Character
-        
-                    spawn(function()
-                        for i = 1,50 do
-                            Cuff:Activate()
-                            wait()
-                        end
-                    end)
-                    for i = 1,50 do
-                        HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-                        wait()
-                    end
-                    HumanoidRootPart.CFrame = OldCFrame
-                end
-                if state == 'kill' then
-                    HumanoidRootPart.CFrame = OldCFrame
-                end
-                if state == 'stomp' then
-                    for i = 1,50 do
-                        HumanoidRootPart.CFrame = CFrame.new(getgenv().Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
-                        Stomp()
-                        wait()
-                    end
-                    HumanoidRootPart.CFrame = OldCFrame
-                end
-            end
-        end
-    end
-    function Teleport(Position)
-        game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
-    end
-    function Teleport2(Position)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
-    end
-    
-     function Anchored(state)
-         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = state
-     end
-     function Drop(amonut)
-         game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
-     end
-     function Block(status)
-         local Target = game:GetService("ReplicatedStorage").MainEvent;
-         Target:FireServer("Block", status)
-     end
-     function Pickup(state)
-        local args = {
-            [1] = "Grabbing",
-            [2] = state,
-        }
-        game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
-    end
-    function Reach(state)
-        getgenv().ReachState = state
-        if state == true then
-            LP = game.Players.LocalPlayer
-            for i,v in ipairs(LP.Character:GetDescendants()) do
-            if v:IsA("MeshPart") then v.Massless = true
-            v.CanCollide = false
-            v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0, 0, 0)
-            
-            end
-            end
-            
-            for i,v in ipairs(game.workspace:GetDescendants()) do
-            if v:IsA("Seat") then 
-            v.Disabled = true
-            end
-            end
-            x = 50
-            y = 50
-            z = 50
-            
-            
-            penis = Vector3.new(x,y,z)
-            
-            LP.Character.RightHand.Size = penis
-            
-            LP.Character.RightHand.Transparency = 1
-            
-            LP.Character.LeftHand.Size = penis
-            LP.Character.BodyEffects.SpecialParts.LeftHand.Size = penis
-            
-            LP.Character.LeftHand.Transparency = 1
-            
-        elseif state == false then
-            LP = game.Players.LocalPlayer
-            LP.Character.LeftHand.Transparency = 0
-            LP.Character.RightHand.Transparency = 0
-            LP.Character.LeftHand.Size = getgenv().LeftHandOldSize
-            LP.Character.RightHand.Size = getgenv().RightHandOldSize
-        end
-    end
-     function Wallet(status)
-         if status == true then
-             game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
-         elseif status == false then
-             game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
-         end
-     end
-     args = message:split(' ')
-     argsSay = message:split(':')
-     if argsSay[1] == Settings['Prefix'] .. 'say' then
-         Say(argsSay[2])
-     end
-
-     function FindPlayer(name, callback)
-        local callback = callback or function()end
-        for i,v in pairs(game.Players:GetChildren()) do
-            if string.find(v.Name, name) or string.find(v.DisplayName, name) then
-                pcall(callback, v)
-            end
-        end
-    end
+   
     
     function Alt(Numero, Distancia, Altura, AlturaHead)
         local a = 'Alt'..Numero
@@ -226,20 +41,41 @@
                 getgenv().Host.Chatted:Connect(function(message)
                     if getgenv().Host ~= game.Players.LocalPlayer then
                         
+                        function Teleport(Position)
+                            game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
+                        end
+                        function Teleport2(Position)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
+                        end
                         
+                         function Anchored(state)
+                             lCharacter.HumanoidRootPart.Anchored = state
+                         end
+                         function Drop(amonut)
+                             game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+                         end
+                         function Block(status)
+                             local Target = game:GetService("ReplicatedStorage").MainEvent;
+                             Target:FireServer("Block", status)
+                         end
+                         function Wallet(status)
+                             if status == true then
+                                 game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
+                             elseif status == false then
+                                 game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
+                             end
+                         end
+                         args = message:split(' ')
+                         argsSay = message:split(':')
+                         if argsSay[1] == Settings['Prefix'] .. 'say' then
+                             Say(argsSay[2])
+                         end
+     
                          -- Setup
                          local DistanciaPrincipal = Distancia + 5
                          local AlturaPrincipal = Altura + 2
                          local Head = AlturaHead + 2
                          getgenv().OldGravity = workspace.Gravity
-                         if a == 'Alt1' then
-                            if args[1] == 'bringplayer' then
-                                FindPlayer(args[2], function(player)
-                                    getgenv().Player = player
-                                    KillPlayer('bring')
-                                end)
-                            end
-                        end
                          if args[1] == Prefix .. 'warp' then
                              if args[2] == 'line' then
                                  Anchored(false)
