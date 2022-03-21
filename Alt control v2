@@ -145,15 +145,27 @@
                          local Head = AlturaHead + 2
                          getgenv().OldGravity = workspace.Gravity
                          if args[1] == Prefix .. 'autolettuce' then
-                            getgenv().AutoLettuceAlts = game:GetService('RunService').Heartbeat:Connect(function()
-                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
-                                fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
-                                game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]').Parent = game.Players.LocalPlayer.Character
-                                game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]'):Activate()
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
+                            wait(1)
+                            spawn(function()
+                                repeat
+                                    if game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]') then
+                                        game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]'):Activate()
+                                    end
+                                    if game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]') then
+                                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]'))
+                                    end
+                                    wait()
+                                until getgenv().AutoLettuceAlts == false
                             end)
+                            repeat
+                                fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
+                                wait()
+                            until getgenv().AutoLettuceAlts == false
+                            game.Players.LocalPlayer.Character.Humanoid.Health = 0
                          end
                          if args[1] == Prefix .. 'unautolettuce' then
-                            getgenv().AutoLettuceAlts:Disconnect()
+                            getgenv().AutoLettuceAlts = false
                             wait()
                             game.Players.LocalPlayer.Character.Humanoid.Health = 0
                          end
@@ -165,6 +177,7 @@
                                 getgenv().AdvertOn = false
                             end
                          end
+                         
                          if args[1] == Prefix .. 'warp' then
                              if args[2] == 'line' then
                                  Anchored(false)
