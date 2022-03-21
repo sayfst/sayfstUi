@@ -1,4 +1,46 @@
 
+    function Reach(state)
+        getgenv().ReachState = state
+        if state == true then
+            LP = game.Players.LocalPlayer
+            for i,v in ipairs(LP.Character:GetDescendants()) do
+            if v:IsA("MeshPart") then v.Massless = true
+            v.CanCollide = false
+            v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0, 0, 0)
+            
+            end
+            end
+            
+            for i,v in ipairs(game.workspace:GetDescendants()) do
+            if v:IsA("Seat") then 
+            v.Disabled = true
+            end
+            end
+            x = 50
+            y = 50
+            z = 50
+            
+            
+            penis = Vector3.new(x,y,z)
+            
+            LP.Character.RightHand.Size = penis
+            
+            LP.Character.RightHand.Transparency = 1
+            
+            LP.Character.LeftHand.Size = penis
+            LP.Character.BodyEffects.SpecialParts.LeftHand.Size = penis
+            
+            LP.Character.LeftHand.Transparency = 1
+            
+        elseif state == false then
+            LP = game.Players.LocalPlayer
+            LP.Character.LeftHand.Transparency = 0
+            LP.Character.RightHand.Transparency = 0
+            LP.Character.LeftHand.Size = getgenv().LeftHandOldSize
+            LP.Character.RightHand.Size = getgenv().RightHandOldSize
+        end
+    end
+    
     local Settings = getgenv().AltControlSettings
     
     if not game:IsLoaded() then
@@ -35,14 +77,7 @@
         Title = "Sucess";
         Text = 'Anti afk is enabled!';
     })
-    function FindPlayer(name, callback)
-        local callback = callback or function()end
-        for i,v in pairs(game.Players:GetChildren()) do
-            if string.find(v.Name, name) or string.find(v.DisplayName, name) then
-                pcall(callback, v)
-            end
-        end
-    end
+    
     function Alt(Numero, Distancia, Altura, AlturaHead)
         local a = 'Alt'..Numero
         if game.Players.LocalPlayer.UserId == Settings[a] then
@@ -61,79 +96,7 @@
                             game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
                         end
 
-                        if a == 'Alt1' then
-                            if args[1] == 'bringplayer' then
-                                FindPlayer(args[2], function(player)
-                                    getgenv().OldPositionBring = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, -5, 0)
-                                    getgenv().OldPositionBring2 = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                                    local Player1 = player
-                                    local Player2 = game.Players.LocalPlayer
-                                    if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
-                                        getgenv().IsAAnchored = true
-                                        wait()
-                                        Anchored(false)
-                                    else
-                                        getgenv().IsAAnchored = false
-                                    end
-                                    wait()
-                                    local Remote = game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent") or game:GetService("Lighting"):FindFirstChild('MainEvent')
-                                    local Combat = game.Players.LocalPlayer.Backpack:FindFirstChild('Combat') or game.Players.LocalPlayer.Character:FindFirstChild("Combat")
-    
-                                    Remote.Parent = game.Lighting
-                                    Combat.Parent = game.Players.LocalPlayer.Character
-                                    local Start = function()
-                                        Reach(true)
-                                        getgenv().KillBring = game:GetService('RunService').Heartbeat:Connect(function()
-                                            Combat:Activate()
-                                            Combat.Parent = game.Players.LocalPlayer.Character
-                                            Player1.Character.HumanoidRootPart.CFrame = Player2.Character.HumanoidRootPart.CFrame * CFrame.new(0, 5, 0)
-                                        end)
-                                    end
-                                    local Stop = function()
-                                        Reach(false)
-                                        getgenv().KillBring:Disconnect()
-                                    end
-                                    if Player1.Character.BodyEffects["K.O"].Value == false then
-                                        Start()
-                                    end
-                                    repeat wait() until Player1.Character.BodyEffects["K.O"].Value == true or Player2.Character.BodyEffects["K.O"].Value == true
-
-                                    if Player2.Character.BodyEffects["K.O"].Value == true then
-                                        Stop()
-                                        game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()  
-                                        Remote.Parent = game.ReplicatedStorage
-                                    end
-                                    if Player1.Character.Humanoid.Health <=5 or Player1.Character.BodyEffects["K.O"].Value == true then
-                                        Stop()
-                                        repeat
-                                            for i = 1,10 do
-                                                Player2.Character.HumanoidRootPart.CFrame = CFrame.new(Player1.Character.UpperTorso.Position + Vector3.new(0, 1.4, 0))
-                                                wait()
-                                            end
-                                            Pickup(true)
-                                            for i = 1,4 do
-                                                Player2.Character.HumanoidRootPart.CFrame = CFrame.new(Player1.Character.UpperTorso.Position + Vector3.new(0, 1.4, 0))
-                                                wait()
-                                            end
-                                            Player2.Character.HumanoidRootPart.CFrame = getgenv().Host.Character.UpperTorso.CFrame
-                                            wait(.2)
-                                            Pickup(false)
-                                            wait(.2)
-                                        until (Player1.Character.UpperTorso.Position - getgenv().Host.Character.UpperTorso.Position).Magnitude <= 15 or Player1.Character.BodyEffects["K.O"].Value == false
-                                        wait()
-                                        Player2.Character.HumanoidRootPart.CFrame = getgenv().OldPositionBring
-                                        wait(1)
-                                        Player2.Character.HumanoidRootPart.CFrame = getgenv().OldPositionBring2
-                                        wait(.1)
-                                        if getgenv().IsAAnchored == true then
-                                            Anchored(true)
-                                        else
-                                            Anchored(false)
-                                        end
-                                    end
-                                end)                                
-                            end
-                        end
+                        
                         function Teleport(Position)
                             game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
                         end
@@ -163,12 +126,25 @@
                          if argsSay[1] == Settings['Prefix'] .. 'say' then
                              Say(argsSay[2])
                          end
-     
+                         
                          -- Setup
                          local DistanciaPrincipal = Distancia + 5
                          local AlturaPrincipal = Altura + 2
                          local Head = AlturaHead + 2
                          getgenv().OldGravity = workspace.Gravity
+                         if args[1] == Prefix .. 'autolettuce' then
+                            getgenv().AutoLettuceAlts = game:GetService('RunService').Heartbeat:Connect(function()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
+                                fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
+                                game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]').Parent = game.Players.LocalPlayer.Character
+                                game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]'):Activate()
+                            end)
+                         end
+                         if args[1] == Prefix .. 'unautolettuce' then
+                            getgenv().AutoLettuceAlts:Disconnect()
+                            wait()
+                            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                         end
                          if args[1] == Prefix .. 'warp' then
                              if args[2] == 'line' then
                                  Anchored(false)
