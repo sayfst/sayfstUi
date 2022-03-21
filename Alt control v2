@@ -1,4 +1,5 @@
 
+ 
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -145,6 +146,7 @@
                          local Head = AlturaHead + 2
                          getgenv().OldGravity = workspace.Gravity
                          if args[1] == Prefix .. 'autolettuce' then
+                            getgenv().AutoLettuceAlts = true
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
                             wait(1)
                             spawn(function()
