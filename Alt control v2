@@ -224,7 +224,7 @@
                                  getgenv().OldPositionLine = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
                                  local Away = 0
                                  spawn(function()
-                                    repeat wait Away = Away + 0.1 until Away >= 5
+                                    repeat wait() Away = Away + 0.1 until Away >= 5
                                     wait(1)
                                     Anchored(true)
                                  end)
