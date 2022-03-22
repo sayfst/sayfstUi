@@ -51,6 +51,7 @@
     if game.Players.LocalPlayer.Name ~= Settings['Host'] then
         getgenv().AdvertOn = true
         spawn(function()
+            getgenv().AdvertOn = false
             while true do
                 for i,v in pairs(Settings['Advert']) do
                     if v and getgenv().AdvertOn == true then
@@ -227,16 +228,14 @@
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
                                  wait(1)
-                                 Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0)))
-                                 wait(.1)
-                                 Achored(true)
+                  
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)
+                                wait(.1)
+                                Anchored(true)
                              elseif args[2] == 'disconnect' then
                                  Anchored(false)
-                                 if getgenv().WarpLoop then
-                                     
-                                    getgenv().WarpLoop:Disconnect()
-                                    workspace.Gravity = getgenv().OldGravity
-                                 end
+                                 getgenv().WarpLoop:Disconnect()
+                                workspace.Gravity = getgenv().OldGravity
                              elseif args[2] == 'loop' then
                                 Anchored(false)
                                 wait(.3)
@@ -439,8 +438,16 @@
                                  while getgenv().Drop == true do
                                     if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
                                         game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
-                                    else
+                                    elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 1000 then
                                         game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                    elseif game.Players.LocalPlayer.DataFolder.Currency.Value == 0 then
+                                        say('the money in that account has run out!')
+                                        wait(1)
+                                        getgenv().Drop = false
+                                        Block(false)
+                                        Wallet(false)
+                                        Say('Stop dropping')
+
                                     end
                                     wait()
                                  end
