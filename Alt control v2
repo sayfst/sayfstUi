@@ -1,4 +1,5 @@
 
+    
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -217,9 +218,17 @@
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
                                  wait(1)
-                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
-                                 wait(0.3)
-                                 Anchored(true)
+                                 getgenv().OldPositionLine = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+                                 local Away = 0
+                                 spawn(function()
+                                    repeat wait Away = Away + 0.1 until Away >= 5
+                                    wait(1)
+                                    Anchored(true)
+                                 end)
+                                 getgenv().WarpLoop = game:GetService('RunService').Heartbeat:Connect(function()
+                                     
+                                     Teleport2(CFrame.new(getgemv().OldPositionLine + Vector3.new(0, Away, 0)))
+                                 end)
                              elseif args[2] == 'disconnect' then
                                  Anchored(false)
                                  if getgenv().WarpLoop then
@@ -241,8 +250,8 @@
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, 5, 0)))
                                  wait(1)
-                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, Head, 0)))
-                                 wait(0.3)
+                                 Teleport2(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, Head, 0)))
+                                 wait(0.1)
                                  Anchored(true)
                              elseif args[2] == 'base' or args[2] == 'adminbase' or args[2] == 'baseadmin' or args[2] == 'admin' then
                                 Anchored(false)
