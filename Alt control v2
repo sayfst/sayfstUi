@@ -82,6 +82,8 @@
             print(prefix..'unautolettuce -- All alts stop eat lettuce')
             print(prefix..'advert <on/off>')
             print(prefix..'crash -- Alt1 starting a SwagMode Crasher!')
+            print(prefix..'gravity -- Turn gravity 0 on alts!')
+            print(prefix..'ungravity -- Turn gravity normal on alts!')
             print(prefix..'altnumber -- The highs will say what number they are in the altcontrol v2 configuration!')
             print('')
             print('')
@@ -227,12 +229,9 @@
                                  getgenv().OldPositionLine = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
                                  local Away = 0
                                  spawn(function()
-                                    repeat wait() Away = Away + 0.1 until Away >= 5
-                                    wait(1)
-                                    Anchored(true)
-                                 end)
-                                 getgenv().WarpLoop = game:GetService('RunService').Heartbeat:Connect(function()
+                                    repeat wait() Away = Away + 0.1 Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0))) until Away >= 5
                                     Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0)))
+                                    Anchored(true)
                                  end)
                              elseif args[2] == 'disconnect' then
                                  Anchored(false)
