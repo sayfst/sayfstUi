@@ -1,4 +1,5 @@
 
+    
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -226,13 +227,9 @@
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
                                  wait(1)
-                                 getgenv().OldPositionLine = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-                                 local Away = 0
-                                 spawn(function()
-                                    repeat wait() Away = Away + 0.1 Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0))) until Away >= 5
-                                    Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0)))
-                                    Anchored(true)
-                                 end)
+                                 Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0)))
+                                 wait(.1)
+                                 Achored(true)
                              elseif args[2] == 'disconnect' then
                                  Anchored(false)
                                  if getgenv().WarpLoop then
