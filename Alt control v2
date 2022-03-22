@@ -1,5 +1,4 @@
 
-    
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -179,10 +178,11 @@
                          getgenv().OldGravity = workspace.Gravity
                          if args[1] == Prefix .. 'autolettuce' then
                             getgenv().AutoLettuceAlts = true
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
+                            
                             wait(1)
                             spawn(function()
                                 repeat
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
                                     if game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]') then
                                         game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]'):Activate()
                                     end
@@ -193,7 +193,10 @@
                                 until getgenv().AutoLettuceAlts == false
                             end)
                             repeat
-                                fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
+                                local Tool = game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]') or game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]')
+                                if not Tool then
+                                    fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
+                                end
                                 wait()
                             until getgenv().AutoLettuceAlts == false
                             game.Players.LocalPlayer.Character.Humanoid.Health = 0
