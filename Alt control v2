@@ -1,4 +1,4 @@
-  
+
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -217,6 +217,9 @@
                          
                          if args[1] == Prefix .. 'warp' then
                              if args[2] == 'line' then
+                                function Teleport2(Position)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
+                                end
                                  Anchored(false)
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
@@ -229,8 +232,7 @@
                                     Anchored(true)
                                  end)
                                  getgenv().WarpLoop = game:GetService('RunService').Heartbeat:Connect(function()
-                                     
-                                     Teleport2(CFrame.new(getgemv().OldPositionLine + Vector3.new(0, Away, 0)))
+                                    Teleport2(CFrame.new(getgenv().OldPositionLine + Vector3.new(0, Away, 0)))
                                  end)
                              elseif args[2] == 'disconnect' then
                                  Anchored(false)
