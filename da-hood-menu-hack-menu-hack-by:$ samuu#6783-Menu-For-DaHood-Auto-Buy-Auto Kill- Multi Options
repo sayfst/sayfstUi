@@ -12,11 +12,14 @@ function library:CreateWindow()
     Dahoodmenu.Parent = game:GetService("CoreGui")
     Dahoodmenu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     
+    
     Menu.Name = "Menu"
     Menu.Parent = Dahoodmenu
     Menu.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     Menu.Position = UDim2.new(0.0881913304, 0, 0.163190186, 0)
     Menu.Size = UDim2.new(0, 569, 0, 287)
+    Menu.Active = true
+    Menu.Draggable = true
     
     TextLabel.Parent = Menu
     TextLabel.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
