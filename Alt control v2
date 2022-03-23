@@ -1,5 +1,4 @@
 
-    
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -229,7 +228,7 @@
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
                                  wait(1)
                   
-                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0))
                                 wait(.1)
                                 Anchored(true)
                              elseif args[2] == 'disconnect' then
