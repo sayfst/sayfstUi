@@ -89,19 +89,20 @@ function library:CreateWindow()
         UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
         UIGridLayout.CellSize = UDim2.new(0, 76, 0, 14)
 
-        local ButtonTabs = Instance.new("TextButton")
+        local asd = Instance.new("TextButton")
 
 
-        ButtonTabs.Name = "ButtonTabs"
-        ButtonTabs.Parent = ButtonTabs
-        ButtonTabs.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
-        ButtonTabs.BorderSizePixel = 0
-        ButtonTabs.Size = UDim2.new(0, 117, 0, 20)
-        ButtonTabs.Font = Enum.Font.SourceSansBold
-        ButtonTabs.Text = title
-        ButtonTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
-        ButtonTabs.TextSize = 14.000
-        ButtonTabs.MouseButton1Click:Connect(function()
+        asd.Name = "ButtonTabs"
+
+        asd.Parent = ButtonTabs
+        asd.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+        asd.BorderSizePixel = 0
+        asd.Size = UDim2.new(0, 117, 0, 20)
+        asd.Font = Enum.Font.SourceSansBold
+        asd.Text = title
+        asd.TextColor3 = Color3.fromRGB(255, 255, 255)
+        asd.TextSize = 14.000
+        asd.MouseButton1Click:Connect(function()
             HideFrames()
             wait()
             Scroll.Visible = true
