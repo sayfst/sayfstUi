@@ -88,27 +88,27 @@ function library:CreateWindow()
         UIGridLayout.Parent = Scroll
         UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
         UIGridLayout.CellSize = UDim2.new(0, 76, 0, 14)
+        local ButtonOpenTabs = Instance.new("TextButton")
 
-        local asd = Instance.new("TextButton")
-
-
-        asd.Name = "ButtonTabs"
-
-        asd.Parent = ButtonTabs
-        asd.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
-        asd.BorderSizePixel = 0
-        asd.Size = UDim2.new(0, 117, 0, 20)
-        asd.Font = Enum.Font.SourceSansBold
-        asd.Text = title
-        asd.TextColor3 = Color3.fromRGB(255, 255, 255)
-        asd.TextSize = 14.000
-        asd.MouseButton1Click:Connect(function()
-            HideFrames()
-            wait()
+        ButtonOpenTabs.Name = "ButtonOpenTabs"
+        ButtonOpenTabs.Parent = ButtonTabs
+        ButtonOpenTabs.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+        ButtonOpenTabs.BorderSizePixel = 0
+        ButtonOpenTabs.Size = UDim2.new(0, 117, 0, 20)
+        ButtonOpenTabs.Font = Enum.Font.SourceSansBold
+        ButtonOpenTabs.Text = "Main"
+        ButtonOpenTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
+        ButtonOpenTabs.TextSize = 14.000
+        ButtonOpenTabs.MouseButton1Click:Connect(function()
+            for i,v in pairs(Tabs:GetChildren()) do
+                if v:IsA("Frame") then
+                    v.Visible = false
+                end
+            end
             Scroll.Visible = true
         end)
 
-        function button:CreateButton(title, callback)
+        function buttons:CreateButton(title, callback)
             local callback = callback or function()end
 
             local Button = Instance.new("TextButton")
