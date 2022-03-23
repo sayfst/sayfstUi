@@ -59,10 +59,8 @@ function library:CreateWindow()
             Duration = 10;
         })
         
-        local UserInputService = game:GetService('UserInputService')
-        
-        UserInputService.InputBegan:Connect(function(key)
-            if key.KeyCode == Enum.KeyCode.V then
+        game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+            if key == 'v' then
                 script.Parent.Visible = not script.Parent.Visible
             end
         end)
