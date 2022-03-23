@@ -96,7 +96,11 @@ function library:CreateWindow()
         ButtonOpenTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
         ButtonOpenTabs.TextSize = 14.000
         ButtonOpenTabs.MouseButton1Click:Connect(function()
-            
+            for i,v in pairs(Tabs:GetChildren()) do
+                if v:IsA("ScrollingFrame") then
+                    v.Visible = false
+                end
+            end
             Scroll.Visible = true
         end)
 
