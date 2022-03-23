@@ -6,7 +6,7 @@ function library:CreateWindow()
     local TextLabel = Instance.new("TextLabel")
     local Tabs = Instance.new("Frame")
     local ButtonTabs = Instance.new("ScrollingFrame")
-    local UIGridLayout = Instance.new("UIGridLayout")
+    local UIGridLayout2 = Instance.new("UIGridLayout")
     
     Dahoodmenu.Name = "[Da hood menu]"
     Dahoodmenu.Parent = game:GetService("CoreGui")
@@ -42,9 +42,9 @@ function library:CreateWindow()
     ButtonTabs.Position = UDim2.new(0, 0, 0.0940766558, 0)
     ButtonTabs.Size = UDim2.new(0, 131, 0, 260)
     
-    UIGridLayout.Parent = ButtonTabs
-    UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    UIGridLayout.CellSize = UDim2.new(0, 117, 0, 20)
+    UIGridLayout2.Parent = ButtonTabs
+    UIGridLayout2.SortOrder = Enum.SortOrder.LayoutOrder
+    UIGridLayout2.CellSize = UDim2.new(0, 117, 0, 20)
     
     --[[Toggle ui]]
     local function VMQYQJ_fake_script() 
@@ -72,18 +72,13 @@ function library:CreateWindow()
     function buttons:CreateTab(title)
         local Scroll = Instance.new("ScrollingFrame")
         local UIGridLayout = Instance.new("UIGridLayout")
-        function HideFrames()
-            for i,v in pairs(Tabs:GetChildren()) do
-                if v:IsA("Frame") then
-                    v.Visible = false
-                end
-            end
-        end
+        
         Scroll.Name = "Scroll"
         Scroll.Parent = Tabs
         Scroll.Active = true
         Scroll.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
         Scroll.Size = UDim2.new(0, 438, 0, 260)
+        Scroll.Visible = false
         
         UIGridLayout.Parent = Scroll
         UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -96,15 +91,11 @@ function library:CreateWindow()
         ButtonOpenTabs.BorderSizePixel = 0
         ButtonOpenTabs.Size = UDim2.new(0, 117, 0, 20)
         ButtonOpenTabs.Font = Enum.Font.SourceSansBold
-        ButtonOpenTabs.Text = "Main"
+        ButtonOpenTabs.Text = title
         ButtonOpenTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
         ButtonOpenTabs.TextSize = 14.000
         ButtonOpenTabs.MouseButton1Click:Connect(function()
-            for i,v in pairs(Tabs:GetChildren()) do
-                if v:IsA("Frame") then
-                    v.Visible = false
-                end
-            end
+            
             Scroll.Visible = true
         end)
 
@@ -128,6 +119,7 @@ function library:CreateWindow()
             end)
         end
     end
+    
     return buttons
 
 end
