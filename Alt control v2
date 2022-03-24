@@ -1,4 +1,5 @@
 
+    
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -437,10 +438,10 @@
                                  while getgenv().Drop == true do
                                     if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
                                         game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
-                                    elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 1000 then
+                                    elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 10000 then
                                         game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
                                     elseif game.Players.LocalPlayer.DataFolder.Currency.Value == 0 then
-                                        say('the money in that account has run out!')
+                                        say('I dont have money!')
                                         wait(1)
                                         getgenv().Drop = false
                                         Block(false)
