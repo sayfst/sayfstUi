@@ -1,5 +1,4 @@
 
-    
     function Reach(state)
         getgenv().ReachState = state
         if state == true then
@@ -87,6 +86,8 @@
             print(prefix..'gravity -- Turn gravity 0 on alts!')
             print(prefix..'ungravity -- Turn gravity normal on alts!')
             print(prefix..'altnumber -- The highs will say what number they are in the altcontrol v2 configuration!')
+            print(prefix..'buymoneygun -- Buy money gun on alts')
+            print(prefix..'withmoneygun <true/false> -- If args[2] == true then alts is dropping with money gun and 10 k!')
             print('')
             print('')
             print('Thaks for use Alt control v2!')
@@ -167,8 +168,8 @@
                          if argsSay[1] == Settings['Prefix'] .. 'say' then
                              Say(argsSay[2])
                          end
-                         if a == 'Alt1' then
-                            if args[1] == Prefix .. 'crash' then
+                         if args[1] == 'crash' then
+                            if args[2] == a or args[2] == 'all' then
                                 loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
                             end
                          end
@@ -177,7 +178,23 @@
                          local AlturaPrincipal = Altura + 2
                          local Head = AlturaHead + 2
                          if args[1] == Prefix .. 'altnumber' then
-                            Say('Im am a '..a)
+                            Say('Im '..a)
+                         end
+                         if args[1] == Prefix .. 'buymoneygun' then
+                            local Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Money Gun] - $777"].Head.CFrame
+                            wait(0.3)
+                            fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Money Gun] - $777"].ClickDetector)
+                            wait(0.3)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+                         end
+                         if args[1] == Prefix .. 'withmoneygun' then
+                            if args[2] == 'true' then
+                                getgenv().WithMoneyGun = true
+                            elseif args[2] == 'false' then
+                                getgenv().WithMoneyGun = false
+                            end
+                            end
                          end
                          getgenv().OldGravity = workspace.Gravity
                          if args[1] == Prefix .. 'autolettuce' then
@@ -410,10 +427,8 @@
                              end)
                          end
                          if args[1] == Settings['Prefix'] .. 'ungravity' then
-                             if getgenv().GravityOn then
-                                 getgenv().GravityOn:Disconnect()
-                                 workspace.Gravity = getgenv().OldGravity
-                             end
+                            getgenv().GravityOn:Disconnect()
+                            workspace.Gravity = getgenv().OldGravity
                          end
  
                          -- Chat
@@ -427,31 +442,60 @@
                              wait(0.3)
                              Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
                          end
-     
+                         function StartDrop(ucdrop)
+                            if ucdrop == false then
+                                Say('Start dropping')
+                                Block(true)
+                                Wallet(true)
+                                getgenv().DropRunning = true
+                                getgenv().Drop = game:GetService('RunService').Heartbeat:Connect(function()
+                                   if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
+                                   elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                   end
+                                   local MoneyGun = game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]') or game.Players.LocalPlayer.Character:FindFirstChild('[Money Gun]')
+                                   if getgenv().WithMoneyGun == true then
+                                       MoneyGun.Parent = game.Players.LocalPlayer.Character
+                                       if MoneyGun.Parent == game.Players.LocalPlayer.Character then
+                                           MoneyGun:Activate()
+                                       end
+                                   end
+                                end)
+                                repeat wait() until getgenv().DropRunning == false
+                                getgenv().Drop:Disconnect()
+                            elseif ucdrop == true then
+                                Say('Start dropping')
+                                Block(true)
+                                Wallet(true)
+                                local Positionnn = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                                getgenv().DropRunning = true
+                                getgenv().Drop = game:GetService('RunService').Heartbeat:Connect(function()
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Positionnn + Vector3.new(0, -7.5, 0)
+                                   if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
+                                   elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                   end
+                                   local MoneyGun = game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]') or game.Players.LocalPlayer.Character:FindFirstChild('[Money Gun]')
+                                   if getgenv().WithMoneyGun == true then
+                                       MoneyGun.Parent = game.Players.LocalPlayer.Character
+                                       if MoneyGun.Parent == game.Players.LocalPlayer.Character then
+                                           MoneyGun:Activate()
+                                       end
+                                   end
+                                end)
+                                repeat wait() until getgenv().DropRunning == false
+                                getgenv().Drop:Disconnect()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Positionnn
+                            end
+                         end
                          -- Drop
+                         if args[1] == Settings['Prefix'] .. 'ucdrop' then
+                            StartDrop(true)
+                         end
                          if args[1] == Settings['Prefix'] .. 'drop' then
-                             Say('Start dropping')
-                             getgenv().Drop = true
-                             Block(true)
-                             Wallet(true)
-                             spawn(function()
-                                 while getgenv().Drop == true do
-                                    if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
-                                        game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
-                                    elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 10000 then
-                                        game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
-                                    elseif game.Players.LocalPlayer.DataFolder.Currency.Value == 0 then
-                                        say('I dont have money!')
-                                        wait(1)
-                                        getgenv().Drop = false
-                                        Block(false)
-                                        Wallet(false)
-                                        Say('Stop dropping')
-
-                                    end
-                                    wait()
-                                 end
-                             end)
+                             StartDrop(false)
                          end
      
                          if args[1] == Settings['Prefix'] .. 'fps' then
@@ -460,7 +504,7 @@
                          end
                          -- Stop
                          if args[1] == Settings['Prefix'] .. 'stop' then
-                             getgenv().Drop = false
+                            getgenv().DropRunning = false
                              Block(false)
                              Wallet(false)
                              say('Stop dropping')
