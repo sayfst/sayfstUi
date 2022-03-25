@@ -530,12 +530,7 @@
                              wait(0.3)
                              Anchored(true)
                          end
-                    else
-                        game.StarterGui:SetCore('SendNotification', {
-                            Title = 'Sucess';
-                            Text = 'Host found!';
-                        })
-                    end
+                    
                 end)
             end
         end
