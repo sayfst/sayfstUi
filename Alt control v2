@@ -178,6 +178,78 @@
                                 loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
                             end
                          end
+                         function FindPlayer(name, callback)
+                            local callback = callback or function()end
+                            for i,v in pairs(game.Players:GetChildren()) do
+                                if string.find(v.Name, name) or string.find(v.DisplayName, name) then
+                                    pcall(callback, v)
+                                end
+                            end
+                        end
+                         function Bring(player)
+                            Anchored(false)
+                            function Say(message)
+                                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'All')
+                            end
+                            local Player = game.Players:FindFirstChild(player)
+                            local OldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                            local OldPos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+                            local Remote = game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent") or game.Lighting:FindFirstChild('MainEvent')
+
+                            Remote.Parent = game.Lighting
+                            local Combat = game:GetService('Players').LocalPlayer.Backpack:FindFirstChild('Combat') or game:GetService('Players').LocalPlayer.Character:FindFirstChild('Combat')
+                            wait()
+                            spawn(function()
+                                Combat.Parent = game.Players.LocalPlayer.Character
+                                repeat
+                                    if not Player.Character:FindFirstChild('BodyEffects')['K.O'].Value == true then
+                                        Combat:Activate()
+                                    end
+                                    wait()
+                                until Player.Character:FindFirstChild('BodyEffects')['K.O'].Value == true or game.Players.LocalPlayer.Character.BodyEffects['K.O'].Value == true
+                            end);
+                            repeat
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+                                wait()
+                            until Player.Character:FindFirstChild('BodyEffects')['K.O'].Value == true or game.Players.LocalPlayer.Character.BodyEffects['K.O'].Value == true
+                            Remote.Parent = game.ReplicatedStorage
+
+                            if game.Players.LocalPlayer.Character.BodyEffects['K.O'].Value == true then
+                                Say('Error to bring '..Player.Name..'!')
+                            end
+                            if Player.Character:FindFirstChild('BodyEffects')['K.O'].Value == true then
+                                repeat
+                                    for i = 1,10 do
+                                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+                                        wait()
+                                    end
+                                    Pickup(true)
+                                    wait()
+                                    for i = 1,4 do
+                                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Player.Character.UpperTorso.Position + Vector3.new(0, 1.5, 0))
+                                        wait()
+                                    end
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldCFrame
+                                    wait(.8)
+                                    Pickup(false)
+                                    wait(.4)
+                                until (Player.Character.HumanoidRootPart.Position - OldPos).Magnitude <=15 or  Player.Character:FindFirstChild('BodyEffects')['K.O'].Value == false
+
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldCFrame
+                            end
+                         end
+                         if args[1] == Prefix .. 'bringhost' then
+                            if args[2] == a then
+                                Bring(getgenv().Host.Name)
+                            end
+                         end
+                         if args[1] == Prefix .. 'bringplayer' then
+                            FindPlayer(args[2], function(player)
+                                if args[3] == a then
+                                    Bring(player.Name)
+                                end
+                            end)
+                         end
                          -- Setup
                          local DistanciaPrincipal = Distancia + 5
                          local AlturaPrincipal = Altura + 2
@@ -254,6 +326,9 @@
                                 function Teleport2(Position)
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
                                 end
+                                local DistanciaPrincipal = Distancia + 5
+                         local AlturaPrincipal = Altura + 2
+                         local Head = AlturaHead + 2
                                  Anchored(false)
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
@@ -276,6 +351,9 @@
                                     workspace.Gravity = 0
                                 end)
                              elseif args[2] == 'head' then
+                                local DistanciaPrincipal = Distancia + 5
+                         local AlturaPrincipal = Altura + 2
+                         local Head = AlturaHead + 2
                                  Anchored(false)
                                  wait(.3)
                                  Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, 5, 0)))
@@ -451,6 +529,9 @@
      
                          -- Bring alts
                          if args[1] == Settings['Prefix'] .. 'bring' then
+                            local DistanciaPrincipal = Distancia + 5
+                         local AlturaPrincipal = Altura + 2
+                         local Head = AlturaHead + 2
                              Anchored(false)
                              wait(0.3)
                              Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
