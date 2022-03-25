@@ -86,6 +86,8 @@
             print(prefix..'gravity -- Turn gravity 0 on alts!')
             print(prefix..'ungravity -- Turn gravity normal on alts!')
             print(prefix..'altnumber -- The highs will say what number they are in the altcontrol v2 configuration!')
+            print(prefix..'buymoneygun -- Buy money gun on alts')
+            print(prefix..'withmoneygun <true/false> -- If args[2] == true then alts is dropping with money gun and 10 k!')
             print('')
             print('')
             print('Thaks for use Alt control v2!')
