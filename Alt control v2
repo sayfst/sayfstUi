@@ -88,6 +88,7 @@
             print(prefix..'altnumber -- The highs will say what number they are in the altcontrol v2 configuration!')
             print(prefix..'buymoneygun -- Buy money gun on alts')
             print(prefix..'withmoneygun <true/false> -- If args[2] == true then alts is dropping with money gun and 10 k!')
+            print(prefix..'block <true/false> -- Turns block on')
             print('')
             print('')
             print('Thaks for use Alt control v2!')
@@ -202,6 +203,13 @@
                             end
                          end
                          getgenv().OldGravity = workspace.Gravity
+                         if args[1] == Prefix .. 'block' then
+                            if args[2] == Prefix .. 'true' then
+                                Block(true)
+                            elseif args[2] == Prefix .. 'false' then
+                                Block(false)
+                            end
+                         end
                          if args[1] == Prefix .. 'autolettuce' then
                             getgenv().AutoLettuceAlts = true
                             
@@ -452,6 +460,7 @@
                          if args[1] == Settings['Prefix'] .. 'ucdrop' then
                             Say('Start ucdropping')
                             Block(true)
+                            wait(1)
                             Wallet(true)
                             local Positionnn = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                             getgenv().DropRunning = true
