@@ -1,198 +1,616 @@
 
-if not getgenv().AltControlRunning then
-    getgenv().AltControlRunning = false
-end
-
-
-if getgenv().AltControlRunning == false then
-    repeat wait() until game:IsLoaded()
-
-    -- Waiting for game is loaded!
-    
-    
-    function Drop(amonut)
-        game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
-    end
-    
-    function FindPlayer(name, callback)
-        local callback = callback or function()end
-        for i,v in pairs(game.Players:GetChildren()) do
-            if string.find(v.Name, name) or string.find(v.DisplayName, name) then
-                pcall(callback, v)
+    function Reach(state)
+        getgenv().ReachState = state
+        if state == true then
+            LP = game.Players.LocalPlayer
+            for i,v in ipairs(LP.Character:GetDescendants()) do
+            if v:IsA("MeshPart") then v.Massless = true
+            v.CanCollide = false
+            v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0, 0, 0)
+            
             end
-        end
-    end
-    
-    function Block(status)
-        local Target = game:GetService("ReplicatedStorage").MainEvent;
-        Target:FireServer("Block", status)
-    end
-    
-    function Wallet(status)
-        if status == true then
-            game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
-        elseif status == false then
-            game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
-        end
-    end
-    
-    
-    function Teleport(CFrame2)
-        local TweenService = game:GetService("TweenService")
-        local Player = game.Players.LocalPlayer
-        
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {CFrame = CFrame2}):Play()
-    end
-    function Teleport2(CFrame3)
-        local Player = game.Players.LocalPlayer
-    
-        Player.Character.HumanoidRootPart.CFrame = CFrame3
-    end
-    
-    function Say(message)
-        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
-    end
-    
-    function ExecCmd(cmd, prefix)
-        local args = cmd:split(' ')
-        local HostPlayer = getgenv().HostOnline
-        local HostCharacter = HostPlayer.Character
-        if args[1] == prefix .. 'warp' then
-            if args[2] == 'line' then
-                if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-                    wait(1)
-                end
-                local randomnumber = math.random(0, 10)
-                local pos = CFrame.new(HostCharacter.HumanoidRootPart.Position + Vector3.new(randomnumber, 5, 0))
-                Teleport(CFrame.new(HostCharacter.HumanoidRootPart.Position + Vector3.new(randomnumber, 0, 0)))
-                wait(1)
-                getgenv().Line = game:GetService("RunService").Heartbeat:Connect(function()
-                    Teleport2(pos)
-                end)
-                wait(1)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-                wait()
-                getgenv().Line:Disconnect()
-            end
-    
-            if args[2] == 'disconnect' then
-                if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-                    getgenv().Line:Disconnect()
-                else
-                    Say('Error, warp already disconnect')
-                end
             end
             
-            if args[2] == 'hide' then
-                if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-                    wait(1)
-                end
-                local randomnumber = math.random(0, 10)
-                local pos = CFrame.new(HostCharacter.HumanoidRootPart.Position + Vector3.new(randomnumber, -6.2, 0))
-                Teleport(CFrame.new(HostCharacter.HumanoidRootPart.Position + Vector3.new(randomnumber, 0, 0)))
-                wait(1)
-                getgenv().Line = game:GetService("RunService").Heartbeat:Connect(function()
-                    Teleport2(pos)
-                end)
-                wait(1)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-                wait()
-                getgenv().Line:Disconnect()
+            for i,v in ipairs(game.workspace:GetDescendants()) do
+            if v:IsA("Seat") then 
+            v.Disabled = true
             end
-        end
-        if args[1] == prefix .. 'refresh' then
-            game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()         
-        end
-        if args[1] == prefix .. 'fps' then
-            setfpscap(args[2])
-            Say('fps cap set to: '..args[2])
-        end
-        if args[1] == prefix .. 'drop' then
-            Say('Start dropping')
-            getgenv().AutoDroping = game:GetService("RunService").Heartbeat:Connect(function()
-                if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
-                    Drop(10000)
-                else
-                    Drop(game.Players.LocalPlayer.DataFolder.Currency.Value)
-                end
-                Block(true)
-                Wallet(true)
-            end)
-        end
-        if args[1] == prefix .. 'stop' then
-            getgenv().AutoDroping:Disconnect()
-            Block(false)
-            Wallet(false)
-            Say('Stop dropping')
-        end
-        if args[1] == prefix .. 'bring' then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(HostCharacter.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
-        end
-        if args[1] == prefix .. 'hide' then
-            Teleport(CFrame.new(0, 90, 0))
-        end
-        if args[1] == prefix .. 'lowgfx' then
-            workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0 workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed = 0 workspace:FindFirstChildOfClass('Terrain').WaterReflectance = 0 workspace:FindFirstChildOfClass('Terrain').WaterTransparency = 0 game:GetService("Lighting").GlobalShadows = false game:GetService("Lighting").FogEnd = 9e9 settings().Rendering.QualityLevel = 1 for i,v in pairs(game:GetDescendants()) do if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then v.Material = "Plastic" v.Reflectance = 0 elseif v:IsA("Decal") then v.Transparency = 1 elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then v.Lifetime = NumberRange.new(0) elseif v:IsA("Explosion") then v.BlastPressure = 1 v.BlastRadius = 1 end end for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then v.Enabled = false end end workspace.DescendantAdded:Connect(function(child) coroutine.wrap(function() if child:IsA('ForceField') then game:GetService('RunService').Heartbeat:Wait() child:Destroy() elseif child:IsA('Sparkles') then game:GetService('RunService').Heartbeat:Wait() child:Destroy() elseif child:IsA('Smoke') or child:IsA('Fire') then game:GetService('RunService').Heartbeat:Wait() child:Destroy() end end)() end)
-        end
-        if args[1] == prefix .. 'sphere' then
-            FindPlayer(args[2], function(playerr)
-                if game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored == true then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-                    wait(1)
-                end
-                local randomnumber = math.random(0, 10)
-                local pos = CFrame.new(playerr.Character.HumanoidRootPart.Position + Vector3.new(randomnumber, 5, randomnumber))
-                Teleport(CFrame.new(playerr.Character.HumanoidRootPart.Position + Vector3.new(randomnumber, 0, randomnumber)))
-                wait(1)
-                getgenv().Line = game:GetService("RunService").Heartbeat:Connect(function()
-                    Teleport2(pos)
-                end)
-                wait(1)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-                wait()
-                getgenv().Line:Disconnect()
-            end)
-        end
-    end
-    
-    function AltControl()
-        if getgenv().HostOnline ~= nil then
-            if getgenv().HostOnline ~= game.Players.LocalPlayer then
-                setfpscap(getgenv().Settings["Fps"])
-                getgenv().HostOnline.Chatted:Connect(function(message)
-                    message = string.lower(message)
-    
-                    ExecCmd(message, getgenv().Settings["Prefix"])
-                end)
-            else
-                loadstring(game:HttpGet('https://raw.githubusercontent.com/W9K/roblox-scripts/main/DHC/SimpleSeller.lua', true))()
             end
+            x = 50
+            y = 50
+            z = 50
+            
+            
+            penis = Vector3.new(x,y,z)
+            
+            LP.Character.RightHand.Size = penis
+            
+            LP.Character.RightHand.Transparency = 1
+            
+            LP.Character.LeftHand.Size = penis
+            LP.Character.BodyEffects.SpecialParts.LeftHand.Size = penis
+            
+            LP.Character.LeftHand.Transparency = 1
+            
+        elseif state == false then
+            LP = game.Players.LocalPlayer
+            LP.Character.LeftHand.Transparency = 0
+            LP.Character.RightHand.Transparency = 0
+            LP.Character.LeftHand.Size = getgenv().LeftHandOldSize
+            LP.Character.RightHand.Size = getgenv().RightHandOldSize
         end
     end
     
+    local Settings = getgenv().AltControlSettings
     
-    getgenv().HostOnline = nil
-    if game.Players:FindFirstChild(getgenv().Settings["Host"]) then
-        getgenv().HostOnline = game.Players:FindFirstChild(getgenv().Settings["Host"])
+    if not game:IsLoaded() then
+        game.Loaded:wait()
     end
     
-    wait(.1)
+    if game.Players.LocalPlayer.Name ~= Settings['Host'] then
+        getgenv().AdvertOn = true
+        spawn(function()
+            getgenv().AdvertOn = false
+            while true do
+                for i,v in pairs(Settings['Advert']) do
+                    if v and getgenv().AdvertOn == true then
+                        Say(v)
+                        wait(3)
+                    end
+                end
+                wait()
+            end
+        end)
+        local ScreenGui = Instance.new("ScreenGui") local Frame = Instance.new("Frame") local TextLabel = Instance.new("TextLabel") local TextLabel_2 = Instance.new("TextLabel") local TextLabel_3 = Instance.new("TextLabel") local TextLabel_4 = Instance.new("TextLabel") ScreenGui.Parent = game.CoreGui ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling Frame.Parent = ScreenGui Frame.AnchorPoint = Vector2.new(0.5, 0.5) Frame.BackgroundColor3 = Color3.fromRGB(6, 6, 6) Frame.Position = UDim2.new(0.5, 0, 0.485889584, 0) Frame.Size = UDim2.new(1, 0, 1.07484663, 0) TextLabel.Parent = Frame TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel.BackgroundTransparency = 0.550 TextLabel.BorderSizePixel = 0 TextLabel.Position = UDim2.new(0.270054787, 0, 0.0684931427, 0) TextLabel.Size = UDim2.new(0, 921, 0, 102) TextLabel.Font = Enum.Font.SourceSansBold TextLabel.Text = "Alt control v2" TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel.TextScaled = true TextLabel.TextSize = 14.000 TextLabel.TextWrapped = true TextLabel_2.Parent = Frame TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_2.BackgroundTransparency = 1.000 TextLabel_2.BorderSizePixel = 0 TextLabel_2.Position = UDim2.new(0.273542553, 0, 0.232876673, 0) TextLabel_2.Size = UDim2.new(0, 909, 0, 102) TextLabel_2.Font = Enum.Font.SourceSansBold TextLabel_2.Text = "Alt account:" TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_2.TextScaled = true TextLabel_2.TextSize = 14.000 TextLabel_2.TextWrapped = true TextLabel_3.Parent = Frame TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_3.BackgroundTransparency = 1.000 TextLabel_3.BorderSizePixel = 0 TextLabel_3.Position = UDim2.new(0.273542553, 0, 0.385844707, 0) TextLabel_3.Size = UDim2.new(0, 909, 0, 102) TextLabel_3.Font = Enum.Font.SourceSansBold TextLabel_3.Text = "UserName" TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_3.TextSize = 49.000 TextLabel_3.TextWrapped = true TextLabel_4.Parent = Frame TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_4.BackgroundTransparency = 0.950 TextLabel_4.Position = UDim2.new(0.360737413, 0, 0.836758018, 0) TextLabel_4.Size = UDim2.new(0, 558, 0, 51) TextLabel_4.Font = Enum.Font.SourceSansBold TextLabel_4.Text = "Commands on Host screen!" TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_4.TextScaled = true TextLabel_4.TextSize = 14.000 TextLabel_4.TextWrapped = true local function OUCBA_fake_script() local script = Instance.new('LocalScript', TextLabel_3) script.Parent.Text = 'Alt: ' .. game.Players.LocalPlayer.Name .. '.' end coroutine.wrap(OUCBA_fake_script)()
+    elseif game.Players.LocalPlayer.Name == Settings['Host'] then
+        delay(5, function()
+            game.StarterGui:SetCore('SendNotification', {
+                Title = 'Alt control v2 is loaded!';
+                Text = 'Press "F8" to view all comands!';
+                Duration = 10;
+            })
+
+            local prefix = getgenv().AltControlSettings['Prefix']
+
+            print('Alt control v2 Commands! <Made by $ samuu#6783>')
+            print(prefix..'warp <line/loop/head/safezone/adminbase/baseadmin/admin/base> -- Setup alts!')
+            print(prefix..'airlock <true/false> -- Airlock accounts')
+            print(prefix..'chat -- All acounts say: '..getgenv().AltControlSettings['Chat'])
+            print(prefix..'bring -- Bring accounts at Host')
+            print(prefix..'drop -- All alts start dropping')
+            print(prefix..'stop -- All alts stop dropping')
+            print(prefix..'autolettuce -- All alts eat lettuce')
+            print(prefix..'unautolettuce -- All alts stop eat lettuce')
+            print(prefix..'advert <on/off>')
+            print(prefix..'crash -- Alt1 starting a SwagMode Crasher!')
+            print(prefix..'gravity -- Turn gravity 0 on alts!')
+            print(prefix..'ungravity -- Turn gravity normal on alts!')
+            print(prefix..'altnumber -- The highs will say what number they are in the altcontrol v2 configuration!')
+            print('')
+            print('')
+            print('Thaks for use Alt control v2!')
+        end)
+        local ScreenGui = Instance.new("ScreenGui") local Frame = Instance.new("Frame") local TextLabel = Instance.new("TextLabel") local TextLabel_2 = Instance.new("TextLabel") local TextLabel_3 = Instance.new("TextLabel") local TextLabel_4 = Instance.new("TextLabel") local TextLabel_5 = Instance.new("TextLabel") local TextLabel_6 = Instance.new("TextLabel") local TextLabel_7 = Instance.new("TextLabel") local TextLabel_8 = Instance.new("TextLabel") local TextLabel_9 = Instance.new("TextLabel") local TextLabel_10 = Instance.new("TextLabel") local TextLabel_11 = Instance.new("TextLabel") local TextButton = Instance.new("TextButton") local TextLabel_12 = Instance.new("TextLabel") local TextLabel_13 = Instance.new("TextLabel") local TextLabel_14 = Instance.new("TextLabel") ScreenGui.Parent = game.CoreGui ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling Frame.Parent = ScreenGui Frame.AnchorPoint = Vector2.new(0.5, 0.5) Frame.BackgroundColor3 = Color3.fromRGB(6, 6, 6) Frame.Position = UDim2.new(0.5, 0, 0.485889584, 0) Frame.Size = UDim2.new(1, 0, 1.07484663, 0) TextLabel.Parent = Frame TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel.BackgroundTransparency = 0.550 TextLabel.BorderSizePixel = 0 TextLabel.Position = UDim2.new(0.270054787, 0, 0.0684931427, 0) TextLabel.Size = UDim2.new(0, 921, 0, 102) TextLabel.Font = Enum.Font.SourceSansBold TextLabel.Text = "Alt control v2 - Host" TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel.TextScaled = true TextLabel.TextSize = 14.000 TextLabel.TextWrapped = true TextLabel_2.Parent = Frame TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_2.BackgroundTransparency = 1.000 TextLabel_2.BorderSizePixel = 0 TextLabel_2.Position = UDim2.new(0.273542553, 0, 0.232876673, 0) TextLabel_2.Size = UDim2.new(0, 909, 0, 102) TextLabel_2.Font = Enum.Font.SourceSansBold TextLabel_2.Text = "Host account:" TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_2.TextScaled = true TextLabel_2.TextSize = 14.000 TextLabel_2.TextWrapped = true TextLabel_3.Parent = Frame TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_3.BackgroundTransparency = 1.000 TextLabel_3.BorderSizePixel = 0 TextLabel_3.Position = UDim2.new(0.273542553, 0, 0.385844707, 0) TextLabel_3.Size = UDim2.new(0, 909, 0, 102) TextLabel_3.Font = Enum.Font.SourceSansBold TextLabel_3.Text = "UserName" TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_3.TextSize = 49.000 TextLabel_3.TextWrapped = true TextLabel_4.Parent = Frame TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_4.BackgroundTransparency = 1.000 TextLabel_4.Position = UDim2.new(0.360737413, 0, 0.574200928, 0) TextLabel_4.Size = UDim2.new(0, 558, 0, 35) TextLabel_4.Font = Enum.Font.SourceSansBold TextLabel_4.Text = "Commands:" TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_4.TextScaled = true TextLabel_4.TextSize = 14.000 TextLabel_4.TextWrapped = true TextLabel_5.Parent = Frame TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_5.BackgroundTransparency = 1.000 TextLabel_5.Position = UDim2.new(0.231689066, 0, 0.660958886, 0) TextLabel_5.Size = UDim2.new(0, 755, 0, 35) TextLabel_5.Font = Enum.Font.SourceSansBold TextLabel_5.Text = "warp <line/loop/head/ adminbase/base/baseadmin/admin/ safezone> -- Setup alts" TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_5.TextSize = 23.000 TextLabel_5.TextWrapped = true TextLabel_6.Parent = Frame TextLabel_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_6.BackgroundTransparency = 1.000 TextLabel_6.Position = UDim2.new(0.352765322, 0, 0.70091325, 0) TextLabel_6.Size = UDim2.new(0, 590, 0, 35) TextLabel_6.Font = Enum.Font.SourceSansBold TextLabel_6.Text = "bring - bring alts at host!" TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_6.TextSize = 28.000 TextLabel_6.TextWrapped = true TextLabel_7.Parent = Frame TextLabel_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_7.BackgroundTransparency = 1.000 TextLabel_7.Position = UDim2.new(0.221723974, 0, 0.78082186, 0) TextLabel_7.Size = UDim2.new(0, 1115, 0, 35) TextLabel_7.Font = Enum.Font.SourceSansBold TextLabel_7.Text = "chat -- the accounts will speak the message you left in the settings of this alt control!" TextLabel_7.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_7.TextSize = 28.000 TextLabel_7.TextWrapped = true TextLabel_8.Parent = Frame TextLabel_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_8.BackgroundTransparency = 1.000 TextLabel_8.Position = UDim2.new(0.569506705, 0, 0.660958886, 0) TextLabel_8.Size = UDim2.new(0, 398, 0, 35) TextLabel_8.Font = Enum.Font.SourceSansBold TextLabel_8.Text = "| or <disconnect> -- To stop all setups" TextLabel_8.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_8.TextSize = 23.000 TextLabel_8.TextWrapped = true TextLabel_9.Parent = Frame TextLabel_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_9.BackgroundTransparency = 1.000 TextLabel_9.Position = UDim2.new(0.221723974, 0, 0.740867496, 0) TextLabel_9.Size = UDim2.new(0, 1115, 0, 35) TextLabel_9.Font = Enum.Font.SourceSansBold TextLabel_9.Text = "airlock <true/false> -- Airlock alts" TextLabel_9.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_9.TextSize = 28.000 TextLabel_9.TextWrapped = true TextLabel_10.Parent = Frame TextLabel_10.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_10.BackgroundTransparency = 1.000 TextLabel_10.Position = UDim2.new(0.221723974, 0, 0.820776224, 0) TextLabel_10.Size = UDim2.new(0, 1115, 0, 35) TextLabel_10.Font = Enum.Font.SourceSansBold TextLabel_10.Text = "drop -- alts start dropping" TextLabel_10.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_10.TextSize = 28.000 TextLabel_10.TextWrapped = true TextLabel_11.Parent = Frame TextLabel_11.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_11.BackgroundTransparency = 1.000 TextLabel_11.Position = UDim2.new(0.221723959, 0, 0.192922354, 0) TextLabel_11.Size = UDim2.new(0, 1115, 0, 34) TextLabel_11.Font = Enum.Font.SourceSansBold TextLabel_11.Text = "Alt control made by: $ samuu#6783" TextLabel_11.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_11.TextSize = 28.000 TextLabel_11.TextWrapped = true TextButton.Parent = Frame TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextButton.BackgroundTransparency = 1.000 TextButton.Position = UDim2.new(0.449925244, 0, 0.231735155, 0) TextButton.Size = UDim2.new(0, 200, 0, 17) TextButton.Font = Enum.Font.SourceSansBold TextButton.Text = "Copy to clipboard" TextButton.TextColor3 = Color3.fromRGB(255, 255, 255) TextButton.TextSize = 14.000 TextLabel_12.Parent = Frame TextLabel_12.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_12.BackgroundTransparency = 1.000 TextLabel_12.Position = UDim2.new(0.221723974, 0, 0.860730588, 0) TextLabel_12.Size = UDim2.new(0, 1115, 0, 35) TextLabel_12.Font = Enum.Font.SourceSansBold TextLabel_12.Text = "stop -- drop stop dropping" TextLabel_12.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_12.TextSize = 28.000 TextLabel_12.TextWrapped = true TextLabel_13.Parent = Frame TextLabel_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_13.BackgroundTransparency = 1.000 TextLabel_13.Position = UDim2.new(0.222222224, 0, 0.900684953, 0) TextLabel_13.Size = UDim2.new(0, 1115, 0, 35) TextLabel_13.Font = Enum.Font.SourceSansBold TextLabel_13.Text = "hide -- teleport alts to a CFrame.new(0, 100, 0) = Safe local." TextLabel_13.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_13.TextSize = 28.000 TextLabel_13.TextWrapped = true TextLabel_14.Parent = Frame TextLabel_14.BackgroundColor3 = Color3.fromRGB(255, 255, 255) TextLabel_14.BackgroundTransparency = 1.000 TextLabel_14.Position = UDim2.new(0.222222224, 0, 0.527397275, 0) TextLabel_14.Size = UDim2.new(0, 1115, 0, 35) TextLabel_14.Font = Enum.Font.SourceSansBold TextLabel_14.Text = "Prefix" TextLabel_14.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel_14.TextSize = 28.000 TextLabel_14.TextWrapped = true local function FTJJZQ_fake_script() local script = Instance.new('LocalScript', TextLabel_3) script.Parent.Text = 'Alt: ' .. game.Players.LocalPlayer.Name .. '.' end coroutine.wrap(FTJJZQ_fake_script)() local function ADVBW_fake_script() local script = Instance.new('LocalScript', TextButton) script.Parent.MouseButton1Click:Connect(function() setclipboard('$ samuu#6783') script.Parent.Text = 'Sucess copy to clipboard' wait(.5) script.Parent.Text = 'Copy to clipboard' end) end coroutine.wrap(ADVBW_fake_script)() local function ELYQ_fake_script() local script = Instance.new('LocalScript', TextLabel_14) script.Parent.Text = 'Your prefix: '..getgenv().AltControlSettings['Prefix'] wait(5) script.Parent.Parent.Parent:Destroy() end coroutine.wrap(ELYQ_fake_script)()
+    end
+
+    getgenv().Host = nil
+    if game.Players:FindFirstChild(Settings['Host']) then
+        getgenv().Host = game.Players:FindFirstChild(Settings['Host'])
+    end
+    function Say(message)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, 'All')
+    end
     
-    AltControl()
-    game:GetService("Players").PlayerAdded:Connect(function(player)
-        if player.Name == getgenv().Settings["Host"] then
-            getgenv().HostOnline = player
-            AltControl()
-        end
+    local Prefix = Settings['Prefix']
+    
+    local lPlayer = game.Players.LocalPlayer
+    local lCharacter = lPlayer.Character
+    lPlayer.CharacterAdded:Connect(function(Character)
+        lCharacter = Character
     end)
     
-    getgenv().AltControlRunning = true
-else
+    local bb=game:service'VirtualUser'
+    game:service'Players'.LocalPlayer.Idled:connect(function()
+    bb:CaptureController()bb:ClickButton2(Vector2.new())
+    end)
     game.StarterGui:SetCore("SendNotification", {
-        Title = 'Error';
-        Text = 'Alt control already running!'
+        Title = "Sucess";
+        Text = 'Anti afk is enabled!';
     })
-end
+    
+    function Alt(Numero, Distancia, Altura, AlturaHead)
+        local a = 'Alt'..Numero
+        if game.Players.LocalPlayer.UserId == Settings[a] then
+            if getgenv().Host ~= nil then
+                delay(5, function()
+                    setfpscap(getgenv().AltControlSettings['Fps'])
+                    workspace:FindFirstChildOfClass('Terrain').WaterWaveSize=0;workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed=0;workspace:FindFirstChildOfClass('Terrain').WaterReflectance=0;workspace:FindFirstChildOfClass('Terrain').WaterTransparency=0;game:GetService("Lighting").GlobalShadows=false;game:GetService("Lighting").FogEnd=9e9;settings().Rendering.QualityLevel=1;for a,b in pairs(game:GetDescendants())do if b:IsA("Part")or b:IsA("UnionOperation")or b:IsA("MeshPart")or b:IsA("CornerWedgePart")or b:IsA("TrussPart")then b.Material="Plastic"b.Reflectance=0 elseif b:IsA("Decal")then b.Transparency=1 elseif b:IsA("ParticleEmitter")or b:IsA("Trail")then b.Lifetime=NumberRange.new(0)elseif b:IsA("Explosion")then b.BlastPressure=1;b.BlastRadius=1 end end;for a,b in pairs(game:GetService("Lighting"):GetDescendants())do if b:IsA("BlurEffect")or b:IsA("SunRaysEffect")or b:IsA("ColorCorrectionEffect")or b:IsA("BloomEffect")or b:IsA("DepthOfFieldEffect")then b.Enabled=false end end;workspace.DescendantAdded:Connect(function(c)coroutine.wrap(function()if c:IsA('ForceField')then game:GetService('RunService').Heartbeat:Wait()c:Destroy()elseif c:IsA('Sparkles')then game:GetService('RunService').Heartbeat:Wait()c:Destroy()elseif c:IsA('Smoke')or c:IsA('Fire')then game:GetService('RunService').Heartbeat:Wait()c:Destroy()end end)()end)
+                end)
+                getgenv().Host.Chatted:Connect(function(message)
+                    if getgenv().Host ~= game.Players.LocalPlayer then
+                        function Pickup(state)
+                            local args = {
+                                [1] = "Grabbing",
+                                [2] = state,
+                            }
+                            game:GetService("ReplicatedStorage").MainEvent:FireServer(unpack(args))
+                        end
+
+                        
+                        function Teleport(Position)
+                            game:GetService('TweenService'):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(0.3), {CFrame = Position}):Play()
+                        end
+                        function Teleport2(Position)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
+                        end
+                        
+                         function Anchored(state)
+                             lCharacter.HumanoidRootPart.Anchored = state
+                         end
+                         function Drop(amonut)
+                             game:GetService("ReplicatedStorage").MainEvent:FireServer('DropMoney', ''..amonut..'')
+                         end
+                         function Block(status)
+                             local Target = game:GetService("ReplicatedStorage").MainEvent;
+                             Target:FireServer("Block", status)
+                         end
+                         function Wallet(status)
+                             if status == true then
+                                 game.Players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Character
+                             elseif status == false then
+                                 game.Players.LocalPlayer.Character:FindFirstChild("Wallet").Parent = game.Players.LocalPlayer.Backpack
+                             end
+                         end
+                         args = message:split(' ')
+                         argsSay = message:split(':')
+                         if argsSay[1] == Settings['Prefix'] .. 'say' then
+                             Say(argsSay[2])
+                         end
+                         if args[1] == 'crash' then
+                            if args[2] == a or args[2] == 'all' then
+                                loadstring(game:HttpGet('https://raw.githubusercontent.com/lerkermer/lua-projects/master/SuperCustomServerCrasher'))()
+                            end
+                         end
+                         -- Setup
+                         local DistanciaPrincipal = Distancia + 5
+                         local AlturaPrincipal = Altura + 2
+                         local Head = AlturaHead + 2
+                         if args[1] == Prefix .. 'altnumber' then
+                            Say('Im '..a)
+                         end
+                         if args[1] == Prefix .. 'buymoneygun' then
+                            local Now = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Money Gun] - $777"].Head.CFrame
+                            wait(0.3)
+                            fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Money Gun] - $777"].ClickDetector)
+                            wait(0.3)
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Now
+                         end
+                         if args[1] == Prefix .. 'withmoneygun' then
+                            if args[2] == 'true' then
+                                getgenv().WithMoneyGun = true
+                            elseif args[2] == 'false' then
+                                getgenv().WithMoneyGun = false
+                            end
+                            end
+                         end
+                         getgenv().OldGravity = workspace.Gravity
+                         if args[1] == Prefix .. 'autolettuce' then
+                            getgenv().AutoLettuceAlts = true
+                            
+                            wait(1)
+                            spawn(function()
+                                repeat
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].Head.CFrame * CFrame.new(-.4, -6, 0)
+                                    if game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]') then
+                                        game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]'):Activate()
+                                    end
+                                    if game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]') then
+                                        game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]'))
+                                    end
+                                    wait()
+                                until getgenv().AutoLettuceAlts == false
+                            end)
+                            repeat
+                                local Tool = game.Players.LocalPlayer.Character:FindFirstChild('[Lettuce]') or game.Players.LocalPlayer.Backpack:FindFirstChild('[Lettuce]')
+                                if not Tool then
+                                    fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Lettuce] - $5"].ClickDetector)
+                                end
+                                wait()
+                            until getgenv().AutoLettuceAlts == false
+                            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                         end
+                         if args[1] == Prefix .. 'unautolettuce' then
+                            getgenv().AutoLettuceAlts = false
+                            wait()
+                            game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                         end
+                         if args[1] == Prefix .. 'advert' then
+                            if args[2] == 'on' then
+                                getgenv().AdvertOn = true
+                            end
+                            if args[2] == 'off' then
+                                getgenv().AdvertOn = false
+                            end
+                         end
+                         
+                         if args[1] == Prefix .. 'warp' then
+                             if args[2] == 'line' then
+                                function Teleport2(Position)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Position
+                                end
+                                 Anchored(false)
+                                 wait(.3)
+                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                 wait(1)
+                  
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0))
+                                wait(.1)
+                                Anchored(true)
+                             elseif args[2] == 'disconnect' then
+                                 Anchored(false)
+                                 getgenv().WarpLoop:Disconnect()
+                                workspace.Gravity = getgenv().OldGravity
+                             elseif args[2] == 'loop' then
+                                Anchored(false)
+                                wait(.3)
+                                Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, 0, 0)))
+                                wait(1)
+                                getgenv().WarpLoop = game:GetService("RunService").Heartbeat:Connect(function()
+                                    Teleport2(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                                    workspace.Gravity = 0
+                                end)
+                             elseif args[2] == 'head' then
+                                 Anchored(false)
+                                 wait(.3)
+                                 Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, 5, 0)))
+                                 wait(1)
+                                 Teleport2(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(0, Head, 0)))
+                                 wait(0.1)
+                                 Anchored(true)
+                             elseif args[2] == 'base' or args[2] == 'adminbase' or args[2] == 'baseadmin' or args[2] == 'admin' then
+                                Anchored(false)
+                                wait(.4)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492, -545.9679565429688)
+                                 wait(1)
+                                 local Adicional
+ 
+                                 if a == 'Alt1' then
+                                     Adicional = 3
+                                 elseif a == 'Alt2' then
+                                     Adicional = 6
+                                 elseif a == 'Alt3' then
+                                     Adicional = 9
+                                 elseif a == 'Alt4' then
+                                     Adicional = 12
+                                 elseif a == 'Alt5' then
+                                     Adicional = 15
+                                 elseif a == 'Alt6' then
+                                     Adicional = 18
+                                 elseif a == 'Alt7' then
+                                     Adicional = 21
+                                 elseif a == 'Alt8' then
+                                     Adicional = 24
+                                 elseif a == 'Alt9' then
+                                     Adicional = 27
+                                 elseif a == 'Alt10' then
+                                     Adicional = 30
+                                 elseif a == 'Alt11' then
+                                     Adicional = 33
+                                 elseif a == 'Alt12' then
+                                     Adicional = 36
+                                 elseif a == 'Alt13' then
+                                     Adicional = 39
+                                 elseif a == 'Alt14' then
+                                     Adicional = 42
+                                 elseif a == 'Alt15' then
+                                     Adicional = 45
+                                 elseif a == 'Alt16' then
+                                     Adicional = 48
+                                 elseif a == 'Alt17' then
+                                     Adicional = 51
+                                 elseif a == 'Alt18' then
+                                    Adicional = 54
+                                 elseif a == 'Alt19' then
+                                    Adicional = 57
+                                 elseif a == 'Alt20' then
+                                    Adicional = 60
+                                 elseif a == 'Alt21' then
+                                    Adicional = 63
+                                 elseif a == 'Alt22' then
+                                    Adicional = 66
+                                 elseif a == 'Alt23' then
+                                    Adicional = 69
+                                 elseif a == 'Alt24' then
+                                    Adicional = 72
+                                 elseif a == 'Alt25' then
+                                    Adicional = 75
+                                 elseif a == 'Alt26' then
+                                    Adicional = 78
+                                 elseif a == 'Alt27' then
+                                    Adicional = 81
+                                 elseif a == 'Alt28' then
+                                    Adicional = 84
+                                 elseif a == 'Alt29' then
+                                    Adicional = 87
+                                 elseif a == 'Alt30' then
+                                    Adicional = 90
+                                 end
+                                 wait()
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492, -545.9679565429688 - Adicional)
+                                 wait(1)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-871.0387573242188, -38.39921188354492 + 5, -545.9679565429688 - Adicional)
+                                 wait(.1)
+                                 Anchored(true)
+                            elseif args[2] == 'safezone' then
+                                Anchored(false)
+                                wait(.4)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.09283447265625, 38.25, 200021.453125)
+                                 wait(1)
+                                 local Adicional
+ 
+                                 if a == 'Alt1' then
+                                     Adicional = 3
+                                 elseif a == 'Alt2' then
+                                     Adicional = 6
+                                 elseif a == 'Alt3' then
+                                     Adicional = 9
+                                 elseif a == 'Alt4' then
+                                     Adicional = 12
+                                 elseif a == 'Alt5' then
+                                     Adicional = 15
+                                 elseif a == 'Alt6' then
+                                     Adicional = 18
+                                 elseif a == 'Alt7' then
+                                     Adicional = 21
+                                 elseif a == 'Alt8' then
+                                     Adicional = 24
+                                 elseif a == 'Alt9' then
+                                     Adicional = 27
+                                 elseif a == 'Alt10' then
+                                     Adicional = 30
+                                 elseif a == 'Alt11' then
+                                     Adicional = 33
+                                 elseif a == 'Alt12' then
+                                     Adicional = 36
+                                 elseif a == 'Alt13' then
+                                     Adicional = 39
+                                 elseif a == 'Alt14' then
+                                     Adicional = 42
+                                 elseif a == 'Alt15' then
+                                     Adicional = 45
+                                 elseif a == 'Alt16' then
+                                     Adicional = 48
+                                 elseif a == 'Alt17' then
+                                     Adicional = 51
+                                 elseif a == 'Alt18' then
+                                    Adicional = 54
+                                 elseif a == 'Alt19' then
+                                    Adicional = 57
+                                 elseif a == 'Alt20' then
+                                    Adicional = 60
+                                 elseif a == 'Alt21' then
+                                    Adicional = 63
+                                 elseif a == 'Alt22' then
+                                    Adicional = 66
+                                 elseif a == 'Alt23' then
+                                    Adicional = 69
+                                 elseif a == 'Alt24' then
+                                    Adicional = 72
+                                 elseif a == 'Alt25' then
+                                    Adicional = 75
+                                 elseif a == 'Alt26' then
+                                    Adicional = 78
+                                 elseif a == 'Alt27' then
+                                    Adicional = 81
+                                 elseif a == 'Alt28' then
+                                    Adicional = 84
+                                 elseif a == 'Alt29' then
+                                    Adicional = 87
+                                 elseif a == 'Alt30' then
+                                    Adicional = 90
+                                 end
+                                 wait()
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.09283447265625 - Adicional, 38.25, 200021.453125)
+                                 wait(1)
+                                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(235.09283447265625 - Adicional, 38.25 + 5, 200021.453125)
+                                 wait(.1)
+                                 Anchored(true)
+                             end
+                         end
+     
+                         if args[1] == Settings['Prefix'] .. 'gravity' then
+                             getgenv().GravityOn = game:GetService("RunService").Heartbeat:Connect(function()
+                                 workspace.Gravity = 0
+                             end)
+                         end
+                         if args[1] == Settings['Prefix'] .. 'ungravity' then
+                            getgenv().GravityOn:Disconnect()
+                            workspace.Gravity = getgenv().OldGravity
+                         end
+ 
+                         -- Chat
+                         if args[1] == Settings['Prefix'] .. 'chat' then
+                             Say(Settings['Chat'])
+                         end
+     
+                         -- Bring alts
+                         if args[1] == Settings['Prefix'] .. 'bring' then
+                             Anchored(false)
+                             wait(0.3)
+                             Teleport(CFrame.new(getgenv().Host.Character.HumanoidRootPart.Position + Vector3.new(DistanciaPrincipal, AlturaPrincipal, 0)))
+                         end
+                         function StartDrop(ucdrop)
+                            if ucdrop == false then
+                                Say('Start dropping')
+                                Block(true)
+                                Wallet(true)
+                                getgenv().DropRunning = true
+                                getgenv().Drop = game:GetService('RunService').Heartbeat:Connect(function()
+                                   if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
+                                   elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                   end
+                                   local MoneyGun = game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]') or game.Players.LocalPlayer.Character:FindFirstChild('[Money Gun]')
+                                   if getgenv().WithMoneyGun == true then
+                                       MoneyGun.Parent = game.Players.LocalPlayer.Character
+                                       if MoneyGun.Parent == game.Players.LocalPlayer.Character then
+                                           MoneyGun:Activate()
+                                       end
+                                   end
+                                end)
+                                repeat wait() until getgenv().DropRunning == false
+                                getgenv().Drop:Disconnect()
+                            elseif ucdrop == true then
+                                Say('Start dropping')
+                                Block(true)
+                                Wallet(true)
+                                local Positionnn = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                                getgenv().DropRunning = true
+                                getgenv().Drop = game:GetService('RunService').Heartbeat:Connect(function()
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Positionnn + Vector3.new(0, -7.5, 0)
+                                   if game.Players.LocalPlayer.DataFolder.Currency.Value > 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", 10000)
+                                   elseif game.Players.LocalPlayer.DataFolder.Currency.Value < 10000 then
+                                       game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", game.Players.LocalPlayer.DataFolder.Currency.Value)
+                                   end
+                                   local MoneyGun = game.Players.LocalPlayer.Backpack:FindFirstChild('[Money Gun]') or game.Players.LocalPlayer.Character:FindFirstChild('[Money Gun]')
+                                   if getgenv().WithMoneyGun == true then
+                                       MoneyGun.Parent = game.Players.LocalPlayer.Character
+                                       if MoneyGun.Parent == game.Players.LocalPlayer.Character then
+                                           MoneyGun:Activate()
+                                       end
+                                   end
+                                end)
+                                repeat wait() until getgenv().DropRunning == false
+                                getgenv().Drop:Disconnect()
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Positionnn
+                            end
+                         end
+                         -- Drop
+                         if args[1] == Settings['Prefix'] .. 'ucdrop' then
+                            StartDrop(true)
+                         end
+                         if args[1] == Settings['Prefix'] .. 'drop' then
+                             StartDrop(false)
+                         end
+     
+                         if args[1] == Settings['Prefix'] .. 'fps' then
+                            setfpscap(args[2])
+                            say('fps cap set to: '..args[2])
+                         end
+                         -- Stop
+                         if args[1] == Settings['Prefix'] .. 'stop' then
+                            getgenv().DropRunning = false
+                             Block(false)
+                             Wallet(false)
+                             say('Stop dropping')
+                         end
+     
+                         -- Airlock
+                         if args[1] == Settings['Prefix'] .. 'airlock' then
+                             if args[2] == 'true' then
+                                 Anchored(false)
+                                 wait(1)
+                                 Teleport(CFrame.new(lCharacter.HumanoidRootPart.Position + Vector3.new(0, AlturaPrincipal, 0)))
+                                 wait(0.3)
+                                 Anchored(true)
+                             elseif args[2] == 'false' then
+                                 Anchored(false)
+                             end
+                         end
+     
+                         -- Hide
+                         if args[1] == Settings['Prefix'] .. 'hide' then
+                             Anchored(false)
+                             wait(1)
+                             Teleport(CFrame.new(0, 100, 0))
+                             wait(0.3)
+                             Anchored(true)
+                         end
+                    else
+                        game.StarterGui:SetCore('SendNotification', {
+                            Title = 'Sucess';
+                            Text = 'Host found!';
+                        })
+                    end
+                end)
+            end
+        end
+    end
+    
+    
+    
+    function Restart()
+        if game.Players.LocalPlayer.Name ~= Settings['Host'] then
+            --Alt 1
+            Alt(1, 2, 5, 10)
+            --Alt 2
+            Alt('2', 4, 5, 15)
+            --Alt 3
+            Alt('3', 6, 5, 20)
+            --Alt 4
+            Alt('4', 8, 5, 25)
+            --Alt 5
+            Alt('5', 10, 5, 30)
+            --Alt 6
+            Alt('6', 12, 5, 35)
+            --Alt 7
+            Alt('7', 14, 5, 40)
+            --Alt 8
+            Alt('8', 16, 5, 45)
+            --Alt 9
+            Alt('9', 18, 5, 50)
+            --Alt 10
+            Alt('10', 20, 5, 55)
+            --ALt 11
+            Alt('11', 2, 5, 60)
+            --Alt 12
+            Alt('12', 4, 5, 65)
+            --Alt 13
+            Alt('13', 6, 10, 70)
+            --Alt 14
+            Alt('14', 8, 10, 75)
+            --Alt 15
+            Alt('15', 10, 10, 80)
+            --Alt 16
+            Alt('16', 12, 10, 85)
+            --Alt 17
+            Alt('17', 14, 10, 90)
+            --Alt 18
+            Alt('18', 16, 10, 95)
+            --Alt 19
+            Alt('19', 18, 10, 100)
+            --Alt 20
+            Alt('20', 20, 10, 105)
+            --Alt 21
+            Alt('21', 2, 15, 110)
+            --Alt 22
+            Alt('22', 4, 15, 115)
+            --Alt 23
+            Alt('23', 6, 15, 120)
+            --Alt 24
+            Alt('24', 8, 15, 125)
+            --Alt 25
+            Alt('25', 10, 15, 130)
+            --Alt 26
+            Alt('26', 12, 15, 135)
+            --Alt 27
+            Alt('27', 14, 15, 140)
+            --Alt 28
+            Alt('28', 16, 15, 145)
+            --Alt 29
+            Alt('29', 18, 15, 150)
+            --Alt 30
+            Alt('30', 20, 15, 155)
+        end
+    end
+    
+    Restart()
+    game.Players.ChildAdded:Connect(function(Player)
+        if Player.Name == Settings['Host'] then
+            getgenv().Host = Player
+            Restart()
+        end
+    end) 
