@@ -1,7 +1,5 @@
 local PremiumNames = {
 'MinhasContas72',
-'MinhasContas73',
-'samulindo',
 }
 
 return PremiumNames
