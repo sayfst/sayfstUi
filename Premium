@@ -236,7 +236,7 @@ spawn(function()
                     BenxAni.Looped = true
                     repeat wait() BenxAni:Play() until getgenv().BenxRunning == false
                     BenxAni:Stop()
-    
+                    getgenv().BenxRunning2:Disconnect()
     
                 end
                 if args[2] == prefix2 then
@@ -265,8 +265,9 @@ spawn(function()
             end
             if args[1] == prefix .. 'unbenx' then
                 function unbenx()
+                    
                     getgenv().BenxRunning = false
-                    getgenv().BenxRunning2:Disconnect()
+                    
                 end
                 if args[2] == prefix2 then
                     unbenx()
