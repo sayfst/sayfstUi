@@ -384,6 +384,10 @@ spawn(function()
         VerifyAdmins()
     end)
     wait(1)
-    
+    if IsAMod == false then
+        getgenv().Rank = 'Normal rank'
+    else
+        getgenv().Rank = 'Premium'
+    end
     
 end)
