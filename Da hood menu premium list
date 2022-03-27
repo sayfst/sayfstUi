@@ -1,0 +1,7 @@
+local PremiumNames = {
+'ilxsxmu',
+'davidcomedordecu',
+'samulindo',
+}
+
+return PremiumNames
