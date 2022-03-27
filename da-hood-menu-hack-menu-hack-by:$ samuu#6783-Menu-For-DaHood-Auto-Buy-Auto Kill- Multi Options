@@ -1,132 +1,142 @@
 local library = {}
 
 function library:CreateWindow()
-    local Dahoodmenu = Instance.new("ScreenGui")
-    local Menu = Instance.new("Frame")
-    local TextLabel = Instance.new("TextLabel")
-    local Tabs = Instance.new("Frame")
-    local ButtonTabs = Instance.new("ScrollingFrame")
-    local UIGridLayout2 = Instance.new("UIGridLayout")
-    
-    Dahoodmenu.Name = "[Da hood menu]"
-    Dahoodmenu.Parent = game:GetService("CoreGui")
-    Dahoodmenu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    
-    
-    Menu.Name = "Menu"
-    Menu.Parent = Dahoodmenu
-    Menu.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    Menu.Position = UDim2.new(0.0881913304, 0, 0.163190186, 0)
-    Menu.Size = UDim2.new(0, 569, 0, 287)
-    Menu.Active = true
-    Menu.Draggable = true
-    
-    TextLabel.Parent = Menu
-    TextLabel.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
-    TextLabel.BorderSizePixel = 0
-    TextLabel.Size = UDim2.new(0, 569, 0, 27)
-    TextLabel.Font = Enum.Font.SourceSansBold
-    TextLabel.Text = "Da hood menu"
-    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    TextLabel.TextSize = 20.000
-    
-    Tabs.Name = "Tabs"
-    Tabs.Parent = Menu
-    Tabs.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Tabs.BorderSizePixel = 0
-    Tabs.Position = UDim2.new(0.230228469, 0, 0.0940766558, 0)
-    Tabs.Size = UDim2.new(0, 438, 0, 260)
-    
-    ButtonTabs.Name = "ButtonTabs"
-    ButtonTabs.Parent = Menu
-    ButtonTabs.Active = true
-    ButtonTabs.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
-    ButtonTabs.BorderSizePixel = 0
-    ButtonTabs.Position = UDim2.new(0, 0, 0.0940766558, 0)
-    ButtonTabs.Size = UDim2.new(0, 131, 0, 260)
-    
-    UIGridLayout2.Parent = ButtonTabs
-    UIGridLayout2.SortOrder = Enum.SortOrder.LayoutOrder
-    UIGridLayout2.CellSize = UDim2.new(0, 117, 0, 20)
-    
-    --[[Toggle ui]]
-    local function VMQYQJ_fake_script() 
-        local script = Instance.new('LocalScript', Menu)
-    
-        game.StarterGui:SetCore('SendNotification', {
-            Title = 'Da hood menu is loaded!';
-            Text = 'Press "v" to toggle menu visible!';
-            Duration = 10;
-        })
+    function Menu()
+        local Dahoodmenu = Instance.new("ScreenGui")
+        local Menu = Instance.new("Frame")
+        local TextLabel = Instance.new("TextLabel")
+        local Tabs = Instance.new("Frame")
+        local ButtonTabs = Instance.new("ScrollingFrame")
+        local UIGridLayout2 = Instance.new("UIGridLayout")
         
-        game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
-            if key == 'v' then
-                script.Parent.Visible = not script.Parent.Visible
-            end
-        end)
-    end
-    coroutine.wrap(VMQYQJ_fake_script)()
-    
-
-    local buttons = {}
-
-    function buttons:CreateTab(title)
-        local Scroll = Instance.new("ScrollingFrame")
-        local UIGridLayout = Instance.new("UIGridLayout")
+        Dahoodmenu.Name = "[Da hood menu]"
+        Dahoodmenu.Parent = game:GetService("CoreGui")
+        Dahoodmenu.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         
-        Scroll.Name = "Scroll"
-        Scroll.Parent = Tabs
-        Scroll.Active = true
-        Scroll.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-        Scroll.Size = UDim2.new(0, 438, 0, 260)
-        Scroll.Visible = false
         
-        UIGridLayout.Parent = Scroll
-        UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        UIGridLayout.CellSize = UDim2.new(0, 76, 0, 14)
-        local ButtonOpenTabs = Instance.new("TextButton")
-
-        ButtonOpenTabs.Name = "ButtonOpenTabs"
-        ButtonOpenTabs.Parent = ButtonTabs
-        ButtonOpenTabs.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
-        ButtonOpenTabs.BorderSizePixel = 0
-        ButtonOpenTabs.Size = UDim2.new(0, 117, 0, 20)
-        ButtonOpenTabs.Font = Enum.Font.SourceSansBold
-        ButtonOpenTabs.Text = title
-        ButtonOpenTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
-        ButtonOpenTabs.TextSize = 14.000
-        ButtonOpenTabs.MouseButton1Click:Connect(function()
-            for i,v in pairs(Tabs:GetChildren()) do
-                if v:IsA("ScrollingFrame") then
-                    v.Visible = false
+        Menu.Name = "Menu"
+        Menu.Parent = Dahoodmenu
+        Menu.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+        Menu.Position = UDim2.new(0.0881913304, 0, 0.163190186, 0)
+        Menu.Size = UDim2.new(0, 569, 0, 287)
+        Menu.Active = true
+        Menu.Draggable = true
+        
+        TextLabel.Parent = Menu
+        TextLabel.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+        TextLabel.BorderSizePixel = 0
+        TextLabel.Size = UDim2.new(0, 569, 0, 27)
+        TextLabel.Font = Enum.Font.SourceSansBold
+        TextLabel.Text = "Da hood menu"
+        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.TextSize = 20.000
+        
+        Tabs.Name = "Tabs"
+        Tabs.Parent = Menu
+        Tabs.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        Tabs.BorderSizePixel = 0
+        Tabs.Position = UDim2.new(0.230228469, 0, 0.0940766558, 0)
+        Tabs.Size = UDim2.new(0, 438, 0, 260)
+        
+        ButtonTabs.Name = "ButtonTabs"
+        ButtonTabs.Parent = Menu
+        ButtonTabs.Active = true
+        ButtonTabs.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
+        ButtonTabs.BorderSizePixel = 0
+        ButtonTabs.Position = UDim2.new(0, 0, 0.0940766558, 0)
+        ButtonTabs.Size = UDim2.new(0, 131, 0, 260)
+        
+        UIGridLayout2.Parent = ButtonTabs
+        UIGridLayout2.SortOrder = Enum.SortOrder.LayoutOrder
+        UIGridLayout2.CellSize = UDim2.new(0, 117, 0, 20)
+        
+        --[[Toggle ui]]
+        local function VMQYQJ_fake_script() 
+            local script = Instance.new('LocalScript', Menu)
+        
+            game.StarterGui:SetCore('SendNotification', {
+                Title = 'Da hood menu is loaded!';
+                Text = 'Press "v" to toggle menu visible!';
+                Duration = 10;
+            })
+            
+            game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+                if key == 'v' then
+                    script.Parent.Visible = not script.Parent.Visible
                 end
-            end
-            Scroll.Visible = true
-        end)
-
-        function buttons:CreateButton(title, callback)
-            local callback = callback or function()end
-
-            local Button = Instance.new("TextButton")
-
-            Button.Name = "Button"
-            Button.Parent = Scroll
-            Button.BackgroundColor3 = Color3.fromRGB(54, 54, 54)
-            Button.BorderSizePixel = 0
-            Button.Position = UDim2.new(0.0273972601, 0, 0.0173076931, 0)
-            Button.Size = UDim2.new(0, 76, 0, 14)
-            Button.Text = title
-            Button.Font = Enum.Font.SourceSansBold
-            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-            Button.TextSize = 14.000
-            Button.MouseButton1Click:Connect(function()
-                pcall(callback, Button)
             end)
         end
-    end
+        coroutine.wrap(VMQYQJ_fake_script)()
+        
     
-    return buttons
+        local buttons = {}
+    
+        function buttons:CreateTab(title)
+            local Scroll = Instance.new("ScrollingFrame")
+            local UIGridLayout = Instance.new("UIGridLayout")
+            
+            Scroll.Name = "Scroll"
+            Scroll.Parent = Tabs
+            Scroll.Active = true
+            Scroll.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+            Scroll.Size = UDim2.new(0, 438, 0, 260)
+            Scroll.Visible = false
+            
+            UIGridLayout.Parent = Scroll
+            UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+            UIGridLayout.CellSize = UDim2.new(0, 76, 0, 14)
+            local ButtonOpenTabs = Instance.new("TextButton")
+    
+            ButtonOpenTabs.Name = "ButtonOpenTabs"
+            ButtonOpenTabs.Parent = ButtonTabs
+            ButtonOpenTabs.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+            ButtonOpenTabs.BorderSizePixel = 0
+            ButtonOpenTabs.Size = UDim2.new(0, 117, 0, 20)
+            ButtonOpenTabs.Font = Enum.Font.SourceSansBold
+            ButtonOpenTabs.Text = title
+            ButtonOpenTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
+            ButtonOpenTabs.TextSize = 14.000
+            ButtonOpenTabs.MouseButton1Click:Connect(function()
+                for i,v in pairs(Tabs:GetChildren()) do
+                    if v:IsA("ScrollingFrame") then
+                        v.Visible = false
+                    end
+                end
+                Scroll.Visible = true
+            end)
+    
+            function buttons:CreateButton(title, callback)
+                local callback = callback or function()end
+    
+                local Button = Instance.new("TextButton")
+    
+                Button.Name = "Button"
+                Button.Parent = Scroll
+                Button.BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+                Button.BorderSizePixel = 0
+                Button.Position = UDim2.new(0.0273972601, 0, 0.0173076931, 0)
+                Button.Size = UDim2.new(0, 76, 0, 14)
+                Button.Text = title
+                Button.Font = Enum.Font.SourceSansBold
+                Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Button.TextSize = 14.000
+                Button.MouseButton1Click:Connect(function()
+                    pcall(callback, Button)
+                end)
+            end
+        end
+        
+        return buttons
+    
+    end
 
+    local Main = game:GetService('CoreGui'):FindFirstChild('[Da hood menu]')
+    if Main then
+        Main:Destroy()
+        Menu()
+    else
+        Menu()
+    end
 end
 
 return library
