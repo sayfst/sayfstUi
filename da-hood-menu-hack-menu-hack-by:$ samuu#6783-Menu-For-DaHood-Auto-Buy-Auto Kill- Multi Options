@@ -137,6 +137,11 @@ function library:CreateWindow()
     TextLabel.Font = Enum.Font.SourceSansBold
     TextLabel.LineHeight = 1.140
     TextLabel.Text = "DA HOOD"
+    delay(1, function()
+        while wait() do
+            TextLabel.Text = "DA HOOD - "..getgenv().Rank
+        end
+    end)
     TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel.TextSize = 35.000
     
