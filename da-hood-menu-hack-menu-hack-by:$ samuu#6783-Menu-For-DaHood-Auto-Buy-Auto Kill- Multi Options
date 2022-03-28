@@ -136,7 +136,13 @@ function library:CreateWindow()
     TextLabel.ZIndex = 9
     TextLabel.Font = Enum.Font.SourceSansBold
     TextLabel.LineHeight = 1.140
-    TextLabel.Text = "DA HOOD - "..getgenv().Rank
+    TextLabel.Text = 'nil title'
+    local Titulo = 'DA HOOD'
+    game:GetService('RunService').Heartbeat:Connect(function()
+        if getgenv().Rank ~= nil then
+            TextLabel.Text = Titulo..' - '..getgenv().Rank
+        end
+    end)
     
     TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel.TextSize = 35.000
