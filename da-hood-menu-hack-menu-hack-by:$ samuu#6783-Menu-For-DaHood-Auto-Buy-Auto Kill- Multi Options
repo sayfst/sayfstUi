@@ -1,3 +1,5 @@
+-- Da hood ui library
+
 local library = {}
 
 function library:CreateWindow()
@@ -244,6 +246,7 @@ function library:CreateWindow()
         TabReplicated.BorderSizePixel = 0
         TabReplicated.Position = UDim2.new(0, 0, -0.00717703346, 0)
         TabReplicated.Size = UDim2.new(0, 296, 0, 210)
+        TabReplicated.Visible = false
         
         UIGridLayout.Parent = TabReplicated
         UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -274,7 +277,7 @@ function library:CreateWindow()
         TextButtonTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
         TextButtonTabs.TextSize = 14.000
         TextButtonTabs.MouseButton1Down:Connect(function()
-            for i,v in pairs(ScrollingFrame:GetChildren()) do
+            for i,v in pairs(Tabs:GetChildren()) do
                 if v:IsA("ScrollingFrame") then
                     v.Visible = false
                 end
@@ -392,7 +395,7 @@ function library:CreateWindow()
             TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextButton.TextSize = 14.000
             TextButton.MouseButton1Click:Connect(function()
-                pcall(callback)
+                pcall(callback, TextButton)
             end)
 
             TextLabel.Parent = TextButton
