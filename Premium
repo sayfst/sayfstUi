@@ -49,7 +49,9 @@ spawn(function()
     PrayAni.AnimationId = 'rbxassetid://3487719500'
     local Pray = Humanoid:LoadAnimation(PrayAni)
     
-    
+    local prefix = '!'
+    local prefix2 = ' '
+    local Emoji = '⭐'
     function findPlayer(name, callback)
         local callback = callback or function()end
         for i,v in pairs(game.Players:GetChildren()) do
@@ -59,9 +61,7 @@ spawn(function()
         end
     end
     function Cmd(cmd, plr)
-        local prefix = '!'
-        local prefix2 = ' '
-        local Emoji = '⭐'
+        
         local args = cmd:split(' ')
         local Premium = game.Players:FindFirstChild(plr.Name)
         local NormalUser = game:GetService('Players').LocalPlayer
