@@ -1,260 +1,378 @@
-function ui() -- ui
-    local library = {}
+local library = {}
 
-    function library:CreateWindow()
-        local ScreenGui = Instance.new("ScreenGui")
-        local UI = Instance.new("Frame")
+function library:CreateWindow()
+    local ScreenGui = Instance.new("ScreenGui")
+    local UI = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    local shadowHolder = Instance.new("Frame")
+    local umbraShadow = Instance.new("ImageLabel")
+    local penumbraShadow = Instance.new("ImageLabel")
+    local ambientShadow = Instance.new("ImageLabel")
+    local clear = Instance.new("ImageButton")
+    local shadowHolder_2 = Instance.new("Frame")
+    local umbraShadow_2 = Instance.new("ImageLabel")
+    local penumbraShadow_2 = Instance.new("ImageLabel")
+    local ambientShadow_2 = Instance.new("ImageLabel")
+    local TextLabel = Instance.new("TextLabel")
+    local UICorner_2 = Instance.new("UICorner")
+    local shadowHolder_3 = Instance.new("Frame")
+    local umbraShadow_3 = Instance.new("ImageLabel")
+    local penumbraShadow_3 = Instance.new("ImageLabel")
+    local ambientShadow_3 = Instance.new("ImageLabel")
+    local Tabs = Instance.new("Frame")
+    local ButtonsTab = Instance.new("Frame")
+    local ScrollingFrame = Instance.new("ScrollingFrame")
+    local UIGridLayout = Instance.new("UIGridLayout")
+    
+    --Properties:
+    
+    ScreenGui.Parent = game.CoreGui
+    ScreenGui.Name = '[Da hood menu]'
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    UI.Name = "UI"
+    UI.Parent = ScreenGui
+    UI.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    UI.Position = UDim2.new(0.0574488789, 0, 0.314606726, 0)
+    UI.Size = UDim2.new(0, 463, 0, 249)
+    
+    UICorner.Parent = UI
+    
+    shadowHolder.Name = "shadowHolder"
+    shadowHolder.Parent = UI
+    shadowHolder.BackgroundTransparency = 1.000
+    shadowHolder.Size = UDim2.new(1, 0, 1, 0)
+    
+    umbraShadow.Name = "umbraShadow"
+    umbraShadow.Parent = shadowHolder
+    umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadow.BackgroundTransparency = 1.000
+    umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    umbraShadow.Size = UDim2.new(1, 4, 1, 4)
+    umbraShadow.Image = "rbxassetid://1316045217"
+    umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadow.ImageTransparency = 0.860
+    umbraShadow.ScaleType = Enum.ScaleType.Slice
+    umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadow.Name = "penumbraShadow"
+    penumbraShadow.Parent = shadowHolder
+    penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadow.BackgroundTransparency = 1.000
+    penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    penumbraShadow.Size = UDim2.new(1, 4, 1, 4)
+    penumbraShadow.Image = "rbxassetid://1316045217"
+    penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadow.ImageTransparency = 0.880
+    penumbraShadow.ScaleType = Enum.ScaleType.Slice
+    penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadow.Name = "ambientShadow"
+    ambientShadow.Parent = shadowHolder
+    ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadow.BackgroundTransparency = 1.000
+    ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    ambientShadow.Size = UDim2.new(1, 4, 1, 4)
+    ambientShadow.Image = "rbxassetid://1316045217"
+    ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadow.ImageTransparency = 0.880
+    ambientShadow.ScaleType = Enum.ScaleType.Slice
+    ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    clear.Name = "clear"
+    clear.Parent = UI
+    clear.BackgroundTransparency = 1.000
+    clear.Position = UDim2.new(0.919006467, 0, -0.00200803205, 0)
+    clear.Size = UDim2.new(0, 39, 0, 39)
+    clear.ZIndex = 10
+    clear.Image = "rbxassetid://3926305904"
+    clear.ImageRectOffset = Vector2.new(924, 724)
+    clear.ImageRectSize = Vector2.new(36, 36)
+    
+    shadowHolder_2.Name = "shadowHolder"
+    shadowHolder_2.Parent = clear
+    shadowHolder_2.BackgroundTransparency = 1.000
+    shadowHolder_2.Size = UDim2.new(1, 0, 1, 0)
+    
+    umbraShadow_2.Name = "umbraShadow"
+    umbraShadow_2.Parent = shadowHolder_2
+    umbraShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadow_2.BackgroundTransparency = 1.000
+    umbraShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    umbraShadow_2.Size = UDim2.new(1, 2, 1, 2)
+    umbraShadow_2.Image = "rbxassetid://1316045217"
+    umbraShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadow_2.ImageTransparency = 0.860
+    umbraShadow_2.ScaleType = Enum.ScaleType.Slice
+    umbraShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadow_2.Name = "penumbraShadow"
+    penumbraShadow_2.Parent = shadowHolder_2
+    penumbraShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadow_2.BackgroundTransparency = 1.000
+    penumbraShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    penumbraShadow_2.Size = UDim2.new(1, 2, 1, 2)
+    penumbraShadow_2.Image = "rbxassetid://1316045217"
+    penumbraShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadow_2.ImageTransparency = 0.880
+    penumbraShadow_2.ScaleType = Enum.ScaleType.Slice
+    penumbraShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadow_2.Name = "ambientShadow"
+    ambientShadow_2.Parent = shadowHolder_2
+    ambientShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadow_2.BackgroundTransparency = 1.000
+    ambientShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ambientShadow_2.Size = UDim2.new(1, 2, 1, 2)
+    ambientShadow_2.Image = "rbxassetid://1316045217"
+    ambientShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadow_2.ImageTransparency = 0.880
+    ambientShadow_2.ScaleType = Enum.ScaleType.Slice
+    ambientShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    TextLabel.Parent = UI
+    TextLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    TextLabel.Size = UDim2.new(0, 463, 0, 39)
+    TextLabel.ZIndex = 9
+    TextLabel.Font = Enum.Font.SourceSansBold
+    TextLabel.LineHeight = 1.140
+    TextLabel.Text = "DA HOOD"
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 35.000
+    
+    UICorner_2.Parent = TextLabel
+    
+    shadowHolder_3.Name = "shadowHolder"
+    shadowHolder_3.Parent = TextLabel
+    shadowHolder_3.BackgroundTransparency = 1.000
+    shadowHolder_3.Size = UDim2.new(1, 0, 1, 0)
+    shadowHolder_3.ZIndex = -2
+    
+    umbraShadow_3.Name = "umbraShadow"
+    umbraShadow_3.Parent = shadowHolder_3
+    umbraShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadow_3.BackgroundTransparency = 1.000
+    umbraShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+    umbraShadow_3.Size = UDim2.new(1, 2, 1, 2)
+    umbraShadow_3.Image = "rbxassetid://1316045217"
+    umbraShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadow_3.ImageTransparency = 0.860
+    umbraShadow_3.ScaleType = Enum.ScaleType.Slice
+    umbraShadow_3.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadow_3.Name = "penumbraShadow"
+    penumbraShadow_3.Parent = shadowHolder_3
+    penumbraShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadow_3.BackgroundTransparency = 1.000
+    penumbraShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+    penumbraShadow_3.Size = UDim2.new(1, 2, 1, 2)
+    penumbraShadow_3.Image = "rbxassetid://1316045217"
+    penumbraShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadow_3.ImageTransparency = 0.880
+    penumbraShadow_3.ScaleType = Enum.ScaleType.Slice
+    penumbraShadow_3.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadow_3.Name = "ambientShadow"
+    ambientShadow_3.Parent = shadowHolder_3
+    ambientShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadow_3.BackgroundTransparency = 1.000
+    ambientShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ambientShadow_3.Size = UDim2.new(1, 2, 1, 2)
+    ambientShadow_3.Image = "rbxassetid://1316045217"
+    ambientShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadow_3.ImageTransparency = 0.880
+    ambientShadow_3.ScaleType = Enum.ScaleType.Slice
+    ambientShadow_3.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    Tabs.Name = "Tabs"
+    Tabs.Parent = UI
+    Tabs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Tabs.BackgroundTransparency = 1.000
+    Tabs.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    Tabs.Position = UDim2.new(0.36069113, 0, 0.160642564, 0)
+    Tabs.Size = UDim2.new(0, 296, 0, 209)
+    
+    ButtonsTab.Name = "ButtonsTab"
+    ButtonsTab.Parent = UI
+    ButtonsTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ButtonsTab.BackgroundTransparency = 1.000
+    ButtonsTab.Position = UDim2.new(0, 0, 0.160642564, 0)
+    ButtonsTab.Size = UDim2.new(0, 166, 0, 209)
+    
+    ScrollingFrame.Parent = ButtonsTab
+    ScrollingFrame.Active = true
+    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ScrollingFrame.BackgroundTransparency = 1.000
+    ScrollingFrame.BorderSizePixel = 0
+    ScrollingFrame.Size = UDim2.new(0, 159, 0, 209)
+    ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    
+    UIGridLayout.Parent = ScrollingFrame
+    UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIGridLayout.CellSize = UDim2.new(0, 145, 0, 25)
+    
+    -- Scripts:
+    
+    local function KSUL_fake_script() -- UI.LocalScript 
+        local script = Instance.new('LocalScript', UI)
+    
+        script.Parent.Active = true
+        script.Parent.Draggable = true
+        game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+            if key == 'v' then
+                script.Parent.Visible = not script.Parent.Visible
+            end
+        end)
+        script.Parent.clear.MouseButton1Click:Connect(function()
+            script.Parent.Parent.Enabled = false
+        end)
+    end
+    coroutine.wrap(KSUL_fake_script)()
+    
+    local buttons = {}
+
+    function buttons:CreateTab(title)
+
+        local TabReplicated = Instance.new("ScrollingFrame")
+        local UIGridLayout = Instance.new("UIGridLayout")
+        
+        
+        TabReplicated.Name = "TabReplicated"
+        TabReplicated.Parent = Tabs
+        TabReplicated.Active = true
+        TabReplicated.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TabReplicated.BackgroundTransparency = 1.000
+        TabReplicated.BorderSizePixel = 0
+        TabReplicated.Position = UDim2.new(0, 0, -0.00717703346, 0)
+        TabReplicated.Size = UDim2.new(0, 296, 0, 210)
+        TabReplicated.Visible = false
+        TabReplicated.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+        UIGridLayout.Parent = TabReplicated
+        UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIGridLayout.CellSize = UDim2.new(0, 280, 0, 20)
+
+
+        local TextButtonTabs = Instance.new("TextButton")
+        local TextLabel = Instance.new("TextLabel")
         local UICorner = Instance.new("UICorner")
+        local UICorner_2 = Instance.new("UICorner")
         local shadowHolder = Instance.new("Frame")
         local umbraShadow = Instance.new("ImageLabel")
         local penumbraShadow = Instance.new("ImageLabel")
         local ambientShadow = Instance.new("ImageLabel")
-        local clear = Instance.new("ImageButton")
-        local shadowHolder_2 = Instance.new("Frame")
-        local umbraShadow_2 = Instance.new("ImageLabel")
-        local penumbraShadow_2 = Instance.new("ImageLabel")
-        local ambientShadow_2 = Instance.new("ImageLabel")
-        local TextLabel = Instance.new("TextLabel")
-        local UICorner_2 = Instance.new("UICorner")
-        local shadowHolder_3 = Instance.new("Frame")
-        local umbraShadow_3 = Instance.new("ImageLabel")
-        local penumbraShadow_3 = Instance.new("ImageLabel")
-        local ambientShadow_3 = Instance.new("ImageLabel")
-        local Tabs = Instance.new("Frame")
-        local ButtonsTab = Instance.new("Frame")
-        local ScrollingFrame = Instance.new("ScrollingFrame")
-        local UIGridLayout = Instance.new("UIGridLayout")
-        
+
         --Properties:
-        
-        ScreenGui.Parent = game.CoreGui
-        ScreenGui.Name = '[Da hood menu]'
-        ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-        
-        UI.Name = "UI"
-        UI.Parent = ScreenGui
-        UI.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-        UI.Position = UDim2.new(0.0574488789, 0, 0.314606726, 0)
-        UI.Size = UDim2.new(0, 463, 0, 249)
-        
-        UICorner.Parent = UI
-        
+
+        TextButtonTabs.Name = "TextButtonTabs"
+        TextButtonTabs.Parent = ScrollingFrame
+        TextButtonTabs.AnchorPoint = Vector2.new(0.5, 0.5)
+        TextButtonTabs.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+        TextButtonTabs.BorderSizePixel = 0
+        TextButtonTabs.Position = UDim2.new(0.415662646, 0, 0.0406698547, 0)
+        TextButtonTabs.Size = UDim2.new(0, 138, 0, 17)
+        TextButtonTabs.ZIndex = 5
+        TextButtonTabs.Font = Enum.Font.SourceSansBold
+        TextButtonTabs.Text = title
+        TextButtonTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextButtonTabs.TextSize = 14.000
+        TextButtonTabs.MouseButton1Down:Connect(function()
+            for i,v in pairs(Tabs:GetChildren()) do
+                if v:IsA("ScrollingFrame") then
+                    v.Visible = false
+                end
+            end
+            TabReplicated.Visible = true
+        end)
+
+        TextLabel.Parent = TextButtonTabs
+        TextLabel.Active = true
+        TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+        TextLabel.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+        TextLabel.BackgroundTransparency = 1.000
+        TextLabel.BorderSizePixel = 0
+        TextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+        TextLabel.Selectable = true
+        TextLabel.Visible = false
+        TextLabel.Font = Enum.Font.SourceSansBold
+        TextLabel.Text = ""
+        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.TextSize = 14.000
+
+        UICorner.Parent = TextLabel
+
+        UICorner_2.Parent = TextButtonTabs
+
         shadowHolder.Name = "shadowHolder"
-        shadowHolder.Parent = UI
+        shadowHolder.Parent = TextButtonTabs
         shadowHolder.BackgroundTransparency = 1.000
         shadowHolder.Size = UDim2.new(1, 0, 1, 0)
-        
+
         umbraShadow.Name = "umbraShadow"
         umbraShadow.Parent = shadowHolder
         umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
         umbraShadow.BackgroundTransparency = 1.000
-        umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
-        umbraShadow.Size = UDim2.new(1, 4, 1, 4)
+        umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+        umbraShadow.Size = UDim2.new(1, 2, 1, 2)
         umbraShadow.Image = "rbxassetid://1316045217"
         umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
         umbraShadow.ImageTransparency = 0.860
         umbraShadow.ScaleType = Enum.ScaleType.Slice
         umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-        
+
         penumbraShadow.Name = "penumbraShadow"
         penumbraShadow.Parent = shadowHolder
         penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
         penumbraShadow.BackgroundTransparency = 1.000
-        penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
-        penumbraShadow.Size = UDim2.new(1, 4, 1, 4)
+        penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+        penumbraShadow.Size = UDim2.new(1, 2, 1, 2)
         penumbraShadow.Image = "rbxassetid://1316045217"
         penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
         penumbraShadow.ImageTransparency = 0.880
         penumbraShadow.ScaleType = Enum.ScaleType.Slice
         penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-        
+
         ambientShadow.Name = "ambientShadow"
         ambientShadow.Parent = shadowHolder
         ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
         ambientShadow.BackgroundTransparency = 1.000
-        ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
-        ambientShadow.Size = UDim2.new(1, 4, 1, 4)
+        ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+        ambientShadow.Size = UDim2.new(1, 2, 1, 2)
         ambientShadow.Image = "rbxassetid://1316045217"
         ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
         ambientShadow.ImageTransparency = 0.880
         ambientShadow.ScaleType = Enum.ScaleType.Slice
         ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        clear.Name = "clear"
-        clear.Parent = UI
-        clear.BackgroundTransparency = 1.000
-        clear.Position = UDim2.new(0.919006467, 0, -0.00200803205, 0)
-        clear.Size = UDim2.new(0, 39, 0, 39)
-        clear.ZIndex = 10
-        clear.Image = "rbxassetid://3926305904"
-        clear.ImageRectOffset = Vector2.new(924, 724)
-        clear.ImageRectSize = Vector2.new(36, 36)
-        
-        shadowHolder_2.Name = "shadowHolder"
-        shadowHolder_2.Parent = clear
-        shadowHolder_2.BackgroundTransparency = 1.000
-        shadowHolder_2.Size = UDim2.new(1, 0, 1, 0)
-        
-        umbraShadow_2.Name = "umbraShadow"
-        umbraShadow_2.Parent = shadowHolder_2
-        umbraShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
-        umbraShadow_2.BackgroundTransparency = 1.000
-        umbraShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
-        umbraShadow_2.Size = UDim2.new(1, 2, 1, 2)
-        umbraShadow_2.Image = "rbxassetid://1316045217"
-        umbraShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        umbraShadow_2.ImageTransparency = 0.860
-        umbraShadow_2.ScaleType = Enum.ScaleType.Slice
-        umbraShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        penumbraShadow_2.Name = "penumbraShadow"
-        penumbraShadow_2.Parent = shadowHolder_2
-        penumbraShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
-        penumbraShadow_2.BackgroundTransparency = 1.000
-        penumbraShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
-        penumbraShadow_2.Size = UDim2.new(1, 2, 1, 2)
-        penumbraShadow_2.Image = "rbxassetid://1316045217"
-        penumbraShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        penumbraShadow_2.ImageTransparency = 0.880
-        penumbraShadow_2.ScaleType = Enum.ScaleType.Slice
-        penumbraShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        ambientShadow_2.Name = "ambientShadow"
-        ambientShadow_2.Parent = shadowHolder_2
-        ambientShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
-        ambientShadow_2.BackgroundTransparency = 1.000
-        ambientShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
-        ambientShadow_2.Size = UDim2.new(1, 2, 1, 2)
-        ambientShadow_2.Image = "rbxassetid://1316045217"
-        ambientShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        ambientShadow_2.ImageTransparency = 0.880
-        ambientShadow_2.ScaleType = Enum.ScaleType.Slice
-        ambientShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        TextLabel.Parent = UI
-        TextLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        TextLabel.Size = UDim2.new(0, 463, 0, 39)
-        TextLabel.ZIndex = 9
-        TextLabel.Font = Enum.Font.SourceSansBold
-        TextLabel.LineHeight = 1.140
-        TextLabel.Text = "DA HOOD"
-        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        TextLabel.TextSize = 35.000
-        
-        UICorner_2.Parent = TextLabel
-        
-        shadowHolder_3.Name = "shadowHolder"
-        shadowHolder_3.Parent = TextLabel
-        shadowHolder_3.BackgroundTransparency = 1.000
-        shadowHolder_3.Size = UDim2.new(1, 0, 1, 0)
-        shadowHolder_3.ZIndex = -2
-        
-        umbraShadow_3.Name = "umbraShadow"
-        umbraShadow_3.Parent = shadowHolder_3
-        umbraShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
-        umbraShadow_3.BackgroundTransparency = 1.000
-        umbraShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
-        umbraShadow_3.Size = UDim2.new(1, 2, 1, 2)
-        umbraShadow_3.Image = "rbxassetid://1316045217"
-        umbraShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        umbraShadow_3.ImageTransparency = 0.860
-        umbraShadow_3.ScaleType = Enum.ScaleType.Slice
-        umbraShadow_3.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        penumbraShadow_3.Name = "penumbraShadow"
-        penumbraShadow_3.Parent = shadowHolder_3
-        penumbraShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
-        penumbraShadow_3.BackgroundTransparency = 1.000
-        penumbraShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
-        penumbraShadow_3.Size = UDim2.new(1, 2, 1, 2)
-        penumbraShadow_3.Image = "rbxassetid://1316045217"
-        penumbraShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        penumbraShadow_3.ImageTransparency = 0.880
-        penumbraShadow_3.ScaleType = Enum.ScaleType.Slice
-        penumbraShadow_3.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        ambientShadow_3.Name = "ambientShadow"
-        ambientShadow_3.Parent = shadowHolder_3
-        ambientShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
-        ambientShadow_3.BackgroundTransparency = 1.000
-        ambientShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
-        ambientShadow_3.Size = UDim2.new(1, 2, 1, 2)
-        ambientShadow_3.Image = "rbxassetid://1316045217"
-        ambientShadow_3.ImageColor3 = Color3.fromRGB(0, 0, 0)
-        ambientShadow_3.ImageTransparency = 0.880
-        ambientShadow_3.ScaleType = Enum.ScaleType.Slice
-        ambientShadow_3.SliceCenter = Rect.new(10, 10, 118, 118)
-        
-        Tabs.Name = "Tabs"
-        Tabs.Parent = UI
-        Tabs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        Tabs.BackgroundTransparency = 1.000
-        Tabs.BorderColor3 = Color3.fromRGB(27, 42, 53)
-        Tabs.Position = UDim2.new(0.36069113, 0, 0.160642564, 0)
-        Tabs.Size = UDim2.new(0, 296, 0, 209)
-        
-        ButtonsTab.Name = "ButtonsTab"
-        ButtonsTab.Parent = UI
-        ButtonsTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        ButtonsTab.BackgroundTransparency = 1.000
-        ButtonsTab.Position = UDim2.new(0, 0, 0.160642564, 0)
-        ButtonsTab.Size = UDim2.new(0, 166, 0, 209)
-        
-        ScrollingFrame.Parent = ButtonsTab
-        ScrollingFrame.Active = true
-        ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        ScrollingFrame.BackgroundTransparency = 1.000
-        ScrollingFrame.BorderSizePixel = 0
-        ScrollingFrame.Size = UDim2.new(0, 159, 0, 209)
-        ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
-        
-        UIGridLayout.Parent = ScrollingFrame
-        UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        UIGridLayout.CellSize = UDim2.new(0, 145, 0, 25)
-        
+
         -- Scripts:
-        
-        local function KSUL_fake_script() -- UI.LocalScript 
-            local script = Instance.new('LocalScript', UI)
-        
-            script.Parent.Active = true
-            script.Parent.Draggable = true
-            game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
-                if key == 'v' then
-                    script.Parent.Visible = not script.Parent.Visible
-                end
-            end)
-            script.Parent.clear.MouseButton1Click:Connect(function()
-                script.Parent.Parent.Enabled = false
+
+        local function ERFOT_fake_script() -- TextButtonTabs.LocalScript 
+            local script = Instance.new('LocalScript', TextButtonTabs)
+
+            script.Parent.MouseButton1Down:Connect(function()
+                local Clone = script.Parent.TextLabel:Clone()
+                Clone.Parent = script.Parent
+                Clone.Visible = true
+                
+                Clone.BackgroundTransparency = 0
+                game:GetService("TweenService"):Create(Clone, TweenInfo.new(1, Enum.EasingStyle.Linear), {BackgroundTransparency = 1}):Play()
+                Clone:TweenSize(UDim2.new(0, 155,0, 35), 'Out', 'Linear', 1, true)
+                wait(1)
+                Clone:Destroy()
             end)
         end
-        coroutine.wrap(KSUL_fake_script)()
-        
-        local buttons = {}
-    
-        function buttons:CreateTab(title)
-    
-            local TabReplicated = Instance.new("ScrollingFrame")
-            local UIGridLayout = Instance.new("UIGridLayout")
-            
-            
-            TabReplicated.Name = "TabReplicated"
-            TabReplicated.Parent = Tabs
-            TabReplicated.Active = true
-            TabReplicated.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-            TabReplicated.BackgroundTransparency = 1.000
-            TabReplicated.BorderSizePixel = 0
-            TabReplicated.Position = UDim2.new(0, 0, -0.00717703346, 0)
-            TabReplicated.Size = UDim2.new(0, 296, 0, 210)
-            TabReplicated.Visible = false
-            TabReplicated.AutomaticCanvasSize = Enum.AutomaticSize.Y
-    
-            UIGridLayout.Parent = TabReplicated
-            UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            UIGridLayout.CellSize = UDim2.new(0, 280, 0, 20)
-    
-    
-            local TextButtonTabs = Instance.new("TextButton")
+        coroutine.wrap(ERFOT_fake_script)()
+
+
+        function buttons:CreateButton(title, callback)
+            local callback = callback or function()end
+
+            -- Gui to Lua
+            -- Version: 3.2
+
+            -- Instances:
+
+            local TextButton = Instance.new("TextButton")
             local TextLabel = Instance.new("TextLabel")
             local UICorner = Instance.new("UICorner")
             local UICorner_2 = Instance.new("UICorner")
@@ -262,31 +380,25 @@ function ui() -- ui
             local umbraShadow = Instance.new("ImageLabel")
             local penumbraShadow = Instance.new("ImageLabel")
             local ambientShadow = Instance.new("ImageLabel")
-    
+
             --Properties:
-    
-            TextButtonTabs.Name = "TextButtonTabs"
-            TextButtonTabs.Parent = ScrollingFrame
-            TextButtonTabs.AnchorPoint = Vector2.new(0.5, 0.5)
-            TextButtonTabs.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
-            TextButtonTabs.BorderSizePixel = 0
-            TextButtonTabs.Position = UDim2.new(0.415662646, 0, 0.0406698547, 0)
-            TextButtonTabs.Size = UDim2.new(0, 138, 0, 17)
-            TextButtonTabs.ZIndex = 5
-            TextButtonTabs.Font = Enum.Font.SourceSansBold
-            TextButtonTabs.Text = title
-            TextButtonTabs.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TextButtonTabs.TextSize = 14.000
-            TextButtonTabs.MouseButton1Down:Connect(function()
-                for i,v in pairs(Tabs:GetChildren()) do
-                    if v:IsA("ScrollingFrame") then
-                        v.Visible = false
-                    end
-                end
-                TabReplicated.Visible = true
+
+            TextButton.Parent = TabReplicated
+            TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+            TextButton.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+            TextButton.BorderSizePixel = 0
+            TextButton.Position = UDim2.new(0.471283793, 0, 0.15476191, 0)
+            TextButton.Size = UDim2.new(0, 279, 0, 65)
+            TextButton.ZIndex = 5
+            TextButton.Font = Enum.Font.SourceSansBold
+            TextButton.Text = title
+            TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextButton.TextSize = 14.000
+            TextButton.MouseButton1Click:Connect(function()
+                pcall(callback, TextButton)
             end)
-    
-            TextLabel.Parent = TextButtonTabs
+
+            TextLabel.Parent = TextButton
             TextLabel.Active = true
             TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
             TextLabel.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
@@ -299,16 +411,16 @@ function ui() -- ui
             TextLabel.Text = ""
             TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
             TextLabel.TextSize = 14.000
-    
+
             UICorner.Parent = TextLabel
-    
-            UICorner_2.Parent = TextButtonTabs
-    
+
+            UICorner_2.Parent = TextButton
+
             shadowHolder.Name = "shadowHolder"
-            shadowHolder.Parent = TextButtonTabs
+            shadowHolder.Parent = TextButton
             shadowHolder.BackgroundTransparency = 1.000
             shadowHolder.Size = UDim2.new(1, 0, 1, 0)
-    
+
             umbraShadow.Name = "umbraShadow"
             umbraShadow.Parent = shadowHolder
             umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -320,7 +432,7 @@ function ui() -- ui
             umbraShadow.ImageTransparency = 0.860
             umbraShadow.ScaleType = Enum.ScaleType.Slice
             umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-    
+
             penumbraShadow.Name = "penumbraShadow"
             penumbraShadow.Parent = shadowHolder
             penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -332,7 +444,7 @@ function ui() -- ui
             penumbraShadow.ImageTransparency = 0.880
             penumbraShadow.ScaleType = Enum.ScaleType.Slice
             penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-    
+
             ambientShadow.Name = "ambientShadow"
             ambientShadow.Parent = shadowHolder
             ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -344,12 +456,12 @@ function ui() -- ui
             ambientShadow.ImageTransparency = 0.880
             ambientShadow.ScaleType = Enum.ScaleType.Slice
             ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-    
+
             -- Scripts:
-    
-            local function ERFOT_fake_script() -- TextButtonTabs.LocalScript 
-                local script = Instance.new('LocalScript', TextButtonTabs)
-    
+
+            local function BEEVPI_fake_script() -- TextButton.LocalScript 
+                local script = Instance.new('LocalScript', TextButton)
+
                 script.Parent.MouseButton1Down:Connect(function()
                     local Clone = script.Parent.TextLabel:Clone()
                     Clone.Parent = script.Parent
@@ -362,135 +474,12 @@ function ui() -- ui
                     Clone:Destroy()
                 end)
             end
-            coroutine.wrap(ERFOT_fake_script)()
-    
-    
-            function buttons:CreateButton(title, callback)
-                local callback = callback or function()end
-    
-                -- Gui to Lua
-                -- Version: 3.2
-    
-                -- Instances:
-    
-                local TextButton = Instance.new("TextButton")
-                local TextLabel = Instance.new("TextLabel")
-                local UICorner = Instance.new("UICorner")
-                local UICorner_2 = Instance.new("UICorner")
-                local shadowHolder = Instance.new("Frame")
-                local umbraShadow = Instance.new("ImageLabel")
-                local penumbraShadow = Instance.new("ImageLabel")
-                local ambientShadow = Instance.new("ImageLabel")
-    
-                --Properties:
-    
-                TextButton.Parent = TabReplicated
-                TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
-                TextButton.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
-                TextButton.BorderSizePixel = 0
-                TextButton.Position = UDim2.new(0.471283793, 0, 0.15476191, 0)
-                TextButton.Size = UDim2.new(0, 279, 0, 65)
-                TextButton.ZIndex = 5
-                TextButton.Font = Enum.Font.SourceSansBold
-                TextButton.Text = title
-                TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TextButton.TextSize = 14.000
-                TextButton.MouseButton1Click:Connect(function()
-                    pcall(callback, TextButton)
-                end)
-    
-                TextLabel.Parent = TextButton
-                TextLabel.Active = true
-                TextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-                TextLabel.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
-                TextLabel.BackgroundTransparency = 1.000
-                TextLabel.BorderSizePixel = 0
-                TextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-                TextLabel.Selectable = true
-                TextLabel.Visible = false
-                TextLabel.Font = Enum.Font.SourceSansBold
-                TextLabel.Text = ""
-                TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TextLabel.TextSize = 14.000
-    
-                UICorner.Parent = TextLabel
-    
-                UICorner_2.Parent = TextButton
-    
-                shadowHolder.Name = "shadowHolder"
-                shadowHolder.Parent = TextButton
-                shadowHolder.BackgroundTransparency = 1.000
-                shadowHolder.Size = UDim2.new(1, 0, 1, 0)
-    
-                umbraShadow.Name = "umbraShadow"
-                umbraShadow.Parent = shadowHolder
-                umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-                umbraShadow.BackgroundTransparency = 1.000
-                umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-                umbraShadow.Size = UDim2.new(1, 2, 1, 2)
-                umbraShadow.Image = "rbxassetid://1316045217"
-                umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-                umbraShadow.ImageTransparency = 0.860
-                umbraShadow.ScaleType = Enum.ScaleType.Slice
-                umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-    
-                penumbraShadow.Name = "penumbraShadow"
-                penumbraShadow.Parent = shadowHolder
-                penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-                penumbraShadow.BackgroundTransparency = 1.000
-                penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-                penumbraShadow.Size = UDim2.new(1, 2, 1, 2)
-                penumbraShadow.Image = "rbxassetid://1316045217"
-                penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-                penumbraShadow.ImageTransparency = 0.880
-                penumbraShadow.ScaleType = Enum.ScaleType.Slice
-                penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-    
-                ambientShadow.Name = "ambientShadow"
-                ambientShadow.Parent = shadowHolder
-                ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-                ambientShadow.BackgroundTransparency = 1.000
-                ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-                ambientShadow.Size = UDim2.new(1, 2, 1, 2)
-                ambientShadow.Image = "rbxassetid://1316045217"
-                ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-                ambientShadow.ImageTransparency = 0.880
-                ambientShadow.ScaleType = Enum.ScaleType.Slice
-                ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
-    
-                -- Scripts:
-    
-                local function BEEVPI_fake_script() -- TextButton.LocalScript 
-                    local script = Instance.new('LocalScript', TextButton)
-    
-                    script.Parent.MouseButton1Down:Connect(function()
-                        local Clone = script.Parent.TextLabel:Clone()
-                        Clone.Parent = script.Parent
-                        Clone.Visible = true
-                        
-                        Clone.BackgroundTransparency = 0
-                        game:GetService("TweenService"):Create(Clone, TweenInfo.new(1, Enum.EasingStyle.Linear), {BackgroundTransparency = 1}):Play()
-                        Clone:TweenSize(UDim2.new(0, 155,0, 35), 'Out', 'Linear', 1, true)
-                        wait(1)
-                        Clone:Destroy()
-                    end)
-                end
-                coroutine.wrap(BEEVPI_fake_script)()
-    
-            end
+            coroutine.wrap(BEEVPI_fake_script)()
+
         end
-        return buttons
-    
     end
-    
-    return library
+    return buttons
+
 end
 
-local menu = game.CoreGui:FindFirstChild('[Da hood menu]')
-
-if menu then
-    menu:Destroy()
-    ui()
-else
-    ui()
-end
+return library
