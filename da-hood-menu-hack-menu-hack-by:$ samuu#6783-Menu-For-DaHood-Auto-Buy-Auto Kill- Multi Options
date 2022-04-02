@@ -1,6 +1,7 @@
 local library = {}
 
 function library:CreateWindow(title)
+    getgenv().TitledSelect = title
     local ScreenGui = Instance.new("ScreenGui")
     local UI = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
@@ -139,7 +140,7 @@ function library:CreateWindow(title)
     TextLabel.Text = 'nil title'
     game:GetService('RunService').Heartbeat:Connect(function()
         if getgenv().Rank ~= nil then
-            TextLabel.Text = title..' - '..getgenv().Rank
+            TextLabel.Text = TitledSelect..' - '..getgenv().Rank
         end
     end)
     
