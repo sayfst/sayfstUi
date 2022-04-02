@@ -140,7 +140,7 @@ function library:CreateWindow(title)
     TextLabel.Text = 'nil title'
     game:GetService('RunService').Heartbeat:Connect(function()
         if getgenv().Rank ~= nil then
-            TextLabel.Text = TitledSelect..' - '..getgenv().Rank
+            TextLabel.Text = getgenv().TitledSelect..' - '..getgenv().Rank
         end
     end)
     
