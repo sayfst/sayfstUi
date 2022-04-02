@@ -1,6 +1,6 @@
 local library = {}
 
-function library:CreateWindow()
+function library:CreateWindow(title)
     local ScreenGui = Instance.new("ScreenGui")
     local UI = Instance.new("Frame")
     local UICorner = Instance.new("UICorner")
@@ -137,10 +137,9 @@ function library:CreateWindow()
     TextLabel.Font = Enum.Font.SourceSansBold
     TextLabel.LineHeight = 1.140
     TextLabel.Text = 'nil title'
-    local Titulo = 'DA HOOD'
     game:GetService('RunService').Heartbeat:Connect(function()
         if getgenv().Rank ~= nil then
-            TextLabel.Text = Titulo..' - '..getgenv().Rank
+            TextLabel.Text = title..' - '..getgenv().Rank
         end
     end)
     
