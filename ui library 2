@@ -115,7 +115,7 @@ function library:CreateWindow(text)
 						sound:Destroy()
 					end)
 				elseif v:IsA('ScrollingFrame') then
-					v.AutomaticSize = Enum.AutomaticSize.XX
+					
 				end
 			end
 		end)
@@ -148,6 +148,7 @@ function library:CreateWindow(text)
 		Tab.Size = UDim2.new(0, 248, 0, 312)
 		Tab.Visible = false
 		Tab.Name = text..' Container'
+		Tab.AutomaticSize = Enum.AutomaticSize.XY
 		
 		ButtonToSelectTab.Name = "ButtonToSelectTab"
 		ButtonToSelectTab.Parent = ScrollingFrame
