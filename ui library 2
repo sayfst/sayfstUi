@@ -1,3 +1,9 @@
+local OLDUI = game.CoreGui:FindFirstChild("Ui library")
+
+if OLDUI then
+	OLDUI:Destroy()
+end
+
 local library = {}
 
 function library:CreateWindow(text)
