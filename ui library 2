@@ -87,9 +87,9 @@ function library:CreateWindow(text)
 			if KeyPressed == 'v' then
 				Enabled = not Enabled
 				if Enabled == false then
-					script.Parent:TweenSize(UDim2.new(0, 352,0, 0), 'In', 'Quart', 1, true)
+					script.Parent:TweenSize(UDim2.new(0, 352,0, 0), 'Out', 'Quart', 0.3, true)
 				elseif Enabled == true then
-					script.Parent:TweenSize(UDim2.new(0, 352,0, 337), 'Out', 'Quart', 1, true)
+					script.Parent:TweenSize(UDim2.new(0, 352,0, 337), 'Out', 'Quart', 0.3, true)
 				end
 			end
 		end)
@@ -98,9 +98,9 @@ function library:CreateWindow(text)
 		script.Parent.OpenTabs.MouseButton1Click:Connect(function()
 			TabsEnabled = not TabsEnabled
 			if TabsEnabled == false then
-				script.Parent.ScrollingFrame:TweenSize(UDim2.new(0, 0,0, 312), 'In', 'Quart', 1, true)
+				script.Parent.ScrollingFrame:TweenSize(UDim2.new(0, 0,0, 312), 'Out', 'Quart', 0.3, true)
 			else
-				script.Parent.ScrollingFrame:TweenSize(UDim2.new(0, 104,0, 312), 'In', 'Quart', 1, true)
+				script.Parent.ScrollingFrame:TweenSize(UDim2.new(0, 104,0, 312), 'Out', 'Quart', 0.3, true)
 			end
 		end)
 
