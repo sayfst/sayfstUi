@@ -115,7 +115,7 @@ function library:CreateWindow(text)
 						sound:Destroy()
 					end)
 				elseif v:IsA('ScrollingFrame') then
-					v.AutomaticSize = Enum.AutomaticSize.XY
+					v.AutomaticSize = Enum.AutomaticSize.XX
 				end
 			end
 		end)
