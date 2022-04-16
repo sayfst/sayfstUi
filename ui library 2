@@ -237,7 +237,6 @@ function library:CreateWindow(text)
 			end
 			CustomToggle.MouseButton1Click:Connect(function()
 				fire()
-				pcall(callback, Enabled)
 				if Enabled == true then
 					for i,v in pairs(Tab:GetChildren()) do
 						if string.find(v.Name, CustomToggle.Text) then
@@ -251,6 +250,8 @@ function library:CreateWindow(text)
 						end
 					end
 				end
+				pcall(callback, Enabled)
+				
 			end)
 			UICorner.CornerRadius = UDim.new(0, 4)
 			UICorner.Parent = CustomToggle
