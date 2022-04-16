@@ -232,8 +232,12 @@ function library:CreateWindow(text)
 			CustomToggle.TextColor3 = Color3.fromRGB(88, 139, 220)
 			CustomToggle.TextSize = 14.000
 			local Enabled = false
-            while true do
-                if Enabled == true then
+			local function fire()
+				Enabled = not Enabled
+			end
+			CustomToggle.MouseButton1Click:Connect(function()
+				fire()
+				if Enabled == true then
 					for i,v in pairs(Tab:GetChildren()) do
 						if string.find(v.Name, CustomToggle.Text) then
 							game:GetService('TweenService'):Create(CustomToggleBackground, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
@@ -246,16 +250,8 @@ function library:CreateWindow(text)
 						end
 					end
 				end
-                wait(.1)
-            end
-			local function fire()
-				Enabled = not Enabled
-			end
-			CustomToggle.MouseButton1Click:Connect(function()
-				fire()
-				
 				wait(.1)
-				pcall(callback, Enabled, fire)
+				pcall(callback, Enabled)
 				
 			end)
 			UICorner.CornerRadius = UDim.new(0, 4)
