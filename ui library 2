@@ -250,6 +250,7 @@ function library:CreateWindow(text)
 						end
 					end
 				end
+				wait(.1)
 				pcall(callback, Enabled)
 				
 			end)
