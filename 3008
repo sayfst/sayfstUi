@@ -235,8 +235,8 @@ LocalPlayer:NewButton('FindHumanoidRootPart', 'he will render game', function()
     oldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
     _G.Find = true
     repeat
-        local Pos = math.random(-1100, 1100)
-        local Pos2 = math.random(-1100, 1100)
+        local Pos = math.random(0, 1250)
+        local Pos2 = math.random(0, 1250)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, 10, Pos2)
         wait() 
     until PlayerSelect.Character:FindFirstChild('HumanoidRootPart') ~= nil or _G.Find == false
