@@ -469,11 +469,6 @@ BaseItems:NewButton('Pickup random PlagueDocTor_Dash toy', nil, function()
     PickupLight('PlagueDocTor_Dash Toy', _G.VezesLight)
 end)
 
-
-
-
-
-
 BaseItems:NewButton('Pickup random bear', nil, function()
     PickupLight('DJUNGELSKOG', _G.VezesLight)
 end)
@@ -500,6 +495,14 @@ BaseItems:NewButton('Lock camera', nil, function()
     game.Players.LocalPlayer.CameraMode = _G.OldCameraMode
 end)
 
+
+BaseItems:NewTextBox('Add pickup button', nil, function(string)
+	string = string:split(',')
+
+	BaseItems:NewButton(string[1], nil, function()
+		PickupLight(string[2], _G.VezesLight, string[3])
+	end)
+end)
 
 
 game.Players.LocalPlayer.Chatted:Connect(function(msg)
