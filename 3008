@@ -512,7 +512,7 @@ game.Players.LocalPlayer.Chatted:Connect(function(msg)
         target.Parent:IsA('Model') then
             local BillboardGui = Instance.new('BillboardGui') -- Makes Billboardgui
             local TextLabel = Instance.new('TextLabel') -- makes text label
-            setclipboard(target.Parent.Name)
+            setclipboard(target.Parent.Name..','..target.Name)
             BillboardGui.Parent = target -- what the billboardgui goes into
             BillboardGui.AlwaysOnTop = true -- if its on top or not
             BillboardGui.Size = UDim2.new(0, 50, 0, 100) -- size of it
