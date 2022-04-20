@@ -391,7 +391,9 @@ function PickupLight(name, vezes, ROOTNAME)
 end
 
 BaseItems:NewTextBox('Expecif', nil, function(string)
-    PickupLight(tostring(string), _G.VezesLight)
+    string = string:split(',')
+
+	PickupLight(string[1], _G.VezesLight, string[2])
 end)
 
 BaseItems:NewButton('Pickup random Light - normal', nil, function()
@@ -520,7 +522,7 @@ game.Players.LocalPlayer.Chatted:Connect(function(msg)
             TextLabel.BackgroundColor3 = Color3.new(1,1,1) -- color
             TextLabel.BackgroundTransparency = 1 -- transparency
             TextLabel.Size = UDim2.new(1, 0, 1, 0) -- size
-            TextLabel.Text = target.Parent.Name
+            TextLabel.Text = target.Parent.Name..'/'..target.Name
             TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
             wait(2)
             BillboardGui:Destroy()
