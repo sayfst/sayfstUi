@@ -4,6 +4,10 @@ local Window = Library.CreateLib("3008 [2.7] script", "Sentinel")
  
 local Main = Window:NewTab("Freatures")
 
+local DestroyBase = Window:NewTab('DESTROYER')
+
+local DestroySection = DestroyBase:NewSection('Base destroyer')
+
 local MainSection = Main:NewSection("Food")
 
 local LocalPlayer = Main:NewSection('Local Player')
@@ -532,6 +536,78 @@ game.Players.LocalPlayer.Chatted:Connect(function(msg)
             BillboardGui:Destroy()
         end
     end
+end)
+
+
+local plrDestroy = nil
+local DestroyMagnitude = 50
+DestroySection:NewTextBox('Player to base destroy',nil,function(string)
+	for i,v in pairs(game.Players:GetChildren()) do
+		if v.Name:lower():match('^'..string:lower()) or v.DisplayName:lower():match('^'..string:lower())  and v ~= game.Players.LocalPlayer then
+			plrDestroy = v;
+			game.StarterGui:SetCore('SendNotification', {
+				Title = 'Sucess select plr';
+				Text = 'plr: '..v.Name
+			})
+		end
+	end
+end)
+
+DestroySection:NewTextBox('Distance', 'Distance from the items you will destroy', function(string)
+	DestroyMagnitude = tonumber(string)
+	game.StarterGui:SetCore('SendNotification', {
+		Title = 'Sucess select distance';
+		Text = 'Distance set to '..string
+	})
+end)
+
+DestroySection:NewButton('Destroy base', nil, function()
+	noclip2(true)
+	local plrPOSITION = plrDestroy.Character.HumanoidRootPart.Position
+	for i,v in pairs(game:GetService("Workspace").GameObjects.Physical.Map.Ground:GetDescendants()) do
+        if v:FindFirstChild('Root') ~= nil and
+		plrDestroy.Character ~= nil then
+			local Root = v:FindFirstChild('Root')
+
+			if Root:IsA('Part') or Root:IsA('MeshPart') then
+				if (plrPOSITION - Vector3.new(Root.Position.X, Root.Position.Y, Root.Position.Z)).Magnitude < DestroyMagnitude then
+					local oldPOSROOT = Root.Position
+					local vezes = 0
+					repeat 
+						vezes = vezes + 1
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, 0)
+						wait()
+						local z = math.random(-2, 2)
+						local LoopTp = game:GetService('RunService').RenderStepped:Connect(function()
+							
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, z)
+							
+	
+						end)
+						_G.FinalLight = false
+						local camera = workspace.CurrentCamera
+						spawn(function()
+							repeat camera.CFrame = CFrame.new(camera.CFrame.Position, Root.Position)  task.wait() until _G.FinalLight == true -- aqui faz a camera mirar na luz
+						end)
+						wait()
+						keypress(0x45) 
+						wait(0.8)
+						keyrelease(0x45) 
+						LoopTp:Disconnect()
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(100, 30, 100)
+						wait()
+						_G.FinalLight = true 
+						wait(.5)
+						keypress(0x45) 
+						wait()
+						keyrelease(0x45) 
+						wait(.2)
+					until (oldPOSROOT - Root.Position).Magnitude >=30 or vezes >= 5
+				end
+			end
+		end
+    end
+	noclip2(false)
 end)
 
 
@@ -1356,6 +1432,7 @@ local function ZPEVWM_fake_script() -- TextGui.TimeShow
 end
 coroutine.wrap(ZPEVWM_fake_script)()
 end)
+
 
 
 
