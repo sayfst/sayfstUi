@@ -105,7 +105,7 @@ function library:CreateWindow(text)
 		end)
 
 		delay(1, function()
-			for i,v in pairs(script.Parent.Parent.Main:GetChildren()) do
+			for i,v in pairs(script.Parent.Parent.Main:GetDescendants()) do
 				if v:IsA('TextButton') or v:IsA('ImageButton') then
 					v.MouseButton1Click:Connect(function()
 						local sound = Instance.new('Sound', workspace)
