@@ -451,13 +451,32 @@ BaseItems:NewButton('Pickup girl2 toy', nil, function()
 end)
 
 
+BaseItems:NewButton('Pickup Nicant02 toy', nil, function()
+    PickupLight('Nicant02 Toy', _G.VezesLight)
+end)
+
+BaseItems:NewButton('Pickup random Hubert toy', nil, function()
+    PickupLight('Toy Hubert', _G.VezesLight)
+end)
+
+BaseItems:NewButton('Pickup random Leo112t toy', nil, function()
+    PickupLight('Leo112t Toy', _G.VezesLight)
+end)
+
+BaseItems:NewButton('Pickup random PlagueDocTor_Dash toy', nil, function()
+    PickupLight('PlagueDocTor_Dash Toy', _G.VezesLight)
+end)
+
+
+
+
 
 
 BaseItems:NewButton('Pickup random bear', nil, function()
     PickupLight('DJUNGELSKOG', _G.VezesLight)
 end)
 
-BaseItems:NewButton('Base TV', nil, function()
+BaseItems:NewButton('Pickup random Base TV', nil, function()
 	PickupLight('Long Drawer', _G.VezesLight)
 end)
 
