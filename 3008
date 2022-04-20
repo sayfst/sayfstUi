@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sayfst/sayfstUi/main/kavo%20library"))()
 
-local Window = Library.CreateLib("3008 [2.7] script", "Sentinel")
+local Window = Library.CreateLib("3008 [2.7] script", "Serpent")
  
 local Main = Window:NewTab("Freatures")
 
