@@ -362,7 +362,7 @@ function PickupLight(name, vezes, ROOTNAME)
                     end)
                     _G.FinalLight = false
                     spawn(function()
-                        repeat camera.CFrame = CFrame.new(camera.CFrame.Position, Root.Position)  wait() until _G.FinalLight == true -- aqui faz a camera mirar na luz
+                        repeat camera.CFrame = CFrame.new(camera.CFrame.Position, Root.Position)  task.wait() until _G.FinalLight == true -- aqui faz a camera mirar na luz
                     end)
                     wait(.1)
 					keypress(0x45) 
@@ -442,9 +442,16 @@ BaseItems:NewButton('Pickup random Curvate tv', nil, function()
     PickupLight('Curved TV', _G.VezesLight)
 end)
 
-BaseItems:NewButton('Pickup random toy', nil, function()
-    PickupLight('Toy', _G.VezesLight)
+BaseItems:NewButton('Pickup girl toy', nil, function()
+    PickupLight('iIovemyfarts Toy', _G.VezesLight)
 end)
+
+BaseItems:NewButton('Pickup girl2 toy', nil, function()
+    PickupLight('PlagueDoctor_Dash Toy', _G.VezesLight)
+end)
+
+
+
 
 BaseItems:NewButton('Pickup random bear', nil, function()
     PickupLight('DJUNGELSKOG', _G.VezesLight)
