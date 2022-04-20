@@ -1,0 +1,129 @@
+local Settings = {
+    AimbotBind = Enum.KeyCode.LeftControl,
+    Fov = 50,
+    Fov_Circle_Enabled = true,
+    AimPart = 'Head', -- <Head/HumanoidRootPart/UpperTorso/LowerTorso>
+}
+
+local camera = workspace.CurrentCamera
+local mouse = game.Players.LocalPlayer:GetMouse()
+
+for i,v in pairs(game.Players:GetPlayers()) do
+    if v ~= game.Players.LocalPlayer then
+        local Line = Drawing.new('Line')
+        Line.Thickness = 1
+        Line.Color = Color3.new(255, 255, 255)
+        Line.Visible = false
+
+        function Tracers()
+            game:GetService('RunService').RenderStepped:Connect(function()
+                if v.Character ~= nil then
+                    local Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                    
+                    if OnScreen and v.TeamColor ~= game.Players.LocalPlayer.TeamColor then
+                        
+                        Line.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+                        Line.To = Vector2.new(Vector.X, Vector.Y)
+                        Line.Visible = true
+                    else
+                        Line.Visible = false
+                    end
+                else
+                    Line.Visible = false
+                end
+            end)
+        end
+        coroutine.wrap(Tracers)()
+    end
+end
+
+
+game.Players.PlayerAdded:Connect(function(v)
+    if v ~= game.Players.LocalPlayer then
+        local Line = Drawing.new('Line')
+        Line.Thickness = 1
+        Line.Color = Color3.new(255, 255, 255)
+        Line.Visible = false
+
+        function Tracers()
+            game:GetService('RunService').RenderStepped:Connect(function()
+                if v.Character ~= nil then
+                    local Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                    
+                    if OnScreen and v.TeamColor ~= game.Players.LocalPlayer.TeamColor then
+                        local BillboardGui = Instance.new('BillboardGui')
+                        BillboardGui.AlwaysOnTop = true
+                        BillboardGui.Parent =v.Character.Head
+                        BillboardGui.Size = UDim2.new(0, 100, 0, 100)
+                        local TextLabel = INstance.new('TextLabel')
+                        TextLabel.Parent = BillboardGui
+                        TextLabel.TextSize = 25
+                        TextLabel.Text = v.Name
+                        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        TextLabel.StudsOffset = Vector3.new(0, 2, 0)
+
+
+                        Line.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+                        Line.To = Vector2.new(Vector.X, Vector.Y)
+                        Line.Visible = true
+                    else
+                        Line.Visible = false
+                    end
+                else
+                    Line.Visible = false
+                end
+            end)
+        end
+        coroutine.wrap(Tracers)()
+    end
+end)
+
+
+local aiming = false;
+
+local UserInputService = game:GetService('UserInputService')
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Settings.AimbotBind then
+        aiming = true;
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.KeyCode == Settings.AimbotBind then
+        aiming = false;
+    end
+end)
+
+local mouse = game.Players.LocalPlayer:GetMouse()
+
+local FOV = Drawing.new('Circle')
+FOV.Visible = Settings.Fov_Circle_Enabled
+FOV.Thickness = 1
+FOV.Transparency = 1
+FOV.Position = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
+FOV.Color = Color3.new(255, 255, 255)
+FOV.Radius = Settings.Fov
+
+
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    if aiming == true then
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and
+            v.Character ~= nil and
+            v.TeamColor ~= game.Players.LocalPlayer.TeamColor and
+            v.Character:FindFirstChild('Humanoid') ~= nil and
+            v.Character:FindFirstChild('Humanoid').Health ~= 0 then
+                local Vector, OnScreen = camera:worldToViewportPoint(v.Character[Settings.AimPart].Position)
+                if OnScreen then
+                    local mag = (Vector2.new(mouse.X, mouse.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
+
+                    if mag <= Settings.Fov then
+                        camera.CFrame = CFrame.new(camera.CFrame.Position, v.Character[Settings.AimPart].Position)
+                    end
+                end
+            end
+        end
+    end
+end)
