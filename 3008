@@ -568,7 +568,7 @@ DestroySection:NewButton('Destroy base', nil, function()
         if v:FindFirstChild('Root') ~= nil and
 		plrDestroy.Character ~= nil then
 			local Root = v:FindFirstChild('Root')
-
+			game:GetService('RunService'):Set3dRenderingEnabled(false)
 			if Root:IsA('Part') or Root:IsA('MeshPart') then
 				if (plrPOSITION - Vector3.new(Root.Position.X, Root.Position.Y, Root.Position.Z)).Magnitude < DestroyMagnitude then
 					local oldPOSROOT = Root.Position
@@ -608,6 +608,7 @@ DestroySection:NewButton('Destroy base', nil, function()
 		end
     end
 	noclip2(false)
+	game:GetService('RunService'):Set3dRenderingEnabled(true)
 end)
 
 
