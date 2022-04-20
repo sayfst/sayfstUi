@@ -1,0 +1,576 @@
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/sayfst/sayfstUi/main/ui%20library%202'))()
+
+local Main = library:CreateWindow('Menu')
+
+local Player = Main:CreateTab('Player')
+
+local Freatures = Main:CreateTab('Target player')
+
+local function FindPlayer(String)
+    for _, _Player in pairs(game.Players:GetPlayers()) do
+        if _Player.Name:lower():match('^'.. String:lower()) or _Player.DisplayName:lower():match('^'.. String:lower()) then
+            return _Player
+        end
+    end
+    return nil
+end
+
+function noclip2(t)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LegoHacker1337/legohacks/main/PhysicsServiceOnClient.lua"))()
+    setfflag("HumanoidParallelRemoveNoPhysics", "False")
+    setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+    if t == true then
+        game:GetService('RunService'):BindToRenderStep("crash", 0 , function()
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+        end)
+    elseif t == false then
+        game:GetService('RunService'):UnbindFromRenderStep("crash")
+    end
+end
+local fling
+local flingr6
+local oldpos
+local target
+local HRP 
+
+
+Freatures:CreateTextBox('Player name', function(bool)
+    target = FindPlayer(bool)
+    getgenv().targetSelect = target.Name
+    if target == nil then
+        game.StarterGui:SetCore('SendNotification', {
+            Title = 'error';
+            Text = 'error with '..bool;
+        })
+    end
+end)
+
+
+local loopFling
+
+Player:CreateButton('Speed', function()
+    game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid').WalkSpeed = 100
+end)
+
+Player:CreateButton('JumpPower', function()
+    game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid').JumpPower = 100
+end)
+
+Player:CreateButton('Reset', function()
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end)
+
+Player:CreateButton('Force Reset', function()
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    game.Players.LocalPlayer.Character["HumanoidRootPart"]:Destroy() game.Players.LocalPlayer.Character["RightHand"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerArm"]:Destroy() game.Players.LocalPlayer.Character["RightLowerArm"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperArm"]:Destroy() game.Players.LocalPlayer.Character["RightUpperArm"]:Destroy() game.Players.LocalPlayer.Character["LowerTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["LeftFoot"]:Destroy() game.Players.LocalPlayer.Character["RightFoot"]:Destroy() game.Players.LocalPlayer.Character["RightLowerLeg"]:Destroy() game.Players.LocalPlayer.Character["RightUpperLeg"]:Destroy() game.Players.LocalPlayer.Character["UpperTorso"]:Destroy() game.Players.LocalPlayer.Character["LeftHand"]:Destroy() game.Players.LocalPlayer.Character["Head"]:Destroy()  
+end)
+
+Player:CreateButton('Tool reach', function(bool)
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+           if v:FindFirstChild('Handle') then
+            v.Handle.Size = Vector3.new(50, 50, 50)
+            v.Handle.Transparency = 1
+            local SelectionBox = Instance.new('SelectionBox', v.Handle)
+            SelectionBox.Adornee = v.Handle
+            SelectionBox.Color3 = Color3.new(1,0,0)
+        end 
+        end
+    end
+end)
+
+Player:CreateButton('Invisible', function()
+    local Humanoid = game.Players.LocalPlayer.Character.HumanoidRootPart
+    local OldPos = Humanoid.CFrame
+    
+    Humanoid.CFrame = CFrame.new(0, 90, 0)
+    wait(.3)
+    Humanoid.Parent:FindFirstChild('LowerTorso'):Destroy()
+    wait(.3)
+    Humanoid.CFrame = OldPos
+end)
+FLYSPEED = 90
+
+Player:CreateButton('FlySpeed + 5', function()
+    FLYSPEED = FLYSPEED + 5
+end)
+
+Player:CreateButton('Fly (X) -- Infinite', function()
+    repeat wait() until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") local mouse = game.Players.LocalPlayer:GetMouse() repeat wait() until mouse local plr = game.Players.LocalPlayer local torso = plr.Character.Head local flying = false local deb = true local ctrl = {f = 0, b = 0, l = 0, r = 0} local lastctrl = {f = 0, b = 0, l = 0, r = 0} local maxspeed = 5000 local speed = 5000 function Fly() local bg = Instance.new("BodyGyro", torso) bg.P = 9e4 bg.maxTorque = Vector3.new(9e9, 9e9, 9e9) bg.cframe = torso.CFrame local bv = Instance.new("BodyVelocity", torso) bv.velocity = Vector3.new(0,0.1,0) bv.maxForce = Vector3.new(9e9, 9e9, 9e9) repeat wait() plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false if ctrl.l + ctrl.r ~= 100000 or ctrl.f + ctrl.b ~= 10000 then speed = speed+.0+(speed/maxspeed) if speed > maxspeed then speed = maxspeed end elseif not (ctrl.l + ctrl.r ~= 5 or ctrl.f + ctrl.b ~= 5) and speed ~= 5 then speed = speed-5 if speed > 5 then speed = -2 end end if (ctrl.l + ctrl.r) ~= 5 or (ctrl.f + ctrl.b) ~= 5 then bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r} elseif (ctrl.l + ctrl.r) == 5 and (ctrl.f + ctrl.b) == 5 and speed ~= 5 then bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed else bv.velocity = Vector3.new(0,0.1,0) end bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0) until not flying ctrl = {f = 0, b = 0, l = 0, r = 0} lastctrl = {f = 0, b = 0, l = 0, r = 0} speed = 5 bg:Destroy() bv:Destroy() plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false end mouse.KeyDown:connect(function(key) if key:lower() == "x" then if flying then flying = false else flying = true Fly() end elseif key:lower() == "w" then ctrl.f = FLYSPEED elseif key:lower() == "s" then ctrl.b = -FLYSPEED elseif key:lower() == "a" then ctrl.l = -FLYSPEED elseif key:lower() == "d" then ctrl.r = FLYSPEED end end) mouse.KeyUp:connect(function(key) if key:lower() == "w" then ctrl.f = 0 elseif key:lower() == "s" then ctrl.b = 0 elseif key:lower() == "a" then ctrl.l = 0 elseif key:lower() == "d" then ctrl.r = 0 end end) Fly()
+    game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+        wait(1)
+        repeat wait() until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") local mouse = game.Players.LocalPlayer:GetMouse() repeat wait() until mouse local plr = game.Players.LocalPlayer local torso = plr.Character.Head local flying = false local deb = true local ctrl = {f = 0, b = 0, l = 0, r = 0} local lastctrl = {f = 0, b = 0, l = 0, r = 0} local maxspeed = 5000 local speed = 5000 function Fly() local bg = Instance.new("BodyGyro", torso) bg.P = 9e4 bg.maxTorque = Vector3.new(9e9, 9e9, 9e9) bg.cframe = torso.CFrame local bv = Instance.new("BodyVelocity", torso) bv.velocity = Vector3.new(0,0.1,0) bv.maxForce = Vector3.new(9e9, 9e9, 9e9) repeat wait() plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false if ctrl.l + ctrl.r ~= 100000 or ctrl.f + ctrl.b ~= 10000 then speed = speed+.0+(speed/maxspeed) if speed > maxspeed then speed = maxspeed end elseif not (ctrl.l + ctrl.r ~= 5 or ctrl.f + ctrl.b ~= 5) and speed ~= 5 then speed = speed-5 if speed > 5 then speed = -2 end end if (ctrl.l + ctrl.r) ~= 5 or (ctrl.f + ctrl.b) ~= 5 then bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r} elseif (ctrl.l + ctrl.r) == 5 and (ctrl.f + ctrl.b) == 5 and speed ~= 5 then bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed else bv.velocity = Vector3.new(0,0.1,0) end bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0) until not flying ctrl = {f = 0, b = 0, l = 0, r = 0} lastctrl = {f = 0, b = 0, l = 0, r = 0} speed = 5 bg:Destroy() bv:Destroy() plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false end mouse.KeyDown:connect(function(key) if key:lower() == "x" then if flying then flying = false else flying = true Fly() end elseif key:lower() == "w" then ctrl.f = FLYSPEED elseif key:lower() == "s" then ctrl.b = -FLYSPEED elseif key:lower() == "a" then ctrl.l = -FLYSPEED elseif key:lower() == "d" then ctrl.r = FLYSPEED end end) mouse.KeyUp:connect(function(key) if key:lower() == "w" then ctrl.f = 0 elseif key:lower() == "s" then ctrl.b = 0 elseif key:lower() == "a" then ctrl.l = 0 elseif key:lower() == "d" then ctrl.r = 0 end end) Fly()
+    end)
+end)
+
+Player:CreateButton('Fly (X)', function()
+     repeat wait() until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Head") and game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid") local mouse = game.Players.LocalPlayer:GetMouse() repeat wait() until mouse local plr = game.Players.LocalPlayer local torso = plr.Character.Head local flying = false local deb = true local ctrl = {f = 0, b = 0, l = 0, r = 0} local lastctrl = {f = 0, b = 0, l = 0, r = 0} local maxspeed = 5000 local speed = 5000 function Fly() local bg = Instance.new("BodyGyro", torso) bg.P = 9e4 bg.maxTorque = Vector3.new(9e9, 9e9, 9e9) bg.cframe = torso.CFrame local bv = Instance.new("BodyVelocity", torso) bv.velocity = Vector3.new(0,0.1,0) bv.maxForce = Vector3.new(9e9, 9e9, 9e9) repeat wait() plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false if ctrl.l + ctrl.r ~= 100000 or ctrl.f + ctrl.b ~= 10000 then speed = speed+.0+(speed/maxspeed) if speed > maxspeed then speed = maxspeed end elseif not (ctrl.l + ctrl.r ~= 5 or ctrl.f + ctrl.b ~= 5) and speed ~= 5 then speed = speed-5 if speed > 5 then speed = -2 end end if (ctrl.l + ctrl.r) ~= 5 or (ctrl.f + ctrl.b) ~= 5 then bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r} elseif (ctrl.l + ctrl.r) == 5 and (ctrl.f + ctrl.b) == 5 and speed ~= 5 then bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed else bv.velocity = Vector3.new(0,0.1,0) end bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0) until not flying ctrl = {f = 0, b = 0, l = 0, r = 0} lastctrl = {f = 0, b = 0, l = 0, r = 0} speed = 5 bg:Destroy() bv:Destroy() plr.Character:FindFirstChildWhichIsA('Humanoid').PlatformStand = false end mouse.KeyDown:connect(function(key) if key:lower() == "x" then if flying then flying = false else flying = true Fly() end elseif key:lower() == "w" then ctrl.f = FLYSPEED elseif key:lower() == "s" then ctrl.b = -FLYSPEED elseif key:lower() == "a" then ctrl.l = -FLYSPEED elseif key:lower() == "d" then ctrl.r = FLYSPEED end end) mouse.KeyUp:connect(function(key) if key:lower() == "w" then ctrl.f = 0 elseif key:lower() == "s" then ctrl.b = 0 elseif key:lower() == "a" then ctrl.l = 0 elseif key:lower() == "d" then ctrl.r = 0 end end) Fly()
+
+end)
+
+Player:CreateButton('FlySpeed -5', function()
+    FLYSPEED = FLYSPEED - 5
+end)
+
+Player:CreateButton('Fly (Q)', function()
+function noclip2(t) loadstring(game:HttpGet("https://raw.githubusercontent.com/LegoHacker1337/legohacks/main/PhysicsServiceOnClient.lua"))() setfflag("HumanoidParallelRemoveNoPhysics", "False") setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False") if t == true then game:GetService('RunService'):BindToRenderStep("crash", 0 , function() game.Players.LocalPlayer.Character.Humanoid:ChangeState(11) end) elseif t == false then game:GetService('RunService'):UnbindFromRenderStep("crash") end end spawn(function() local Enabled = false local Camera = game.Workspace.CurrentCamera local Player = game:GetService("Players").LocalPlayer local Input = game:GetService("UserInputService") local Forward = false local Back = false local Left = false local Right = false local Up = false local Down = false local Activate = false function SetPlayer() if Activate == false then Activate = true noclip2(true) Float = true Part = Instance.new('Part') Part.Parent = workspace Part.Size = Vector3.new(15, 1, 15) Part.Position = Vector3.new(0, 100, 0) Part.Anchored = true Part.Transparency = 1 Float2 = game.RunService.Heartbeat:Connect(function() Part.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, -3.5, 0) end) repeat wait() until Float == false Part:Destroy() else Activate = false noclip2(false) Float2:Disconnect() Float = false end end local Float local Float2 Input.InputBegan:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.Q then Enabled = not Enabled SetPlayer() end if Key.KeyCode == Enum.KeyCode.W then Forward = true end if Key.KeyCode == Enum.KeyCode.S then Back = true end if Key.KeyCode == Enum.KeyCode.A then Left = true end if Key.KeyCode == Enum.KeyCode.D then Right = true end if Key.KeyCode == Enum.KeyCode.Space then Up = true end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = true end end) Input.InputEnded:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.W then Forward = false end if Key.KeyCode == Enum.KeyCode.S then Back = false end if Key.KeyCode == Enum.KeyCode.A then Left = false end if Key.KeyCode == Enum.KeyCode.D then Right = false end if Key.KeyCode == Enum.KeyCode.Space then Up = false end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = false end end) spawn(function() while game:GetService("RunService").RenderStepped:Wait() do if Enabled then pcall(function() if Forward then Player.Character:TranslateBy(Camera.CFrame.lookVector*2) end if Back then Player.Character:TranslateBy(-Camera.CFrame.lookVector*2) end if Left then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Right then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Up then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end if Down then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end end) end end end) end)
+end)
+
+Freatures:CreateButton('Goto', function()
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    HRP.CFrame = target.Character.HumanoidRootPart.CFrame
+end)
+
+Freatures:CreateToggle('Fling player - R15', function(bool)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    fling = bool
+    
+    wait()
+    if fling == true then
+        noclip2(true)
+        oldpos = HRP.Position
+        HRP.Velocity = Vector3.new(50000, 50000, 50000)
+        loopFling = game.RunService.Heartbeat:Connect(function()
+            local dis = 0.2
+            local increase = 6
+            local xchange
+            local zchange
+            local ychange
+            local FlingEnemy = target.Character
+            if FlingEnemy.Humanoid.MoveDirection.X < 0 then
+                xchange = -increase
+            elseif FlingEnemy.Humanoid.MoveDirection.X > 0  then
+                xchange = increase
+            else
+                xchange = 0
+            end
+            if FlingEnemy.Humanoid.MoveDirection.Z < 0 then
+                zchange = -increase
+            elseif FlingEnemy.Humanoid.MoveDirection.Z > 0 then
+                zchange = increase
+            else
+                zchange = 0
+            end  
+            if FlingEnemy.Humanoid.MoveDirection.Z < 0 then
+                ychange = -increase
+            elseif FlingEnemy.Humanoid.MoveDirection.Z > 0 then
+                ychange = increase
+            else
+                ychange = 0
+            end  
+            HRP.CFrame = CFrame.new(target.Character.UpperTorso.Position.X + math.random(-dis, dis) + xchange, target.Character.UpperTorso.Position.Y , target.Character.UpperTorso.Position.Z + math.random(-dis, dis) + zchange) * CFrame.Angles(FlingEnemy.HumanoidRootPart.Orientation.X + math.random(0, 100), FlingEnemy.HumanoidRootPart.Orientation.Y + math.random(0, 100), FlingEnemy.HumanoidRootPart.Orientation.Z + math.random(0, 100))
+        end)
+        repeat wait() until fling == false
+        HRP.Velocity = Vector3.new(0, 0, 0)
+        
+        loopFling:Disconnect()
+        game:GetService('TweenService'):Create(HRP, TweenInfo.new(0.2), {CFrame = CFrame.new(oldpos)}):Play()
+        noclip2(false) 
+    end
+end)
+Freatures:CreateToggle('Fling player - R6', function(bool)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    flingr6 = bool
+    
+    wait()
+    if flingr6 == true then
+        noclip2(true)
+        oldpos = HRP.Position
+        HRP.Velocity = Vector3.new(50000, 50000, 50000)
+        loopFling = game.RunService.Heartbeat:Connect(function()
+            local dis = 3.85
+            local increase = 6
+            local xchange
+            local zchange
+            local ychange
+            local FlingEnemy = target.Character
+            if FlingEnemy.Humanoid.MoveDirection.X < 0 then
+                xchange = -increase
+            elseif FlingEnemy.Humanoid.MoveDirection.X > 0  then
+                xchange = increase
+            else
+                xchange = 0
+            end
+            if FlingEnemy.Humanoid.MoveDirection.Z < 0 then
+                zchange = -increase
+            elseif FlingEnemy.Humanoid.MoveDirection.Z > 0 then
+                zchange = increase
+            else
+                zchange = 0
+            end  
+            if FlingEnemy.Humanoid.MoveDirection.Z < 0 then
+                ychange = -increase
+            elseif FlingEnemy.Humanoid.MoveDirection.Z > 0 then
+                ychange = increase
+            else
+                ychange = 0
+            end  
+            
+            HRP.CFrame = CFrame.new(target.Character.Torso.Position.X + math.random(-dis, dis) + xchange, target.Character.Torso.Position.Y , target.Character.Torso.Position.Z + math.random(-dis, dis) + zchange) * CFrame.Angles(FlingEnemy.HumanoidRootPart.Orientation.X + math.random(0, 100), FlingEnemy.HumanoidRootPart.Orientation.Y + math.random(0, 100), FlingEnemy.HumanoidRootPart.Orientation.Z + math.random(0, 100))
+        
+        end)
+        repeat wait() until flingr6 == false
+        HRP.Velocity = Vector3.new(0, 0, 0)
+        
+        loopFling:Disconnect()
+        game:GetService('TweenService'):Create(HRP, TweenInfo.new(0.2), {CFrame = CFrame.new(oldpos)}):Play()
+        noclip2(false) 
+    end
+end)
+
+local FinalBring
+getgenv().CancelBring = false
+
+_G.OnBring = false
+game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+    wait(1)
+    if _G.OnBring == true then
+        character:WaitForChild('HumanoidRootPart')
+        character.HumanoidRootPart.CFrame = _G.oldpos
+        _G.OnBring = false
+    end
+end)
+
+Freatures:CreateButton('Bring player', function(bool)
+    local Tool = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Tool')
+    if Tool == nil then
+        for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v:IsA('Tool') and
+            v:FindFirstChild('Handle') then
+                Tool = v
+            end
+        end
+    end
+    wait(.2)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    oldpos = HRP.CFrame
+    _G.oldpos = HRP.CFrame
+    local postocheck = HRP.Position
+    if Tool and target ~= nil then
+        _G.OnBring = true
+        local function undoHumanoid()
+            if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+                game.Players.LocalPlayer.Character.Humanoid.Name = 1
+                local clone = game.Players.LocalPlayer.Character["1"]:Clone()
+                game.Players.LocalPlayer.Character["1"]:Destroy()
+                game.Players.LocalPlayer.Character.Animate.Disabled = true
+                wait()
+                clone.Parent = game.Players.LocalPlayer.Character
+                clone.Name = "Humanoid"
+            end
+        end
+        Tool.Parent = game.Players.LocalPlayer.Backpack
+        HRP.CFrame = CFrame.new(HRP.Position)
+        wait()
+
+        if target.Character ~= nil then
+            for i = 1,10 do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0.5, 0)
+                wait()
+            end
+            undoHumanoid()
+            delay(0.5, function()
+                Tool.Parent = game.Players.LocalPlayer.Character
+            end)
+            for i = 1,10 do
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0.5, 0)
+                wait()
+            end
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
+            wait(2)
+            if (target.Character.HumanoidRootPart.Position - postocheck).Magnitude <= 15 then
+                game.StarterGui:SetCore('SendNotification', {
+                    Title = 'Sucess';
+                    Text = 'Sucess bring';
+                })
+            else
+                game.StarterGui:SetCore('SendNotification', {
+                    Title = 'Error';
+                    Text = 'Error to bring';
+                })
+            end
+        else
+            _G.OnBring = false
+            game.StarterGui:SetCore('SendNotification', {
+                Title = 'Error';
+                Text = 'Character of '..target.Name..' is nil';
+            })
+        end
+
+    else
+        game.StarterGui:SetCore('SendNotification', {
+            Title = 'Error';
+            Text = 'Error to find tool';
+        })
+    end
+end)
+
+
+Freatures:CreateToggle('View', function(bool)
+    if bool == true then
+        game.Workspace.CurrentCamera.CameraSubject = target.Character
+    elseif bool == false then
+        game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+    end
+end)
+
+local LoopFollow
+Freatures:CreateToggle('Follow', function(bool)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    LoopFollow = bool
+    if bool == true then
+        spawn(function()
+            while LoopFollow == true do
+                HRP.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(5, 0, 0)
+                wait()
+            end
+        end)
+    end
+end)
+
+Freatures:CreateButton('Free first [Q]', function()
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    local localPlayer       = game:GetService("Players").LocalPlayer local localCharacter    = localPlayer.Character local Mouse             = localPlayer:GetMouse() local FistControl       = false local LeftFist          = localCharacter.LeftHand local RightFist         = localCharacter.RightHand local uis = game:GetService("UserInputService") local loopFunction = function() LeftFist.CFrame  = CFrame.new(Mouse.Hit.p) RightFist.CFrame = CFrame.new(Mouse.Hit.p) end local Loop local Start = function() Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction) end local Pause = function() Loop:Disconnect() end uis.InputBegan:connect(function(Key) if (Key.KeyCode == Enum.KeyCode.Q) then if (FistControl == false) then FistControl = true Start() pcall(function() localCharacter.RightHand.RightWrist:Remove() localCharacter.LeftHand.LeftWrist:Remove() end) elseif (FistControl == true) then FistControl = false Pause() local rightwrist  = Instance.new("Motor6D") rightwrist.Name   = "RightWrist" rightwrist.Parent = localCharacter.RightHand rightwrist.C0     = CFrame.new(1.18422506e-07, -0.5009287, -6.81715525e-18, 1, 0, 0, 0, 1, 0, 0, 0, 1) rightwrist.C1     = CFrame.new(3.55267503e-07, 0.125045404, 5.92112528e-08, 1, 0, 0, 0, 1, 0, 0, 0, 1) rightwrist.Part0  = localCharacter.RightLowerArm rightwrist.Part1  = localCharacter.RightHand local leftwrist   = Instance.new("Motor6D") leftwrist.Name    = "LeftWrist" leftwrist.Parent  = localCharacter.LeftHand leftwrist.C0      = CFrame.new(0.000475466368, -0.5009287, 7.59417072e-20, 1, 0, 0, 0, 1, 0, 0, 0, 1) leftwrist.C1      = CFrame.new(0.000475821638, 0.125045404, 5.92112528e-08, 1, 0, 0, 0, 1, 0, 0, 0, 1) leftwrist.Part0   = localCharacter.LeftLowerArm leftwrist.Part1   = localCharacter.LeftHand end end end)
+end)
+
+local LoopReach
+Freatures:CreateToggle('Reach', function(bool)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    if bool == true then
+
+        LoopReach = true
+        spawn(function()
+            while LoopReach == true do
+                for i,v in pairs(game:GetService('Players'):GetChildren()) do
+                    if v ~= game.Players.LocalPlayer then
+                        if (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.LeftHand.Position).Magnitude <= 50 then
+                            if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+                                if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild('Handle') then
+                                    firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Handle, v.Character.UpperTorso, 0)
+                                else
+                                    firetouchinterest(game.Players.LocalPlayer.Character['RightHand'], v.Character.UpperTorso, 0)
+                                    firetouchinterest(game.Players.LocalPlayer.Character['LeftHand'], v.Character.UpperTorso, 0)
+                                    firetouchinterest(game.Players.LocalPlayer.Character['RightFoot'], v.Character.UpperTorso, 0)
+                                    firetouchinterest(game.Players.LocalPlayer.Character['LeftFoot'], v.Character.UpperTorso, 0)
+                                    firetouchinterest(game.Players.LocalPlayer.Character['RightLowerLeg'], v.Character.UpperTorso, 0)
+                                    firetouchinterest(game.Players.LocalPlayer.Character['LeftLowerLeg'], v.Character.UpperTorso, 0)
+                                end
+                            end
+                        end
+                    end
+                end
+                wait()
+            end
+        end)
+        
+    else
+
+        LoopReach = false
+
+    end
+end)
+
+
+local LoopBang
+local bendingBenx
+Freatures:CreateToggle('Bang r15', function(bool)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    if bool == true then
+        local bangAnim = Instance.new("Animation")
+        local Character = game.Players.LocalPlayer.Character
+        bangAnim.AnimationId = "rbxassetid://5918726674"
+        --[[if Character.Humanoid.RigType ~= Enum.RigType.R15 then
+            
+        else
+            bangAnim.AnimationId = "rbxassetid://148840371"
+        end]]
+        
+        local Track = Character:WaitForChild('Humanoid'):LoadAnimation(bangAnim)
+        
+        
+        bendingBenx = true
+        local Start = function()
+            
+            away = 0.5
+            reverse = false
+            Track:Play()
+            LoopBang = game.RunService.Heartbeat:Connect(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, -0.3, 0.5 + away)
+                if reverse == false then
+                    away = away + 0.1
+                elseif reverse == true then
+                    away = away - 0.1
+                end
+                if away >=2.8 then
+                    reverse = true
+                elseif away <0.5 then
+                    reverse = false
+                end
+            end)
+        end
+        local Stop = function()
+            LoopBang:Disconnect()
+            Track:Stop()
+        end
+
+        Start()
+        repeat wait() until bendingBenx == false
+        Stop()
+        
+    end
+    
+if bool == false then
+    
+		bendingBenx = false
+    
+end
+end)
+
+local LoopBangg
+local bendingBenxx
+Freatures:CreateToggle('Bang r6', function(bool)
+    HRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+    if bool == true then
+        local bangAnim = Instance.new("Animation")
+        local Character = game.Players.LocalPlayer.Character
+        bangAnim.AnimationId = "rbxassetid://148840371"
+        --[[if Character.Humanoid.RigType ~= Enum.RigType.R15 then
+            
+        else
+            bangAnim.AnimationId = "rbxassetid://148840371"
+        end]]
+        
+        local Track = Character:WaitForChild('Humanoid'):LoadAnimation(bangAnim)
+        
+        
+        bendingBenxx = true
+        local Start = function()
+            
+            away = 0.5
+            reverse = false
+            Track:Play()
+            LoopBangg = game.RunService.Heartbeat:Connect(function()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 0.5 + away)
+                if reverse == false then
+                    away = away + 0.1
+                elseif reverse == true then
+                    away = away - 0.1
+                end
+                if away >=2.8 then
+                    reverse = true
+                elseif away <0.5 then
+                    reverse = false
+                end
+            end)
+        end
+        local Stop = function()
+            LoopBangg:Disconnect()
+            Track:Stop()
+        end
+
+        Start()
+        repeat wait() until bendingBenxx == false
+        Stop()
+        
+    end
+    
+    if bool == false then
+        
+            bendingBenxx = false
+        
+    end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------ MENU -------
+
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local button = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.199376941, 0, 0.290187895, 0)
+Frame.Size = UDim2.new(0, 282, 0, 143)
+Frame.Active = true
+Frame.Draggable = true
+
+UICorner.Parent = Frame
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(0, 282, 0, 82)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "nil"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+button.Name = "button"
+button.Parent = Frame
+button.Active = false
+button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+button.Position = UDim2.new(0.106382981, 0, 0.699300706, 0)
+button.Selectable = false
+button.Size = UDim2.new(0, 221, 0, 36)
+button.Font = Enum.Font.SourceSans
+button.Text = "copyname"
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.TextScaled = true
+button.TextSize = 14.000
+button.TextWrapped = true
+
+UICorner_2.Parent = button
+
+-- Scripts:
+
+local function SHIITN_fake_script() -- TextLabel.LocalScript 
+	local script = Instance.new('LocalScript', TextLabel)
+
+	script.Parent.Parent.button.MouseButton1Click:Connect(function()
+		setclipboard(script.Parent.Text)
+	end)
+	
+	game:GetService('RunService').Heartbeat:Connect(function()
+		for i,v in pairs(game.Players:GetChildren()) do
+			if v ~= game.Players.LocalPlayer and v.Character and (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <=5 then
+				script.Parent.Text = v.Name
+			end
+		end
+	end)
+	
+	
+end
+coroutine.wrap(SHIITN_fake_script)()
