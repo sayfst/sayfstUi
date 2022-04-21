@@ -18,6 +18,55 @@ local ESP = Window:NewTab('Esp')
 
 local EspSection = ESP:NewSection('Esp configs')
 
+function DestroyAllGuis()
+	for i,v in pairs(game.CoreGui:GetChildren()) do
+		if v:IsA('ScreenGui') and v.Name == 'Status' then
+			v:Destroy()
+		end
+	end
+end
+
+function CreateStatusGui()
+	local Status = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local TITLE = Instance.new("TextLabel")
+	local TEXTSTATUS = Instance.new("TextLabel")
+	
+	
+	Status.Name = "Status"
+	Status.Parent = game.CoreGui
+	Status.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	
+	Frame.Parent = Status
+	Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Frame.BorderSizePixel = 0
+	Frame.Position = UDim2.new(0.249221176, 0, 0.0605427995, 0)
+	Frame.Size = UDim2.new(0.5, 0, 0.300000012, 0)
+	
+	TITLE.Name = "TITLE"
+	TITLE.Parent = Frame
+	TITLE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TITLE.BorderSizePixel = 0
+	TITLE.Size = UDim2.new(1, 0, 0.180000007, 0)
+	TITLE.Font = Enum.Font.SourceSans
+	TITLE.Text = "Destroy Base Status"
+	TITLE.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TITLE.TextSize = 24.000
+	
+	TEXTSTATUS.Name = "TEXTSTATUS"
+	TEXTSTATUS.Parent = Frame
+	TEXTSTATUS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TEXTSTATUS.BorderSizePixel = 0
+	TEXTSTATUS.Position = UDim2.new(0, 0, 0.354906023, 0)
+	TEXTSTATUS.Size = UDim2.new(1, 0, 0.180000007, 0)
+	TEXTSTATUS.Font = Enum.Font.SourceSans
+	TEXTSTATUS.Text = ""
+	TEXTSTATUS.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TEXTSTATUS.TextSize = 24.000
+
+	return TEXTSTATUS
+end
+
 _G.FileName = 'JHmcKWBcI5Ip2fLWKcB6tBo.txt'
 
 if (writefile and isfile and readfile) then
@@ -439,6 +488,7 @@ BaseItems:NewSlider('The amount', "The amount", 10, 1, function(string)
     _G.VezesLight = tonumber(string)
 end)
 
+_G.VezesLight = 'NotSelect'
 
 
 function Pickup(item)
@@ -465,75 +515,85 @@ function noclip2(t)
     end
 end
 function PickupLight(name, vezes, ROOTNAME)
-	ROOTNAME = ROOTNAME or 'Root'
-    wait(1)
-    local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-    local camera = game:GetService('Workspace').CurrentCamera
-    local vez = 0
-    for i,v in pairs(game:GetService("Workspace").GameObjects.Physical.Map.Ground:GetDescendants()) do
-        if v.Name:lower():match('^'..name:lower()) then
-            if v:FindFirstChild(ROOTNAME) ~= nil then
-                local Root = v:FindFirstChild(ROOTNAME)
-                if (Root.Position - oldpos).Magnitude >= _G.DistanceItem  and vez ~= vezes then
-                    noclip2(true)
-                    local mouse = game.Players.LocalPlayer:GetMouse()
+	if _G.VezesLight == 'NotSelect' then
+		local Aviso = CreateStatusGui()
+		
+		Aviso.Text = 'Notificacao:\nVoce nao selecionou\numa quantidade\nsalvo pelo samu'
+		wait(6)
+		DestroyAllGuis()
 
-                    local Part = Instance.new('Part', workspace)
-                    Part.Name = 'OldPosition'
-                    Part.Anchored = true
-                    Part.Size = Vector3.new(1, 1, 1)
-                    Part.Transparency = 0
-                    local hit = mouse.Hit
-                    Part.Position = Vector3.new(hit.X, hit.Y, hit.Z)
-                    vez = vez + 1
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, 0)
-                    wait()
-					local z = math.random(-2, 2)
-                    local LoopTp = game:GetService('RunService').RenderStepped:Connect(function()
-						
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, -2)
-						
+	else
 
-                    end)
-                    _G.FinalLight = false
-                    spawn(function()
-                        repeat camera.CFrame = CFrame.new(camera.CFrame.Position, Root.Position)  task.wait() until _G.FinalLight == true -- aqui faz a camera mirar na luz
-                    end)
-                    wait()
-					keypress(0x45) 
-                    wait(0.8)
-                    keyrelease(0x45) 
-                    LoopTp:Disconnect()
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(oldpos)
-                    wait()
-                    _G.FinalLight = true 
-                    camera.CFrame = CFrame.new(camera.CFrame.Position, Part.Position)
-                    Part:Destroy()
-                    wait(.5)
-                    if _G.VezesLight ~= 1 then
+		ROOTNAME = ROOTNAME or 'Root'
+		wait(1)
+		local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+		local camera = game:GetService('Workspace').CurrentCamera
+		local vez = 0
+		for i,v in pairs(game:GetService("Workspace").GameObjects.Physical.Map.Ground:GetDescendants()) do
+			if v.Name:lower():match('^'..name:lower()) then
+				if v:FindFirstChild(ROOTNAME) ~= nil then
+					local Root = v:FindFirstChild(ROOTNAME)
+					if (Root.Position - oldpos).Magnitude >= _G.DistanceItem  and vez ~= vezes then
+						noclip2(true)
+						local mouse = game.Players.LocalPlayer:GetMouse()
+	
+						local Part = Instance.new('Part', workspace)
+						Part.Name = 'OldPosition'
+						Part.Anchored = true
+						Part.Size = Vector3.new(1, 1, 1)
+						Part.Transparency = 0
+						local hit = mouse.Hit
+						Part.Position = Vector3.new(hit.X, hit.Y, hit.Z)
+						vez = vez + 1
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, 0)
+						wait()
+						local z = math.random(-2, 2)
+						local LoopTp = game:GetService('RunService').RenderStepped:Connect(function()
+							
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, -2)
+							
+	
+						end)
+						_G.FinalLight = false
+						spawn(function()
+							repeat camera.CFrame = CFrame.new(camera.CFrame.Position, Root.Position)  task.wait() until _G.FinalLight == true -- aqui faz a camera mirar na luz
+						end)
+						wait()
 						keypress(0x45) 
-						wait()
+						wait(0.8)
 						keyrelease(0x45) 
+						LoopTp:Disconnect()
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(oldpos)
 						wait()
-						if game.Players.LocalPlayer.Settings.IsHolding.Value == true then
-							repeat
-								keypress(0x45) 
-								wait()
-								keyrelease(0x45) 
-								wait()
-								workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, Vector3.new(math.random(0,10000),math.random(0,10000),math.random(0,10000)))
-							until game.Players.LocalPlayer.Settings.IsHolding.Value == false
+						_G.FinalLight = true 
+						camera.CFrame = CFrame.new(camera.CFrame.Position, Part.Position)
+						Part:Destroy()
+						wait(.5)
+						if _G.VezesLight ~= 1 then
+							keypress(0x45) 
+							wait()
+							keyrelease(0x45) 
+							wait()
+							if game.Players.LocalPlayer.Settings.IsHolding.Value == true then
+								repeat
+									keypress(0x45) 
+									wait()
+									keyrelease(0x45) 
+									wait()
+									workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, Vector3.new(math.random(0,10000),math.random(0,10000),math.random(0,10000)))
+								until game.Players.LocalPlayer.Settings.IsHolding.Value == false
+							end
+							
+							noclip2(false)
 						end
-						
-                        noclip2(false)
-                    end
-                    noclip2(false)
-                end
-            else
-                print('Error, Root is nil')
-            end
-        end
-    end
+						noclip2(false)
+					end
+				else
+					print('Error, Root is nil')
+				end
+			end
+		end
+	end
 end
 
 BaseItems:NewTextBox('Expecif', nil, function(string)
@@ -735,54 +795,7 @@ DestroySection:NewTextBox('Distance', 'Distance from the items you will destroy'
 	})
 end)
 
-function DestroyAllGuis()
-	for i,v in pairs(game.CoreGui:GetChildren()) do
-		if v:IsA('ScreenGui') and v.Name == 'Status' then
-			v:Destroy()
-		end
-	end
-end
 
-function CreateStatusGui()
-	local Status = Instance.new("ScreenGui")
-	local Frame = Instance.new("Frame")
-	local TITLE = Instance.new("TextLabel")
-	local TEXTSTATUS = Instance.new("TextLabel")
-	
-	
-	Status.Name = "Status"
-	Status.Parent = game.CoreGui
-	Status.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	
-	Frame.Parent = Status
-	Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Frame.BorderSizePixel = 0
-	Frame.Position = UDim2.new(0.249221176, 0, 0.0605427995, 0)
-	Frame.Size = UDim2.new(0.5, 0, 0.300000012, 0)
-	
-	TITLE.Name = "TITLE"
-	TITLE.Parent = Frame
-	TITLE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TITLE.BorderSizePixel = 0
-	TITLE.Size = UDim2.new(1, 0, 0.180000007, 0)
-	TITLE.Font = Enum.Font.SourceSans
-	TITLE.Text = "Destroy Base Status"
-	TITLE.TextColor3 = Color3.fromRGB(0, 0, 0)
-	TITLE.TextSize = 24.000
-	
-	TEXTSTATUS.Name = "TEXTSTATUS"
-	TEXTSTATUS.Parent = Frame
-	TEXTSTATUS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	TEXTSTATUS.BorderSizePixel = 0
-	TEXTSTATUS.Position = UDim2.new(0, 0, 0.354906023, 0)
-	TEXTSTATUS.Size = UDim2.new(1, 0, 0.180000007, 0)
-	TEXTSTATUS.Font = Enum.Font.SourceSans
-	TEXTSTATUS.Text = ""
-	TEXTSTATUS.TextColor3 = Color3.fromRGB(0, 0, 0)
-	TEXTSTATUS.TextSize = 24.000
-
-	return TEXTSTATUS
-end
 
 DestroySection:NewButton('Destroy base', nil, function()
 	local TextStatus = CreateStatusGui()
