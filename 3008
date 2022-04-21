@@ -511,9 +511,20 @@ function PickupLight(name, vezes, ROOTNAME)
                     Part:Destroy()
                     wait(.5)
                     if _G.VezesLight ~= 1 then
-                        keypress(0x45) 
-                        wait()
-                        keyrelease(0x45) 
+						keypress(0x45) 
+						wait()
+						keyrelease(0x45) 
+						wait()
+						if game.Players.LocalPlayer.Settings.IsHolding.Value == true then
+							repeat
+								keypress(0x45) 
+								wait()
+								keyrelease(0x45) 
+								wait()
+								workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, Vector3.new(math.random(0,10000),math.random(0,10000),math.random(0,10000)))
+							until game.Players.LocalPlayer.Settings.IsHolding.Value == false
+						end
+						
                         noclip2(false)
                     end
                     noclip2(false)
@@ -1816,4 +1827,3 @@ spawn(function() local Enabled = false local Camera = game.Workspace.CurrentCame
                         Input.InputBegan:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.RightControl then Enabled = not Enabled SetPlayer() end if Key.KeyCode == Enum.KeyCode.W then Forward = true end if Key.KeyCode == Enum.KeyCode.S then Back = true end if Key.KeyCode == Enum.KeyCode.A then Left = true end if Key.KeyCode == Enum.KeyCode.D then Right = true end if Key.KeyCode == Enum.KeyCode.Space then Up = true end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = true end end) Input.InputEnded:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.W then Forward = false end if Key.KeyCode == Enum.KeyCode.S then Back = false end if Key.KeyCode == Enum.KeyCode.A then Left = false end if Key.KeyCode == Enum.KeyCode.D then Right = false end if Key.KeyCode == Enum.KeyCode.Space then Up = false end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = false end end) spawn(function() while game:GetService("RunService").RenderStepped:Wait() do if Enabled then pcall(function() if Forward then Player.Character:TranslateBy(Camera.CFrame.lookVector*2) end if Back then Player.Character:TranslateBy(-Camera.CFrame.lookVector*2) end if Left then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Right then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Up then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end if Down then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end end) end end end) end) 
 
                 end)
-		
