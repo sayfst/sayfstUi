@@ -14,7 +14,19 @@ local LocalPlayer = Main:NewSection('Local Player')
 
 local BaseItems = Main:NewSection('Base Items')
 
+local ESP = Window:NewTab('Esp')
 
+local EspSection = ESP:NewSection('Esp configs')
+
+_G.FileName = 'JHmcKWBcI5Ip2fLWKcB6tBo.txt'
+
+if (writefile and isfile and readfile) then
+	if not (isfile and isfile(_G.FileName)) then
+		local HttpService = game:GetService('HttpService')
+		
+		writefile(_G.FileName, HttpService:JSONEncode(''))
+	end
+end
 
 local lplr = game:GetService('Players').LocalPlayer
 
@@ -30,6 +42,7 @@ local function FindPlayer(String)
 end
 
 MainSection:NewButton('Fill inventory', 'he will fill his inventory with food', function()
+	local lplr = game.Players.LocalPlayer
     local oldCFrame = lplr.Character.HumanoidRootPart.CFrame
     local oldPosition = lplr.Character.HumanoidRootPart.Position
     
@@ -136,25 +149,21 @@ MainSection:NewButton('Drop foods', nil, function()
     for i = 1,5 do
         for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 
-            if v:IsA('Tool') then
+        	if v:IsA('Tool') then
     
-                    v.Parent = game.Players.LocalPlayer.Character
-    
-            end
-    
-    end
-    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-            if v:IsA('Tool') then
-                    local args = {
-                        [1] = {
-                            ["Action"] = "DropStack",
-                            ["Model"] = game:GetService("Players").LocalPlayer.Character[v.Name]
-                        }
-                    }
-                    
-                    game:GetService("Players").LocalPlayer.Character.server_PickupSystem.Inventory:InvokeServer(unpack(args))
-            end
-    end
+            	v.Parent = game.Players.LocalPlayer.Character
+				wait()
+				local args = {
+					[1] = {
+						["Action"] = "DropStack",
+						["Model"] = game:GetService("Players").LocalPlayer.Character[v.Name]
+					}
+				}
+				
+				game:GetService("Players").LocalPlayer.Character.server_PickupSystem.Inventory:InvokeServer(unpack(args))
+				wait(.1)
+			end
+        end
     end
 end)
 
@@ -274,12 +283,130 @@ LocalPlayer:NewTextBox('Player name', 'He will select player', function(String)
     })
 end)
 
-LocalPlayer:NewButton('Teleport', 'He will teleport on player', function()
+LocalPlayer:NewButton('Teleport - plr', 'He will teleport on player', function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerSelect.Character.HumanoidRootPart.CFrame
+end)
+LocalPlayer:NewToggle('View - plr', nil, function(bool)
+	if bool then
+		game.Workspace.CurrentCamera.CameraSubject = PlayerSelect.Character
+	else
+		game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+	end
+end)
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+	msg = msg:split(' ')
+
+	if msg[1] == '.velocidade' then
+		_G.velocidade = tonumber(msg[2])
+	end
+end)
+_G.velocidade = 3
+local Benx;
+LocalPlayer:NewToggle('Benx - plr', nil, function(bool)
+	_G.Benx = bool
+	if bool then
+		bangAnim = Instance.new("Animation")
+		bangAnim.AnimationId = "rbxassetid://148840371"
+		local Track = game.Players.LocalPlayer.Character:WaitForChild('Humanoid'):LoadAnimation(bangAnim)
+		Track:AdjustSpeed(_G.velocidade)
+		local away = 0.5
+		local reverse = false
+		
+		Track:Play()
+		Benx = game:GetService('RunService').Heartbeat:Connect(function()
+			if reverse == false then
+				away = away + 0.1
+			else
+				away = away - 0.1
+			end
+			if away >=2 then
+				reverse = true
+			elseif away <= 0.5 then
+				reverse = false
+			end
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerSelect.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, away)
+		
+		end)
+		repeat task.wait() until _G.Benx == false
+		Benx:Disconnect()
+		Track:Stop()
+	end
+end)
+
+LocalPlayer:NewToggle('Give food - plr', nil, function(bool)
+	getgenv().GiveFood = bool
+	spawn(function()
+		while getgenv().GiveFood == true do
+			local lplr = game.Players.LocalPlayer
+			local oldCFrame = lplr.Character.HumanoidRootPart.CFrame
+			local oldPosition = lplr.Character.HumanoidRootPart.Position
+			
+			local ItemOnBackpack = 0
+			game.RunService.RenderStepped:Connect(function()
+				ItemOnBackpack = 0
+				for i,v in pairs(lplr.Backpack:GetChildren()) do
+					ItemOnBackpack = ItemOnBackpack + 1
+				end
+			end)
+			
+			for i,v in pairs(game:GetService("Workspace").GameObjects.Physical.Items:GetChildren()) do
+				if v ~= nil then
+					if v:FindFirstChild('Root') and 
+					ItemOnBackpack <= 15 and 
+					(v.Root.Position - oldPosition).Magnitude >= 25 then
+						lplr.Character.HumanoidRootPart.CFrame = v.Root.CFrame
+						task.wait()
+						local args = {
+							[1] = {
+								["Action"] = "AlternateInteract",
+								["Model"] = v,
+							}
+						}
+						
+						game:GetService("Players").LocalPlayer.Character.server_PickupSystem.MainEvent:InvokeServer(unpack(args))
+						game:GetService("Players").LocalPlayer.Character.server_PickupSystem.MainEvent:InvokeServer(unpack(args))
+						
+						task.wait()
+					end
+				end
+			end
+			for i,v in pairs(game:GetService("Workspace").GameObjects.Physical.Map.Ground:GetChildren()) do
+				if v ~= nil then
+					if v:FindFirstChild('Root') ~= nil and
+					ItemOnBackpack <= 15 and
+					(v.Root.Position - oldPosition).Magnitude >= 25 then
+						lplr.Character.HumanoidRootPart.CFrame = v.Root.CFrame
+						task.wait()
+						local args = {
+							[1] = {
+								["Action"] = "AlternateInteract",
+								["Model"] = v,
+							}
+						}
+						
+						game:GetService("Players").LocalPlayer.Character.server_PickupSystem.MainEvent:InvokeServer(unpack(args))
+						game:GetService("Players").LocalPlayer.Character.server_PickupSystem.MainEvent:InvokeServer(unpack(args))
+						
+						task.wait()
+					end
+				end
+			end
+		
+			lplr.Character.HumanoidRootPart.CFrame = PlayerSelect.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 0)
+			wait(1)
+			local camera = workspace.CurrentCamera
+			camera.CFrame = CFrame.new(camera.CFrame.Position, PlayerSelect.Character.HumanoidRootPart.Position + Vector3.new(0, -3.5, 0))
+			task.wait(.1)
+			game.Players.LocalPlayer.Character.Humanoid.Health = 0
+			game.Players.LocalPlayer.CharacterAdded:wait():WaitForChild('HumanoidRootPart')
+			lplr.Character.HumanoidRootPart.CFrame = oldCFrame
+
+		end
+	end)
 end)
 
 local LoopFollow
-LocalPlayer:NewToggle('Follow', 'He will follow player', function(bool)
+LocalPlayer:NewToggle('Follow - plr', 'He will follow player', function(bool)
     if bool == true then
         LoopFollow = game.RunService.Heartbeat:Connect(function()
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PlayerSelect.Character.HumanoidRootPart.CFrame * CFrame.new(3, 0, 0)
@@ -290,11 +417,15 @@ LocalPlayer:NewToggle('Follow', 'He will follow player', function(bool)
 end)
 
 LocalPlayer:NewButton('Save pos', nil, function()
-    oldCFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+
+	local cordenadas = {X = tostring(pos.X);Y = tostring(pos.Y);Z = tostring(pos.Y)}
+	writefile('3008position.txt', game:GetService('HttpService'):JSONEncode(cordenadas))
 end)
 
 LocalPlayer:NewButton('Load pos', nil, function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldCFrame
+    local cordenadas = game:GetService('HttpService'):JSONDecode(readfile('3008position.txt'))
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(tonumber(cordenadas.X), tonumber(cordenadas.Y), tonumber(cordenadas.Z))
 end)
 
 
@@ -504,10 +635,42 @@ BaseItems:NewTextBox('Add pickup button', nil, function(string)
 	string = string:split(',')
 
 	BaseItems:NewButton(string[1], nil, function()
+
 		PickupLight(string[2], _G.VezesLight, string[3])
 	end)
 end)
 
+if (writefile and readfile) then
+	BaseItems:NewTextBox('Save Pickup option', '1 = Texto, 2 = Item, 3 = Root, 4 = Arquivo name', function(string)
+		string = string:split(',')
+		local Configuracoes = {
+			Text = string[1];
+			Item = string[2];
+			Root = string[3];
+			Nome = string[4];
+		}
+		local HttpService = game:GetService('HttpService')
+		
+
+		local nomeArquivo = string[4]..'.txt'
+
+
+		local json = HttpService:JSONEncode(Configuracoes)
+
+		writefile(nomeArquivo, json)
+	end)
+	BaseItems:NewTextBox('Load pickup option', nil, function(string)
+		string = string..'.txt'
+		local arquivo = game:GetService('HttpService'):JSONDecode(readfile(string))
+
+		local HttpService = game:GetService('HttpService')
+		local json = HttpService:JSONDecode(readfile(string))
+
+		BaseItems:NewButton(json.Text,nil,function()
+			PickupLight(json.Item,_G.VezesLight,json.Root)
+		end)
+	end)
+end	
 
 game.Players.LocalPlayer.Chatted:Connect(function(msg)
     if msg == '/e checkname' then
@@ -611,12 +774,15 @@ function CreateStatusGui()
 end
 
 DestroySection:NewButton('Destroy base', nil, function()
+	local TextStatus = CreateStatusGui()
+	TextStatus.Text = 'Starting on 1 seconds...'
 	_G.DestroyRunning = true
 	_G.ItemsPego = 0
 	_G.FinalDestroy = false
 	noclip2(true)
+	wait(1) -- esse e o script do destroy base
 	local oldposDESTROY = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-	local TextStatus = CreateStatusGui()
+	
 	local plrPOSITION = plrDestroy.Character.HumanoidRootPart.Position
 	for i,v in pairs(game:GetService("Workspace").GameObjects.Physical.Map.Ground:GetDescendants()) do
         if v:FindFirstChild('Root') ~= nil or v:FindFirstChild('Part') ~= nil or v:FindFirstChild('Main') and
@@ -631,10 +797,9 @@ DestroySection:NewButton('Destroy base', nil, function()
 						TextStatus.Text = 'Items already taken: '.._G.ItemsPego..'\n'..'Pickuping: '..Root.Parent.Name
 						repeat 
 							vezes = vezes + 1
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Root.CFrame * CFrame.new(0, 0, 0)
-							wait()
+							
 							local z = math.random(1,2)
-							local LoopTp = game:GetService('RunService').RenderStepped:Connect(function()
+							local LoopTp = game:GetService('RunService').Heartbeat:Connect(function()
 								
 								
 									
@@ -672,7 +837,7 @@ DestroySection:NewButton('Destroy base', nil, function()
 							keypress(0x45) 
 							wait()
 							keyrelease(0x45) 
-							wait(.2)
+							wait()
 						until (oldPOSROOT - Root.Position).Magnitude >=30 or vezes >= 3
 						if vezes ~= 3 then
 							_G.ItemsPego = _G.ItemsPego + 1
@@ -686,13 +851,84 @@ DestroySection:NewButton('Destroy base', nil, function()
 	DestroyAllGuis()
 	noclip2(false)
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldposDESTROY
-	game:GetService('RunService'):Set3dRenderingEnabled(true)
+
 end)
+
 
 DestroySection:NewButton('Stop destroy', nil, function()
 	_G.DestroyRunning = false
 end)
 
+_G.EspColor = Color3.new(0, 0, 255)
+_G.EspEnabled = false
+_G.EspThickness = 2
+
+EspSection:NewButton('Active esp', nil, function()
+	local FOLDER = game.Workspace:FindFirstChild('EspFolder')
+	local pasta;
+	if FOLDER then
+		FOLDER:Destroy()
+		pasta = Instance.new('Folder', workspace)
+		pasta.Name = 'EspFolder'
+	else
+		pasta = Instance.new('Folder', workspace)
+		pasta.Name = 'EspFolder'
+	end
+	local camera = workspace.CurrentCamera
+	for i,v in pairs(game.Players:GetChildren()) do
+		local Line = Drawing.new('Line')
+		Line.Thickness = _G.EspThickness
+		Line.Transparency = 1
+		Line.Color = Color3.fromRGB(0, 0, 255)-- azul acho
+		Line.Visible = false
+		function UpdateTracers()
+			game.RunService.RenderStepped:Connect(function()
+				if v ~= game.Players.LocalPlayer then
+					if v.Character ~= nil and
+					v ~= nil and
+					v.Character:FindFirstChild('HumanoidRootPart') ~= nil and
+					v.Character:FindFirstChild('Humanoid') ~= nil and
+					v.Character:FindFirstChild('Humanoid').Health > 0 then
+						local Vector, OnScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+		
+						if OnScreen then
+							Line.Visible = _G.EspEnabled
+							Line.Thickness = _G.EspThickness
+							Line.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 1)
+							Line.To = Vector2.new(Vector.X, Vector.Y)
+							Line.Color = _G.EspColor
+						else
+							Line.Visible = false
+						end
+					end
+				else
+					Line.Visible = false
+				end
+			end)
+		end
+		coroutine.wrap(UpdateTracers)()
+	end
+end)
+
+EspSection:NewToggle('Esp Enabled', nil, function(bool)
+	_G.EspEnabled = bool
+end)
+
+EspSection:NewButton('Esp Color - Red', nil, function()
+	_G.EspColor = Color3.fromRGB(255, 0, 0)
+end)
+
+EspSection:NewButton('Esp Color - Yellow', nil, function()
+	_G.EspColor = Color3.fromRGB(255, 255, 0)
+end)
+
+EspSection:NewButton('Esp Color - Purple', nil, function()
+	_G.EspColor = Color3.fromRGB(153, 0, 153)
+end)
+
+EspSection:NewSlider('Esp Thickness', nil,10, 1, function(value)
+	_G.EspThickness = value
+end)
 
 BaseItems:NewButton('Script 3008',nil, function()
 
