@@ -22,7 +22,9 @@ local AutoRefresh = Window:NewTab('Auto refresh')
 
 local GUI2 = AutoRefresh:NewSection('Auto refresh')
 
+local Base = Window:NewTab('Auto base')
 
+local BaseSection = Base:NewSection('Auto build base')
 
 function DestroyAllGuis()
 	for i,v in pairs(game.CoreGui:GetChildren()) do
@@ -867,7 +869,13 @@ DestroySection:NewTextBox('Distance', 'Distance from the items you will destroy'
 	})
 end)
 
-
+function clickKey(key)
+    keypress(key)
+    delay(0.1, function()
+        task.wait()
+        keyrelease(key)
+    end)
+end
 
 DestroySection:NewButton('Destroy base', nil, function()
 	local TextStatus = CreateStatusGui()
@@ -1068,6 +1076,202 @@ function REFRESH()
     end)
 end
 REFRESH()
+
+function NewWood()
+	PickupLight('Pallet', _G.VezesLight)
+
+end
+function ApertarE()
+	keypress(0x45) 
+	delay(0.1, function()
+		keyrelease(0x45) 
+	end)
+end
+
+_G.DistanciaItem = 5
+_G.PlayerToBase = nil
+BaseSection:NewSection('Player', nil, function(string)
+	for i,v in pairs(game.Players:GetChildren()) do 
+		if v.Name:lower():match('^'..string:lower()) do
+			_G.PlayerToBase = v 
+		end
+	end
+end)
+
+BaseSection:NewTextBox('Base size', nil, function(string)
+	string = tonumber(string) or 5
+	_G.DistanciaItem = string
+end)
+
+BaseSection:NewButton('Auto build box - Player', nil, function()
+	if _G.PlayerToBase ~= nil then
+		local Plrr = _G.PlayerToBase
+		local Camera = workspace.CurrentCamera
+		local POSBASE = Plrr.Character.HumanoidRootPart.Position
+		local Esquerda = POSBASE + Vector3.new(5, 0, 0)
+		local Direita = POSBASE + Vector3.new(-5, 0, 0)
+		local Frent = POSBASE + Vector3.new(0, 0, -5)
+		local Traz = POSBASE + Vector3.new(0, 0, 5)
+		local Cima = POSBASE + Vector3.new(0, 5, 0)
+	
+		_G.DistanceItem = 50
+		_G.VezesLight = 1
+		NewWood()
+		clickKey(0x11)
+		clickKey(0x10)
+		clickKey(0x52)
+		for i = 1,5 do
+	
+			keypress(0x34)
+			
+			task.wait()
+			
+			keyrelease(0x34)
+	
+			task.wait()
+		end
+		for i = 1, _G.DistanciaItem do
+			clickKey(0x35)
+			task.wait(.1)
+		end
+		Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+		wait()
+		Camera.CFrame = CFrame.new(Camera.CFrame.Position, Esquerda)
+		clickKey(0x33)
+		wait()
+		clickKey(0x52)
+		wait(.2)
+		clickKey(0x52)
+		wait(.5)
+		ApertarE()
+		wait()
+		NewWood()
+	
+		Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+		wait()
+		Camera.CFrame = CFrame.new(Camera.CFrame.Position, Direita)
+		wait(.2)
+		ApertarE()
+		wait()
+		NewWood()
+	
+		Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+		wait()
+		Camera.CFrame = CFrame.new(Camera.CFrame.Position, Frent)
+		wait(.2)
+		clickKey(0x31)
+		wait()
+		clickKey(0x52)
+		wait(.2)
+		clickKey(0x52)
+		wait(.5)
+		ApertarE()
+		wait()
+		NewWood()
+	
+		Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+		wait()
+		Camera.CFrame = CFrame.new(Camera.CFrame.Position, Traz)
+		wait(.2)
+		ApertarE()
+		wait()
+		NewWood()
+	
+		Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+		wait()
+		Camera.CFrame = CFrame.new(Camera.CFrame.Position, Cima)
+		clickKey(0x11)
+		clickKey(0x10)
+		clickKey(0x52)
+		wait(.5)
+		ApertarE()
+		wait()
+	end
+end)
+
+BaseSection:NewButton('Auto build Box', nil, function()
+	local Plrr = game.Players.LocalPlayer
+	local Camera = workspace.CurrentCamera
+	local POSBASE = Plrr.Character.HumanoidRootPart.Position
+	local Esquerda = POSBASE + Vector3.new(5, 0, 0)
+	local Direita = POSBASE + Vector3.new(-5, 0, 0)
+	local Frent = POSBASE + Vector3.new(0, 0, -5)
+	local Traz = POSBASE + Vector3.new(0, 0, 5)
+	local Cima = POSBASE + Vector3.new(0, 5, 0)
+
+	_G.DistanceItem = 50
+	_G.VezesLight = 1
+	NewWood()
+	clickKey(0x11)
+	clickKey(0x10)
+	clickKey(0x52)
+	for i = 1,5 do
+
+		keypress(0x34)
+		
+		task.wait()
+		
+		keyrelease(0x34)
+
+		task.wait()
+	end
+	for i = 1, _G.DistanciaItem do
+		clickKey(0x35)
+		task.wait(.1)
+	end
+	Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+	wait()
+	Camera.CFrame = CFrame.new(Camera.CFrame.Position, Esquerda)
+	clickKey(0x33)
+	wait()
+	clickKey(0x52)
+	wait(.2)
+	clickKey(0x52)
+	wait(.5)
+	ApertarE()
+	wait()
+	NewWood()
+
+	Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+	wait()
+	Camera.CFrame = CFrame.new(Camera.CFrame.Position, Direita)
+	wait(.2)
+	ApertarE()
+	wait()
+	NewWood()
+
+	Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+	wait()
+	Camera.CFrame = CFrame.new(Camera.CFrame.Position, Frent)
+	wait(.2)
+	clickKey(0x31)
+	wait()
+	clickKey(0x52)
+	wait(.2)
+	clickKey(0x52)
+	wait(.5)
+	ApertarE()
+	wait()
+	NewWood()
+
+	Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+	wait()
+	Camera.CFrame = CFrame.new(Camera.CFrame.Position, Traz)
+	wait(.2)
+	ApertarE()
+	wait()
+	NewWood()
+
+	Plrr.Character.HumanoidRootPart.CFrame = CFrame.new(POSBASE)
+	wait()
+	Camera.CFrame = CFrame.new(Camera.CFrame.Position, Cima)
+	clickKey(0x11)
+	clickKey(0x10)
+	clickKey(0x52)
+	wait(.5)
+	ApertarE()
+	wait()
+end)
 
 BaseItems:NewButton('Free 3008 script esp',nil, function()
 local Mod_Menu = Instance.new("ScreenGui")
