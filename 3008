@@ -18,6 +18,12 @@ local ESP = Window:NewTab('Esp')
 
 local EspSection = ESP:NewSection('Esp configs')
 
+local AutoRefresh = Window:NewTab('Auto refresh')
+
+local GUI2 = AutoRefresh:NewSection('Auto refresh')
+
+
+
 function DestroyAllGuis()
 	for i,v in pairs(game.CoreGui:GetChildren()) do
 		if v:IsA('ScreenGui') and v.Name == 'Status' then
@@ -502,18 +508,65 @@ function Pickup(item)
 
 end
 
-function noclip2(t)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LegoHacker1337/legohacks/main/PhysicsServiceOnClient.lua"))()
-    setfflag("HumanoidParallelRemoveNoPhysics", "False")
-    setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
-    if t == true then
-        game:GetService('RunService'):BindToRenderStep("crash", 0 , function()
-            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-        end)
-    elseif t == false then
-        game:GetService('RunService'):UnbindFromRenderStep("crash")
+
+function ClearNoclips()
+    for i,v in pairs(workspace.NOCLIPS:GetChildren()) do
+        if v then
+            v:Destroy()
+        end
     end
 end
+
+local NOCLIPSFOLDER = workspace:FindFirstChild('NOCLIPS')
+
+function CreateNoclipFolder()
+    local NEWFOLDER = Instance.new('Folder')
+    NEWFOLDER.Name = 'NOCLIPS'
+    NEWFOLDER.Parent = workspace
+end
+
+if NOCLIPSFOLDER then
+    NOCLIPSFOLDER:Destroy()
+    task.wait()
+    CreateNoclipFolder()
+else
+    CreateNoclipFolder()
+end
+
+------- CUSTOM FLY -------
+pcall(function()
+function noclip2(t)
+    if KRNL_LOADED then
+        if t == true then
+            local NOCLIPPART = Instance.new('Part')
+            NOCLIPPART.Name = 'NOCLIPPART'
+            NOCLIPPART.Size = Vector3.new(5, 1, 5)
+            NOCLIPPART.Position = Vector3.new(0, 0, 0)
+            NOCLIPPART.Parent = workspace.NOCLIPS
+            NOCLIPPART.Transparency = 1
+            NOCLIPPART.CanCollide = false
+            spawn(function()
+                while task.wait() do
+                    NOCLIPPART.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, -3.5, 0)
+                end
+            end)
+        else
+            ClearNoclips()
+        end
+    elseif syn then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/LegoHacker1337/legohacks/main/PhysicsServiceOnClient.lua"))()
+        setfflag("HumanoidParallelRemoveNoPhysics", "False")
+        setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
+        if t == true then
+            game:GetService('RunService'):BindToRenderStep("crash", 0 , function()
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+            end)
+        elseif t == false then
+            game:GetService('RunService'):UnbindFromRenderStep("crash")
+        end
+    end
+end
+
 function PickupLight(name, vezes, ROOTNAME)
 	if _G.VezesLight == 'NotSelect' then
 		local Aviso = CreateStatusGui()
@@ -685,6 +738,25 @@ end)
 
 BaseItems:NewButton('Pickup random Rock Painting',nil,function()
 	PickupLight('Rock Painting', _G.VezesLight, 'Part')
+end)
+
+BaseItems:NewButton('Remove Item handle', nil, function()
+	noclip2(true)
+	OLDPOSITION = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(150, 300, 150)
+	wait()
+	if game.Players.LocalPlayer.Settings.IsHolding.Value == true then
+		repeat
+			keypress(0x45) 
+			wait()
+			keyrelease(0x45) 
+			wait()
+			workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, Vector3.new(math.random(0,10000),math.random(0,10000),math.random(0,10000)))
+		until game.Players.LocalPlayer.Settings.IsHolding.Value == false	
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLDPOSITION
+	else
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLDPOSITION								
+	end
 end)
 
 _G.OldCameraMode = game.Players.LocalPlayer.CameraMode
@@ -862,7 +934,7 @@ DestroySection:NewButton('Destroy base', nil, function()
 							TextStatus.Text = 'Items already taken: '.._G.ItemsPego..'\n'..'Pickuping: '..Root.Parent.Name..'\n'..'Status: Teleporting to CFrame.new(200, 300, 200)'
 							wait()
 							_G.FinalLight = true 
-							wait(.5)
+							wait()
 							TextStatus.Text = 'Items already taken: '.._G.ItemsPego..'\n'..'Pickuping: '..Root.Parent.Name..'\n'..'Status: Dropping '..Root.Parent.Name
 							if game.Players.LocalPlayer.Settings.IsHolding.Value == true then
 								repeat
@@ -964,9 +1036,40 @@ end)
 EspSection:NewSlider('Esp Thickness', nil,10, 1, function(value)
 	_G.EspThickness = value
 end)
+_G.AutoRefresh = false
+GUI2:NewToggle('Auto refresh', nil, function(bool)
+    _G.AutoRefresh = bool
+end)
+GUI2:NewButton('Refresh', nil, function()
+    local OLDPOS = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+    game.Players.LocalPlayer.CharacterAdded:wait():WaitForChild('HumanoidRootPart')
+    wait(.1)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLDPOS 
+end)
+GUI2:NewButton('Como usa o auto refresh? (TUTORIAL)', nil, function()
+    game.StarterGui:SetCore("SendNotification", {
+        Title = 'Aperte "F9" para abrir o console';
+        Text = 'e ver o tutorial';
+    })
+    print('\n-- AUTO REFRESH TUTORIAL, By $ samuu#6783\nAo ativar o toggle acima, voce esta ativando o auto refresh\nao morrer, ele salva sua posicao, e teleporta para ela\nao reviver, Assim voce nao perde casas, essas coisas...\nobrigado por usar Meu menu :)')
+end)
+function REFRESH()
+    game.Players.LocalPlayer.Character:WaitForChild('Humanoid').Died:Connect(function()
+        if _G.AutoRefresh then
+            local OLDPOS = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            game.Players.LocalPlayer.CharacterAdded:wait():WaitForChild('HumanoidRootPart')
+            wait(.1)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLDPOS 
+            REFRESH()
+        else
+            REFRESH()
+        end
+    end)
+end
+REFRESH()
 
-BaseItems:NewButton('Script 3008',nil, function()
-
+BaseItems:NewButton('Free 3008 script esp',nil, function()
 local Mod_Menu = Instance.new("ScreenGui")
 local TextGui = Instance.new("TextLabel")
 local Frame = Instance.new("Frame")
@@ -1790,23 +1893,10 @@ end)
 
 
 
-
 ------- CUSTOM FLY -------
 pcall(function()
-function noclip2(t)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LegoHacker1337/legohacks/main/PhysicsServiceOnClient.lua"))()
-    setfflag("HumanoidParallelRemoveNoPhysics", "False")
-    setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
-    if t == true then
-        game:GetService('RunService'):BindToRenderStep("crash", 0 , function()
-            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
-        end)
-    elseif t == false then
-        game:GetService('RunService'):UnbindFromRenderStep("crash")
-    end
-end
 
-spawn(function() local Enabled = false local Camera = game.Workspace.CurrentCamera local Player = game:GetService("Players").LocalPlayer local Input = game:GetService("UserInputService") local Forward = false local Back = false local Left = false local Right = false local Up = false local Down = false local 
+local Enabled = false local Camera = game.Workspace.CurrentCamera local Player = game:GetService("Players").LocalPlayer local Input = game:GetService("UserInputService") local Forward = false local Back = false local Left = false local Right = false local Up = false local Down = false local 
                     Activate = false
                     function SetPlayer() 
                         if Activate == false then
@@ -1839,4 +1929,4 @@ spawn(function() local Enabled = false local Camera = game.Workspace.CurrentCame
                     local Float2
                         Input.InputBegan:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.RightControl then Enabled = not Enabled SetPlayer() end if Key.KeyCode == Enum.KeyCode.W then Forward = true end if Key.KeyCode == Enum.KeyCode.S then Back = true end if Key.KeyCode == Enum.KeyCode.A then Left = true end if Key.KeyCode == Enum.KeyCode.D then Right = true end if Key.KeyCode == Enum.KeyCode.Space then Up = true end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = true end end) Input.InputEnded:Connect(function(Key,IsChat) if IsChat then return end if Key.KeyCode == Enum.KeyCode.W then Forward = false end if Key.KeyCode == Enum.KeyCode.S then Back = false end if Key.KeyCode == Enum.KeyCode.A then Left = false end if Key.KeyCode == Enum.KeyCode.D then Right = false end if Key.KeyCode == Enum.KeyCode.Space then Up = false end if Key.KeyCode == Enum.KeyCode.LeftControl then Down = false end end) spawn(function() while game:GetService("RunService").RenderStepped:Wait() do if Enabled then pcall(function() if Forward then Player.Character:TranslateBy(Camera.CFrame.lookVector*2) end if Back then Player.Character:TranslateBy(-Camera.CFrame.lookVector*2) end if Left then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Right then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(1,0,0))*2) end if Up then Player.Character:TranslateBy(Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end if Down then Player.Character:TranslateBy(-Camera.CFrame:vectorToWorldSpace(Vector3.new(0,1,0))*2) end end) end end end) end) 
 
-                end)
+end)
