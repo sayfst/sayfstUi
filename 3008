@@ -1,6 +1,6 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sayfst/sayfstUi/main/kavo%20library"))()
 
-local Window = Library.CreateLib("3008 [2.7] script", "Serpent")
+local Window = Library.CreateLib("3008 [2.7] script", "BloodTheme")
  
 local Main = Window:NewTab("Freatures")
 
@@ -1120,7 +1120,7 @@ BaseSection:NewButton('Auto build box - Player', nil, function()
 		clickKey(0x11)
 		clickKey(0x10)
 		clickKey(0x52)
-		for i = 1,10 do
+		for i = 1,5 do
 	
 			keypress(0x34)
 			
@@ -1205,7 +1205,7 @@ BaseSection:NewButton('Auto build Box', nil, function()
 	clickKey(0x11)
 	clickKey(0x10)
 	clickKey(0x52)
-	for i = 1,10 do
+	for i = 1,5 do
 
 		keypress(0x34)
 		
