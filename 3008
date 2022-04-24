@@ -1090,9 +1090,9 @@ end
 
 _G.DistanciaItem = 5
 _G.PlayerToBase = nil
-BaseSection:NewSection('Player', nil, function(string)
+BaseSection:NewTextBox('Player', nil, function(string)
 	for i,v in pairs(game.Players:GetChildren()) do 
-		if v.Name:lower():match('^'..string:lower()) do
+		if v.Name:lower():match('^'..string:lower()) then
 			_G.PlayerToBase = v 
 		end
 	end
@@ -1120,7 +1120,7 @@ BaseSection:NewButton('Auto build box - Player', nil, function()
 		clickKey(0x11)
 		clickKey(0x10)
 		clickKey(0x52)
-		for i = 1,5 do
+		for i = 1,10 do
 	
 			keypress(0x34)
 			
@@ -1205,7 +1205,7 @@ BaseSection:NewButton('Auto build Box', nil, function()
 	clickKey(0x11)
 	clickKey(0x10)
 	clickKey(0x52)
-	for i = 1,5 do
+	for i = 1,10 do
 
 		keypress(0x34)
 		
