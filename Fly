@@ -1,0 +1,22 @@
+local Enabled = false
+
+local Tool = Instance.new('Tool') -- Create a tool
+Tool.Parent = game.Players.LocalPlayer.Backpack -- Put your tool on backpack
+Tool.RequiresHandle = false -- Removing Requires handle
+Tool.Name = 'Fly' -- Tool name (You can rename!)
+Tool.Equipped:Connect(function()
+    Enabled = true
+    spawn(function()
+        local BodyVelocity = Instance.new('BodyVelocity', game.Players.LocalPlayer.Character.Torso)
+        BodyVelocity.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+        
+        while Enabled == true do
+            BodyVelocity.Velocity = game.Players.LocalPlayer:GetMouse().Hit.LookVector * 100
+            wait()
+        end
+    end)
+end)
+Tool.Unequipped:Connect(function()
+    Enabled = false
+    game.Players.LocalPlayer.Character.Torso:FindFirstChildWhichIsA('BodyVelocity'):Destroy()
+end)
