@@ -464,7 +464,7 @@ function lib:CreateWindow(title)
 
     function tabCreator:CreateTab(title)
         local TextButton = Instance.new("TextButton")
-        local Tab = Instance.new("Frame")
+        local Tab = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
 
 
@@ -478,7 +478,7 @@ function lib:CreateWindow(title)
         TextButton.TextSize = 14.000
         TextButton.MouseButton1Click:Connect(function()
             for i,v in pairs(TUDO:GetChildren()) do
-                if v:IsA('Frame') and v.Name ~= 'BotoesTab' then
+                if v:IsA('ScrollingFrame') and v.Name ~= 'BotoesTab' then
                     v.Visible = false
                 end
             end
@@ -495,6 +495,7 @@ function lib:CreateWindow(title)
         Tab.Position = UDim2.new(0.270377725, 0, 0, 0)
         Tab.Size = UDim2.new(0, 365, 0, 389)
         Tab.Visible = false
+        Tab.AutomaticSize = Enum.AutomaticSize.Y
 
         UIListLayout.Parent = Tab
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
