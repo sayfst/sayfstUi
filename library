@@ -1,0 +1,613 @@
+local lib = {}
+
+function lib:CreateWindow(title)
+    local ConfiguraesSCRIPT = Instance.new("ScreenGui")
+    local MENUPRINCIPAL = Instance.new("Frame")
+    local CREDITS = Instance.new("TextButton")
+    local shadowHolder = Instance.new("Frame")
+    local umbraShadow = Instance.new("ImageLabel")
+    local penumbraShadow = Instance.new("ImageLabel")
+    local ambientShadow = Instance.new("ImageLabel")
+    local PLAY = Instance.new("TextButton")
+    local SHADER = Instance.new("Frame")
+    local umbraShadow_2 = Instance.new("ImageLabel")
+    local penumbraShadow_2 = Instance.new("ImageLabel")
+    local ambientShadow_2 = Instance.new("ImageLabel")
+    local X = Instance.new("TextButton")
+    local Config = Instance.new("ImageButton")
+    local MACROX = Instance.new("TextLabel")
+    local MENUConfig = Instance.new("Frame")
+    local X_2 = Instance.new("TextButton")
+    local TextBox = Instance.new("TextBox")
+    local PREFIXO = Instance.new("TextLabel")
+    local CREDITOS = Instance.new("TextButton")
+    local MENUFARM = Instance.new("Frame")
+    local X_3 = Instance.new("TextButton")
+    local TextLabel = Instance.new("TextLabel")
+    local TUDO = Instance.new("Frame")
+    local BotoesTab = Instance.new("Frame")
+    local UIListLayout = Instance.new("UIListLayout")
+    
+    --Properties:
+    
+    ConfiguraesSCRIPT.Name = "Configurações SCRIPT"
+    ConfiguraesSCRIPT.Parent = game.CoreGui
+    ConfiguraesSCRIPT.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    MENUPRINCIPAL.Name = "MENU PRINCIPAL"
+    MENUPRINCIPAL.Parent = ConfiguraesSCRIPT
+    MENUPRINCIPAL.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MENUPRINCIPAL.BackgroundTransparency = 0.100
+    MENUPRINCIPAL.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MENUPRINCIPAL.Position = UDim2.new(0.178957671, 0, 0.182758436, 0)
+    MENUPRINCIPAL.Size = UDim2.new(0, 501, 0, 421)
+    
+    CREDITS.Name = "CREDITS"
+    CREDITS.Parent = MENUPRINCIPAL
+    CREDITS.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    CREDITS.Position = UDim2.new(0.358264863, 0, 0.803373158, 0)
+    CREDITS.Size = UDim2.new(0, 160, 0, 41)
+    CREDITS.Font = Enum.Font.SourceSansBold
+    CREDITS.Text = "CREDITS"
+    CREDITS.TextColor3 = Color3.fromRGB(0, 0, 0)
+    CREDITS.TextSize = 14.000
+    
+    shadowHolder.Name = "shadowHolder"
+    shadowHolder.Parent = CREDITS
+    shadowHolder.BackgroundTransparency = 1.000
+    shadowHolder.Size = UDim2.new(1, 0, 1, 0)
+    
+    umbraShadow.Name = "umbraShadow"
+    umbraShadow.Parent = shadowHolder
+    umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadow.BackgroundTransparency = 1.000
+    umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    umbraShadow.Size = UDim2.new(1, 4, 1, 4)
+    umbraShadow.Image = "rbxassetid://1316045217"
+    umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadow.ImageTransparency = 0.860
+    umbraShadow.ScaleType = Enum.ScaleType.Slice
+    umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadow.Name = "penumbraShadow"
+    penumbraShadow.Parent = shadowHolder
+    penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadow.BackgroundTransparency = 1.000
+    penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    penumbraShadow.Size = UDim2.new(1, 4, 1, 4)
+    penumbraShadow.Image = "rbxassetid://1316045217"
+    penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadow.ImageTransparency = 0.880
+    penumbraShadow.ScaleType = Enum.ScaleType.Slice
+    penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadow.Name = "ambientShadow"
+    ambientShadow.Parent = shadowHolder
+    ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadow.BackgroundTransparency = 1.000
+    ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 2)
+    ambientShadow.Size = UDim2.new(1, 4, 1, 4)
+    ambientShadow.Image = "rbxassetid://1316045217"
+    ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadow.ImageTransparency = 0.880
+    ambientShadow.ScaleType = Enum.ScaleType.Slice
+    ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    PLAY.Name = "PLAY"
+    PLAY.Parent = MENUPRINCIPAL
+    PLAY.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    PLAY.Position = UDim2.new(0.358264863, 0, 0.629190266, 0)
+    PLAY.Size = UDim2.new(0, 160, 0, 41)
+    PLAY.Font = Enum.Font.SourceSansBold
+    PLAY.Text = "PLAY"
+    PLAY.TextColor3 = Color3.fromRGB(0, 0, 0)
+    PLAY.TextSize = 14.000
+    
+    SHADER.Name = "SHADER "
+    SHADER.Parent = PLAY
+    SHADER.BackgroundTransparency = 1.000
+    SHADER.Size = UDim2.new(1, 0, 1, 0)
+    
+    umbraShadow_2.Name = "umbraShadow"
+    umbraShadow_2.Parent = SHADER
+    umbraShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    umbraShadow_2.BackgroundTransparency = 1.000
+    umbraShadow_2.Position = UDim2.new(0.5, 0, 0.5, 2)
+    umbraShadow_2.Size = UDim2.new(1, 4, 1, 4)
+    umbraShadow_2.Image = "rbxassetid://1316045217"
+    umbraShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    umbraShadow_2.ImageTransparency = 0.860
+    umbraShadow_2.ScaleType = Enum.ScaleType.Slice
+    umbraShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    penumbraShadow_2.Name = "penumbraShadow"
+    penumbraShadow_2.Parent = SHADER
+    penumbraShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    penumbraShadow_2.BackgroundTransparency = 1.000
+    penumbraShadow_2.Position = UDim2.new(0.5, 0, 0.5, 2)
+    penumbraShadow_2.Size = UDim2.new(1, 4, 1, 4)
+    penumbraShadow_2.Image = "rbxassetid://1316045217"
+    penumbraShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    penumbraShadow_2.ImageTransparency = 0.880
+    penumbraShadow_2.ScaleType = Enum.ScaleType.Slice
+    penumbraShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    ambientShadow_2.Name = "ambientShadow"
+    ambientShadow_2.Parent = SHADER
+    ambientShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    ambientShadow_2.BackgroundTransparency = 1.000
+    ambientShadow_2.Position = UDim2.new(0.5, 0, 0.5, 2)
+    ambientShadow_2.Size = UDim2.new(1, 4, 1, 4)
+    ambientShadow_2.Image = "rbxassetid://1316045217"
+    ambientShadow_2.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    ambientShadow_2.ImageTransparency = 0.880
+    ambientShadow_2.ScaleType = Enum.ScaleType.Slice
+    ambientShadow_2.SliceCenter = Rect.new(10, 10, 118, 118)
+    
+    X.Name = "X"
+    X.Parent = MENUPRINCIPAL
+    X.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    X.Position = UDim2.new(0.952484131, 0, -2.50861049e-05, 0)
+    X.Size = UDim2.new(0, 23, 0, 19)
+    X.Font = Enum.Font.SourceSansBold
+    X.Text = "X"
+    X.TextColor3 = Color3.fromRGB(0, 0, 0)
+    X.TextSize = 14.000
+    
+    Config.Name = "Config"
+    Config.Parent = MENUPRINCIPAL
+    Config.BackgroundColor3 = Color3.fromRGB(253, 251, 255)
+    Config.BackgroundTransparency = 1.000
+    Config.LayoutOrder = 4
+    Config.Position = UDim2.new(0.763717949, 0, -2.5101006e-05, 0)
+    Config.Size = UDim2.new(0, 19, 0, 19)
+    Config.ZIndex = 2
+    Config.Image = "rbxassetid://3926305904"
+    Config.ImageRectOffset = Vector2.new(924, 364)
+    Config.ImageRectSize = Vector2.new(36, 36)
+    
+    MACROX.Name = "MACRO X"
+    MACROX.Parent = MENUPRINCIPAL
+    MACROX.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MACROX.BackgroundTransparency = 1.000
+    MACROX.Position = UDim2.new(-0.0025467102, 0, 0.0758464187, 0)
+    MACROX.Size = UDim2.new(0, 501, 0, 262)
+    MACROX.Font = Enum.Font.LuckiestGuy
+    MACROX.Text = title
+    MACROX.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MACROX.TextSize = 100.000
+    
+    MENUConfig.Name = "MENU Config"
+    MENUConfig.Parent = ConfiguraesSCRIPT
+    MENUConfig.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MENUConfig.BackgroundTransparency = 0.150
+    MENUConfig.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MENUConfig.Position = UDim2.new(0.18918784, 0, 0.181063503, 0)
+    MENUConfig.Size = UDim2.new(0, 501, 0, 421)
+    MENUConfig.Visible = false
+    
+    X_2.Name = "X"
+    X_2.Parent = MENUConfig
+    X_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    X_2.Position = UDim2.new(0.952484131, 0, -2.50861049e-05, 0)
+    X_2.Size = UDim2.new(0, 23, 0, 19)
+    X_2.Font = Enum.Font.SourceSansBold
+    X_2.Text = "X"
+    X_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+    X_2.TextSize = 14.000
+    
+    TextBox.Parent = MENUConfig
+    TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    TextBox.Position = UDim2.new(0.345309377, 0, 0.277909726, 0)
+    TextBox.Size = UDim2.new(0, 126, 0, 44)
+    TextBox.Font = Enum.Font.SourceSans
+    TextBox.Text = "F2"
+    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox.TextSize = 14.000
+    
+    PREFIXO.Name = "PREFIXO"
+    PREFIXO.Parent = MENUConfig
+    PREFIXO.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    PREFIXO.BackgroundTransparency = 1.000
+    PREFIXO.Position = UDim2.new(0.0199600793, 0, 0.301662713, 0)
+    PREFIXO.Size = UDim2.new(0, 155, 0, 25)
+    PREFIXO.Font = Enum.Font.SourceSans
+    PREFIXO.Text = "Prefixo  (Maxímizar/Minimizar)="
+    PREFIXO.TextColor3 = Color3.fromRGB(255, 255, 255)
+    PREFIXO.TextSize = 14.000
+    
+    CREDITOS.Name = "CREDITOS"
+    CREDITOS.Parent = MENUConfig
+    CREDITOS.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+    CREDITOS.Position = UDim2.new(0.031936124, 0, 0.866983294, 0)
+    CREDITOS.Size = UDim2.new(0, 200, 0, 50)
+    CREDITOS.Font = Enum.Font.SourceSans
+    CREDITOS.Text = "SERVE DISCORD"
+    CREDITOS.TextColor3 = Color3.fromRGB(0, 0, 0)
+    CREDITOS.TextSize = 14.000
+    
+    MENUFARM.Name = "MENU FARM"
+    MENUFARM.Parent = ConfiguraesSCRIPT
+    MENUFARM.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MENUFARM.BackgroundTransparency = 0.100
+    MENUFARM.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MENUFARM.Position = UDim2.new(0.178957656, 0, 0.182758436, 0)
+    MENUFARM.Size = UDim2.new(0, 501, 0, 421)
+    MENUFARM.Visible = false
+    
+    X_3.Name = "X"
+    X_3.Parent = MENUFARM
+    X_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    X_3.Position = UDim2.new(0.952484131, 0, -2.50861049e-05, 0)
+    X_3.Size = UDim2.new(0, 23, 0, 19)
+    X_3.Font = Enum.Font.SourceSansBold
+    X_3.Text = "X"
+    X_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+    X_3.TextSize = 14.000
+    
+    TextLabel.Parent = MENUFARM
+    TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BackgroundTransparency = 0.750
+    TextLabel.Position = UDim2.new(0.728542864, 0, 0.00950118713, 0)
+    TextLabel.Size = UDim2.new(0, 105, 0, 9)
+    TextLabel.Font = Enum.Font.SourceSans
+    TextLabel.Text = "JAILBLEAK"
+    TextLabel.TextColor3 = Color3.fromRGB(255, 85, 0)
+    TextLabel.TextSize = 14.000
+    
+    TUDO.Name = "TUDO"
+    TUDO.Parent = MENUFARM
+    TUDO.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TUDO.BackgroundTransparency = 1.000
+    TUDO.BorderSizePixel = 0
+    TUDO.Position = UDim2.new(0, 0, 0.0760095045, 0)
+    TUDO.Size = UDim2.new(0, 503, 0, 390)
+    
+    BotoesTab.Name = "BotoesTab"
+    BotoesTab.Parent = TUDO
+    BotoesTab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    BotoesTab.BackgroundTransparency = 1.000
+    BotoesTab.BorderSizePixel = 0
+    BotoesTab.Size = UDim2.new(0, 116, 0, 389)
+    
+    UIListLayout.Parent = BotoesTab
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    
+    -- Scripts:
+    
+    local function ANLI_fake_script() -- CREDITS.LocalScript 
+        local script = Instance.new('LocalScript', CREDITS)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            game.StarterGui:SetCore('SendNotification', {
+                Title = 'Credits';
+                Text = 'MADE BY HENRIQUE';
+                Duration = 5;
+                Button1 = 'Ok'
+            })
+        end)
+    end
+    coroutine.wrap(ANLI_fake_script)()
+    local function TZOU_fake_script() -- PLAY.SCRIPT 
+        local script = Instance.new('LocalScript', PLAY)
+    
+        script.Parent--[[]].MouseButton1Click:Connect(function()
+            print(workspace.Baseplate.Color)
+        end)
+    end
+    coroutine.wrap(TZOU_fake_script)()
+    local function IZTF_fake_script() -- X.Script 
+        local script = Instance.new('Script', X)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            --[
+        end)
+    end
+    coroutine.wrap(IZTF_fake_script)()
+    local function BOGTDFZ_fake_script() -- X.Script 
+        local script = Instance.new('Script', X)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            script.Parent.Parent.Parent["MENU PRINCIPAL"].Visible =false
+        end)
+    end
+    coroutine.wrap(BOGTDFZ_fake_script)()
+    local function ZLRCK_fake_script() -- Config.LocalScript 
+        local script = Instance.new('LocalScript', Config)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            script.Parent.Parent.Parent["MENU PRINCIPAL"].Visible = false
+            script.Parent.Parent.Parent["MENU Config"].Visible = true
+        end)
+    end
+    coroutine.wrap(ZLRCK_fake_script)()
+    local function QAWJ_fake_script() -- MENUPRINCIPAL.LocalScript 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        local Menu = script.Parent
+        
+        Menu.Active = true
+        Menu.Draggable = true
+    end
+    coroutine.wrap(QAWJ_fake_script)()
+    local function ULAFQT_fake_script() -- MENUPRINCIPAL.LocalScript 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        script.Parent.PLAY.MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = false
+            script.Parent.Parent["MENU FARM"].Visible = true
+        end)
+    end
+    coroutine.wrap(ULAFQT_fake_script)()
+    local function GFQQQK_fake_script() -- MENUPRINCIPAL.LocalScript 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+        
+        counter = 0
+        
+        while wait(0.1)do
+            script.Parent.BorderColor3 = Color3.fromHSV(zigzag(counter),1,1)
+        
+            counter = counter + 0.01
+        end
+        
+        --Enjoy ;) dont change anything. I didnt script this so i dont know if you can change but its adviced not 2
+    end
+    coroutine.wrap(GFQQQK_fake_script)()
+    local function SEGHP_fake_script() -- X_2.LocalScript 
+        local script = Instance.new('LocalScript', X_2)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            script.Parent.Parent.Visible = false
+            script.Parent.Parent.Parent["MENU PRINCIPAL"].Visible = true
+        end)
+    end
+    coroutine.wrap(SEGHP_fake_script)()
+    local function FNCBDM_fake_script() -- MENUConfig.LocalScript 
+        local script = Instance.new('LocalScript', MENUConfig)
+    
+        local uis = game:GetService('UserInputService')
+        
+        uis.InputBegan:Connect(function(input, ischat)
+            if ischat then return end
+            
+            
+            if input.KeyCode.Name:lower() == script.Parent.TextBox.Text:lower() then
+                script.Parent.Parent.Enabled= not script.Parent.Parent.Enabled
+            end
+        end)
+    end
+    coroutine.wrap(FNCBDM_fake_script)()
+    local function FUVFQXX_fake_script() -- CREDITOS.LocalScript 
+        local script = Instance.new('LocalScript', CREDITOS)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            pcall(function()
+                setclipboard('https://discord.gg/VaPzZ3tT5m')
+            end)
+            script.Parent.Text = 'Sucess Copied to CLIP BOARD'
+            wait(1)
+            script.Parent.Text = 'SERVE DISCORD'
+        end)
+    end
+    coroutine.wrap(FUVFQXX_fake_script)()
+    local function MMLP_fake_script() -- MENUConfig.LocalScript 
+        local script = Instance.new('LocalScript', MENUConfig)
+    
+        local Menu = script.Parent
+        
+        Menu.Active = true
+        Menu.Draggable = true
+    end
+    coroutine.wrap(MMLP_fake_script)()
+    local function EFZBYWC_fake_script() -- MENUConfig.LocalScript 
+        local script = Instance.new('LocalScript', MENUConfig)
+    
+        function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+        
+        counter = 0
+        
+        while wait(0.1)do
+            script.Parent.BorderColor3 = Color3.fromHSV(zigzag(counter),1,1)
+        
+            counter = counter + 0.01
+        end
+        
+        --Enjoy ;) dont change anything. I didnt script this so i dont know if you can change but its adviced not 2
+    end
+    coroutine.wrap(EFZBYWC_fake_script)()
+    local function HHHNA_fake_script() -- X_3.Script 
+        local script = Instance.new('Script', X_3)
+    
+        script.Parent.MouseButton1Click:Connect(function()
+            --[
+        end)
+    end
+    coroutine.wrap(HHHNA_fake_script)()
+    local function XGROT_fake_script() -- MENUFARM.LocalScript 
+        local script = Instance.new('LocalScript', MENUFARM)
+    
+        local Menu = script.Parent
+        
+        Menu.Active = true
+        Menu.Draggable = true
+    end
+    coroutine.wrap(XGROT_fake_script)()
+    local function LJOIPPE_fake_script() -- MENUFARM.LocalScript 
+        local script = Instance.new('LocalScript', MENUFARM)
+    
+        function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+        
+        counter = 0
+        
+        while wait(0.1)do
+            script.Parent.BorderColor3 = Color3.fromHSV(zigzag(counter),1,1)
+        
+            counter = counter + 0.01
+        end
+        
+        --Enjoy ;) dont change anything. I didnt script this so i dont know if you can change but its adviced not 2
+    end
+    coroutine.wrap(LJOIPPE_fake_script)()
+    local function FFDFUMN_fake_script() -- MENUFARM.LocalScript 
+        local script = Instance.new('LocalScript', MENUFARM)
+    
+        script.Parent.X.MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU FARM"].Visible = false
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = true
+        end)
+    end
+    coroutine.wrap(FFDFUMN_fake_script)()
+    
+    local tabCreator = {}
+
+    function tabCreator:CreateTab(title)
+        local TextButton = Instance.new("TextButton")
+        local Tab = Instance.new("Frame")
+        local UIListLayout = Instance.new("UIListLayout")
+
+
+        TextButton.Parent = BotoesTab
+        TextButton.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+        TextButton.BorderSizePixel = 0
+        TextButton.Size = UDim2.new(0, 116, 0, 29)
+        TextButton.Font = Enum.Font.RobotoMono
+        TextButton.Text = title
+        TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextButton.TextSize = 14.000
+        TextButton.MouseButton1Click:Connect(function()
+            for i,v in pairs(TUDO:GetChildren()) do
+                if v:IsA('Frame') and v.Name ~= 'BotoesTab' then
+                    v.Visible = false
+                end
+            end
+            Tab.Visible = true
+        end)
+
+        
+
+        Tab.Name = "Tab"
+        Tab.Parent = TUDO
+        Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Tab.BackgroundTransparency = 1.000
+        Tab.BorderSizePixel = 0
+        Tab.Position = UDim2.new(0.270377725, 0, 0, 0)
+        Tab.Size = UDim2.new(0, 365, 0, 389)
+        Tab.Visible = false
+
+        UIListLayout.Parent = Tab
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Padding = UDim.new(0, 5)
+
+        local buttons = {}
+
+        function buttons:CreateButton(title,callback)
+            local Button = Instance.new("TextButton")
+            local UICorner = Instance.new("UICorner")
+
+
+
+            Button.Name = title
+            Button.Parent = Tab
+            Button.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+            Button.BorderSizePixel = 0
+            Button.Size = UDim2.new(0, 357, 0, 29)
+            Button.Font = Enum.Font.RobotoCondensed
+            Button.Text = title
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Button.TextSize = 14.000
+            Button.MouseButton1Click:Connect(function()
+                pcall(callback, Button)
+            end)
+
+            UICorner.Parent = Button
+        end
+        function buttons:CreateToggle(title, callback)
+            local Toggle = Instance.new("TextButton")
+            local UICorner = Instance.new("UICorner")
+            local Fundo = Instance.new("Frame")
+            local UICorner_2 = Instance.new("UICorner")
+            local Bola = Instance.new("Frame")
+            local UICorner_3 = Instance.new("UICorner")
+
+
+
+            Toggle.Name = "Toggle"
+            Toggle.Parent = Tab
+            Toggle.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+            Toggle.BorderSizePixel = 0
+            Toggle.Size = UDim2.new(0, 357, 0, 29)
+            Toggle.Font = Enum.Font.RobotoCondensed
+            Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Toggle.Text = title
+            Toggle.TextSize = 14.000
+
+            UICorner.Parent = Toggle
+
+            Fundo.Name = "Fundo"
+            Fundo.Parent = Toggle
+            Fundo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Fundo.Position = UDim2.new(0.823529422, 0, 0.241379306, 0)
+            Fundo.Size = UDim2.new(0, 34, 0, 14)
+
+            UICorner_2.Parent = Fundo
+
+            Bola.Name = "Bola"
+            Bola.Parent = Fundo
+            Bola.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            Bola.Position = UDim2.new(0, 5, 0.143000007, 0)
+            Bola.Size = UDim2.new(0, 10, 0, 10)
+
+            UICorner_3.Parent = Bola
+
+            
+            pcall(function()
+                local toggled = false
+                local tw = TweenInfo.new(0.5, Enum.EasingStyle.Quart)
+                local ts = game:GetService('TweenService')
+                Toggle.MouseButton1Click:Connect(function()
+                    toggled = not toggled
+                    if toggled == true then
+                        ts:Create(Fundo, tw, {BackgroundColor3 = Color3.fromRGB(98, 101, 255)}):Play()
+                        ts:Create(Bola, tw, {BackgroundColor3 = Color3.fromRGB(255,255,255)}):Play()
+                        ts:Create(Bola, tw, {Position = UDim2.new(0.55, 0,0.143, 0)}):Play()
+                    else
+                        ts:Create(Bola, tw, {BackgroundColor3 = Color3.fromRGB(0, 0, 0)}):Play()
+                        ts:Create(Fundo, tw, {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+                        ts:Create(Bola, tw, {Position = UDim2.new(0, 5,0.143, 0)}):Play()
+                    end
+                    task.spawn(function()
+                        pcall(callback, toggled)
+                    end)
+                end)
+            end)
+        end
+        function buttons:CreateLabel(text)
+            local Label = Instance.new("TextLabel")
+            local UICorner = Instance.new("UICorner")
+            
+            
+            
+            Label.Name = "Label"
+            Label.Parent = Tab
+            Label.Active = true
+            Label.BackgroundColor3 = Color3.fromRGB(56, 56, 56)
+            Label.BorderSizePixel = 0
+            Label.Position = UDim2.new(0, 0, 0.174807191, 0)
+            Label.Selectable = true
+            Label.Size = UDim2.new(0, 357, 0, 22)
+            Label.Font = Enum.Font.RobotoCondensed
+            Label.Text = text
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Label.TextSize = 14.000
+            
+            UICorner.Parent = Label
+            return Label;
+        end
+        return buttons
+    end
+    return tabCreator
+end
+
+return lib
