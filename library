@@ -243,7 +243,7 @@ function lib:CreateWindow(title)
     X_3.Size = UDim2.new(0, 23, 0, 19)
     X_3.Font = Enum.Font.SourceSansBold
     X_3.Text = "X"
-    X_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+    X_3.TextColor3 = Color3.fromRGB(255, 255, 255)
     X_3.TextSize = 14.000
     
     TextLabel.Parent = MENUFARM
