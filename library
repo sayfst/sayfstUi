@@ -513,7 +513,7 @@ function lib:CreateWindow(title)
             Button.Parent = Tab
             Button.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
             Button.BorderSizePixel = 0
-            Button.Size = UDim2.new(0, 357, 0, 29)
+            Button.Size = UDim2.new(0, 357, 0, 15)
             Button.BackgroundTransparency = 1
             Button.Font = Enum.Font.RobotoCondensed
             Button.Text = title
@@ -562,7 +562,7 @@ function lib:CreateWindow(title)
             Toggle.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
             Toggle.BackgroundTransparency = 1
             Toggle.BorderSizePixel = 0
-            Toggle.Size = UDim2.new(0, 357, 0, 29)
+            Toggle.Size = UDim2.new(0, 357, 0, 15)
             Toggle.Font = Enum.Font.RobotoCondensed
             Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
             Toggle.Text = title
