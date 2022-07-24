@@ -514,6 +514,7 @@ function lib:CreateWindow(title)
             Button.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
             Button.BorderSizePixel = 0
             Button.Size = UDim2.new(0, 357, 0, 29)
+            Button.BackgroundTransparency = 1
             Button.Font = Enum.Font.RobotoCondensed
             Button.Text = title
             Button.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -521,6 +522,18 @@ function lib:CreateWindow(title)
             Button.MouseButton1Click:Connect(function()
                 pcall(callback, Button)
             end)
+            task.spawn(function()
+                function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+        
+                counter = 0
+                
+                while wait(0.1)do
+                    Button.TextColor3 = Color3.fromHSV(zigzag(counter),1,1)
+                
+                    counter = counter + 0.01
+                end
+            end)
+            
 
             UICorner.Parent = Button
         end
@@ -532,11 +545,22 @@ function lib:CreateWindow(title)
             local Bola = Instance.new("Frame")
             local UICorner_3 = Instance.new("UICorner")
 
-
+            task.spawn(function()
+                function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+        
+                counter = 0
+                
+                while wait(0.1)do
+                    Toggle.TextColor3 = Color3.fromHSV(zigzag(counter),1,1)
+                
+                    counter = counter + 0.01
+                end
+            end)
 
             Toggle.Name = "Toggle"
             Toggle.Parent = Tab
             Toggle.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+            Toggle.BackgroundTransparency = 1
             Toggle.BorderSizePixel = 0
             Toggle.Size = UDim2.new(0, 357, 0, 29)
             Toggle.Font = Enum.Font.RobotoCondensed
@@ -597,12 +621,23 @@ function lib:CreateWindow(title)
             Label.BorderSizePixel = 0
             Label.Position = UDim2.new(0, 0, 0.174807191, 0)
             Label.Selectable = true
+            Label.BackgroundTransparency = 1
             Label.Size = UDim2.new(0, 357, 0, 22)
             Label.Font = Enum.Font.RobotoCondensed
             Label.Text = text
             Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 14.000
-            
+            task.spawn(function()
+                function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
+        
+                counter = 0
+                
+                while wait(0.1)do
+                    Label.TextColor3 = Color3.fromHSV(zigzag(counter),1,1)
+                
+                    counter = counter + 0.01
+                end
+            end)
             UICorner.Parent = Label
             return Label;
         end
